@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nowy student</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="style.css">-->
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div class="container-fluid" id="tytul">
+    <header>
+        <h1>Dodawanie studenta</h1>
+    </header>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-10 data">
+            <p class="akapit">Wprowadź informacje o uczniu</p>
+            <ul class="nav nav-tabs" id="studentTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#dateOfStudent" data-toggle="tab">Dane studenta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#result" data-toggle="tab">Wyniki z egzaminów</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#grades" data-toggle="tab">Oceny ze świadectwa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#olympiad" data-toggle="tab">Olimpiady</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#other" data-toggle="tab">Dodatkowe parametry</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="studentContent">
+                <form th:action="@{/student/student}" method="post">
+                    <input name="_method" type="hidden" value="post"/>
+                    <input type="hidden" name="id">
+
+                    <div class="tab-pane fade show active" id="dateOfStudent">
+                        <div class="containerStudent">
+                            <table class="table">
+                                <tr>
+                                    <th>Imie:</th>
+                                    <td>
+                                        <input type="text" pattern="[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]{1,32}" name="firstName">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Nazwisko:</th>
+                                    <td>
+                                        <input type="text"
+                                               pattern="[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]{1,32}" name="lastName" required
+
+                                               oninvalid="InvalidSurname(this);"
+                                               oninput="InvalidSurname(this);"/>
+
+                                        <script> function InvalidSurname(textbox) {
+
+                                            if (textbox.validity.patternMismatch) {
+                                                textbox.setCustomValidity('Enter valid surname');
+                                            } else if (textbox.validity.valueMissing) {
+                                                textbox.setCustomValidity('This field cannot be empty ');
+                                            } else {
+                                                textbox.setCustomValidity('');
+                                            }
+                                            return true;
+                                        }</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Data urodzenia:</th>
+                                    <td>
+                                        <input id="dateofbirth" type="date"
+                                               pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"
+                                               name="dateOfBirth" min='1899-01-01'
+                                               max='2000-13-13' required
+
+                                               oninvalid="InvalidDate(this);"
+                                               oninput="InvalidDate(this);"/>
+                                        <script>
+                                            let today = new Date();
+                                            let dd = today.getDate();
+                                            let mm = today.getMonth() + 1; //January is 0!
+                                            let yyyy = today.getFullYear();
+
+                                            if (dd < 10) {
+                                                dd = '0' + dd;
+                                            }
+
+                                            if (mm < 10) {
+                                                mm = '0' + mm;
+                                            }
+
+                                            today = yyyy + '-' + mm + '-' + dd;
+                                            document.getElementById("dateofbirth").setAttribute("max", today);
+                                        </script>
+
+                                        <script> function InvalidDate(numberbox) {
+                                            if (numberbox.validity.patternMismatch) {
+                                                numberbox.setCustomValidity('Enter valid date');
+                                            } else if (numberbox.validity.valueMissing) {
+                                                numberbox.setCustomValidity('This field cannot be empty ');
+                                            } else {
+                                                numberbox.setCustomValidity('');
+                                            }
+                                            return true;
+                                        }</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Płeć:</th>
+                                    <td>
+                                        <select name="sex" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="sexOpt : ${T(com.example.aplikacja.student.Sex).values()}"
+                                                    th:text="${sexOpt.label}" th:value="${sexOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Czy uczeń jest cudzoziemcem ?</th>
+                                    <td>
+                                        <select name="align" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="alignOpt : ${T(com.example.aplikacja.student.Align).values()}"
+                                                    th:text="${alignOpt.label}" th:value="${alignOpt.value}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Czy porozumiewa się w języku polskim ?</th>
+                                    <td>
+                                        <select name="languagePolish" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="languageOpt : ${T(com.example.aplikacja.student.LanguagePolish).values()}"
+                                                    th:text="${languageOpt.label}"
+                                                    th:value="${languageOpt.value}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Kontakt:</th>
+                                    <td>
+                                        <input type="email"
+                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" required
+
+                                               oninvalid="InvalidEmail(this);"
+                                               oninput="InvalidEmail(this);"/>
+
+                                        <script> function InvalidEmail(textbox) {
+
+                                            if (textbox.validity.patternMismatch) {
+                                                textbox.setCustomValidity('Enter valid email');
+                                            } else if (textbox.validity.valueMissing) {
+                                                textbox.setCustomValidity('This field cannot be empty ');
+                                            } else {
+                                                textbox.setCustomValidity('');
+                                            }
+                                            return true;
+                                        }</script>
+                                    </td>
+                                </tr>
+<!--                                <th>Matematyka:</th>-->
+<!--                                <td>-->
+<!--                                    <input type="text" name="math"-->
+<!--                                           pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">-->
+<!--                                    <label class="percent">%</label>-->
+<!--                                </td>-->
+<!--                                </tr>-->
+                            </table>
+                            <span th:text="${emailExist}" class="emailError"/><br>
+                            <span th:text="${addedStudent}" class="confirmationOfAdding"/><br>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="result">
+                        <!--Tu wpisz wyniki egzaminów-->
+                        <div class="examResult">
+                                <table class="table">
+                                    <tr>
+                                        <th>Język polski:</th>
+                                        <td>
+                                            <input type="text" name="languagePolishResult"
+                                                   pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
+                                            <label class="percent">%</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Matematyka:</th>
+                                        <td>
+                                            <input type="text" name="math"
+                                                   pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
+                                            <label class="percent">%</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Język obcy nowożytny:</th>
+                                        <td>
+                                            <input type="text" name="foreignLanguage"
+                                                   pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
+                                            <label class="percent">%</label>
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            <span th:text="${addedExamResult}" class="confirmationOfAdding"/><br>
+                            <span th:text="${studentNotExist}" class="confirmationOfAdding"/><br>
+                        </div>
+                    </div>
+
+                    <input class="commit" type="reset" value="Wyczyść formularz">
+
+                    <input class="commit" type="submit" value="Zapisz">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

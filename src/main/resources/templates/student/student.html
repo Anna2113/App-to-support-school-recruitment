@@ -20,7 +20,6 @@
 
 </head>
 <body>
-
 <div class="container-fluid" id="tytul">
     <header>
         <h1>Dodawanie studenta</h1>
@@ -29,37 +28,26 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-10 data">
-            <p class="akapit">Wprowadź informacje o uczniu</p>
-            <ul class="nav nav-tabs" id="studentTabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#dateOfStudent" data-toggle="tab">Dane studenta</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#result" data-toggle="tab">Wyniki z egzaminów</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#grades" data-toggle="tab">Oceny ze świadectwa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#olympiad" data-toggle="tab">Olimpiady</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#other" data-toggle="tab">Dodatkowe parametry</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="studentContent">
+        <div class="row" style="display: block;margin: auto; margin-top: 25px">
+            <div>
+                <a class="btn-mybutton" data-toggle="collapse" href="#dateOfStudent" role="button">Informacje o
+                    uczniu</a>
+                <a class="btn-mybutton" data-toggle="collapse" href="#result" role="button">Egzaminy</a>
+                <a class="btn-mybutton" data-toggle="collapse" href="#grades" role="button">Oceny</a>
+                <a class="btn-mybutton" data-toggle="collapse" href="#olympiad" role="button">Olimpiady</a>
+                <a class="btn-mybutton" data-toggle="collapse" href="#other" role="button">Dodatkowe parametry</a>
                 <form th:action="@{/student/student}" method="post">
                     <input name="_method" type="hidden" value="post"/>
                     <input type="hidden" name="id">
-
-                    <div class="tab-pane fade show active" id="dateOfStudent">
-                        <div class="containerStudent">
+                    <div class="collapse show" id="dateOfStudent">
+                        <h3 style="text-align: center; margin-top: 25px">Dane o studencie</h3>
+                        <div class="card card-body">
                             <table class="table">
                                 <tr>
                                     <th>Imie:</th>
                                     <td>
-                                        <input type="text" pattern="[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]{1,32}" name="firstName">
+                                        <input type="text" pattern="[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]{1,32}"
+                                               name="firstName">
                                     </td>
                                 </tr>
                                 <tr>
@@ -140,7 +128,8 @@
                                         <select name="align" required>
                                             <option value="">Wybierz</option>
                                             <option th:each="alignOpt : ${T(com.example.aplikacja.student.Align).values()}"
-                                                    th:text="${alignOpt.label}" th:value="${alignOpt.value}"></option>
+                                                    th:text="${alignOpt.label}"
+                                                    th:value="${alignOpt.value}"></option>
                                         </select>
                                     </td>
                                 </tr>
@@ -159,7 +148,8 @@
                                     <th>Kontakt:</th>
                                     <td>
                                         <input type="email"
-                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" required
+                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email"
+                                               required
 
                                                oninvalid="InvalidEmail(this);"
                                                oninput="InvalidEmail(this);"/>
@@ -177,59 +167,532 @@
                                         }</script>
                                     </td>
                                 </tr>
-<!--                                <th>Matematyka:</th>-->
-<!--                                <td>-->
-<!--                                    <input type="text" name="math"-->
-<!--                                           pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">-->
-<!--                                    <label class="percent">%</label>-->
-<!--                                </td>-->
-<!--                                </tr>-->
+                                <!--                                <th>Matematyka:</th>-->
+                                <!--                                <td>-->
+                                <!--                                    <input type="text" name="math"-->
+                                <!--                                           pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">-->
+                                <!--                                    <label class="percent">%</label>-->
+                                <!--                                </td>-->
+                                <!--                                </tr>-->
                             </table>
-                            <span th:text="${emailExist}" class="emailError"/><br>
-                            <span th:text="${addedStudent}" class="confirmationOfAdding"/><br>
                         </div>
                     </div>
-                    <div class="tab-pane fade " id="result">
-                        <!--Tu wpisz wyniki egzaminów-->
-                        <div class="examResult">
-                                <table class="table">
-                                    <tr>
-                                        <th>Język polski:</th>
-                                        <td>
-                                            <input type="text" name="languagePolishResult"
-                                                   pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
-                                            <label class="percent">%</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Matematyka:</th>
-                                        <td>
-                                            <input type="text" name="math"
-                                                   pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
-                                            <label class="percent">%</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Język obcy nowożytny coś nowego:</th>
-                                        <td>
-                                            <input type="text" name="foreignLanguage"
-                                                   pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
-                                            <label class="percent">%</label>
-                                        </td>
-                                    </tr>
+                    <div class="collapse" id="result">
+                        <h3 style="text-align: center; margin-top: 20px">Wyniki z egzmainów</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Język polski:</th>
+                                    <td>
+                                        <input type="text" name="languagePolishResult"
+                                               pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
+                                        <label class="percent">%</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Matematyka:</th>
+                                    <td>
+                                        <input type="text" name="math"
+                                               pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
+                                        <label class="percent">%</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język obcy nowożytny coś nowego:</th>
+                                    <td>
+                                        <input type="text" name="foreignLanguage"
+                                               pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
+                                        <label class="percent">%</label>
+                                    </td>
+                                </tr>
 
-                                </table>
-
-                            <span th:text="${addedExamResult}" class="confirmationOfAdding"/><br>
-                            <span th:text="${studentNotExist}" class="confirmationOfAdding"/><br>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="collapse" id="grades">
+                        <h3 style="text-align: center; margin-top: 20px">Oceny ze świadectwa</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Średnia ocen ze świadectwa:</th>
+                                    <td><input type="text" name="averageOfGrades" pattern="[1-6]{1}[,]{1}[0-99]{2}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język polski:</th>
+                                    <td><input class="text" name="polishGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Matematyka:</th>
+                                    <td><input class="text" name="mathGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Język angielski:</th>
+                                    <td><input class="text" name="englishGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Drugi język obcy:</th>
+                                    <td><input class="text" name="otherLanguageGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wiedza o społeczeństwie:</th>
+                                    <td><input class="text" name="civicsGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Historia:</th>
+                                    <td><input class="text" name="historyGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Fizyka:</th>
+                                    <td><input class="text" name="physicsGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Chemia:</th>
+                                    <td><input class="text" name="chemistryGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Biologia:</th>
+                                    <td><input class="text" name="biologyGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Geografia:</th>
+                                    <td><input class="text" name="geographyGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Informatyka:</th>
+                                    <td><input class="text" name="ITGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Wychowanie fizyczne:</th>
+                                    <td><input class="text" name="physicalEducationGrade"
+                                               pattern="[1-6]{1}[.]{1}[0|5]{1}">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="collapse" id="olympiad">
+                        <h3 style="text-align: center; margin-top: 20px">Olimpiady</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <th style="text-align: center">Olimpiady</th>
+                                <tr>
+                                    <th>Język polski</th>
+                                    <td>
+                                        <input type="radio" name="polishOlympiad" id="polishRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="polishOlympiad" id="polishRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="polishOlympiad" id="polishRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Matematyka</th>
+                                    <td>
+                                        <input type="radio" name="mathOlympiad" id="mathRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="mathOlympiad" id="mathRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="mathOlympiad" id="mathRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Język angielski</th>
+                                    <td>
+                                        <input type="radio" name="englishOlympiad" id="englishRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="englishOlympiad" id="englishRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="englishOlympiad" id="englishRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Język niemiecki</th>
+                                    <td>
+                                        <input type="radio" name="germanOlympiad" id="deutschRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="germanOlympiad" id="deutschRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="germanOlympiad" id="deutschRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Język francuski</th>
+                                    <td>
+                                        <input type="radio" name="frenchOlympiad" id="frenchRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="frenchOlympiad" id="frenchRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="frenchOlympiad" id="frenchRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Język hiszpański</th>
+                                    <td>
+                                        <input type="radio" name="spanishOlympiad" id="spanishRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="spanishOlympiad" id="spanishRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="spanishOlympiad" id="spanishRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Język włoski</th>
+                                    <td>
+                                        <input type="radio" name="italianOlympiad" id="italianRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="italianOlympiad" id="italianRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="italianOlympiad" id="italianRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Historia</th>
+                                    <td>
+                                        <input type="radio" name="historyOlympiad" id="historyRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="historyOlympiad" id="historyRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="historyOlympiad" id="historyRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Wiedza o społeczeństwie</th>
+                                    <td>
+                                        <input type="radio" name="civicsOlympiad" id="wosRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="civicsOlympiad" id="wosRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="civicsOlympiad" id="wosRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Biologia</th>
+                                    <td>
+                                        <input type="radio" name="biologyOlympiad" id="biologyRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="biologyOlympiad" id="biologyRadioF">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="biologyOlympiad" id="biologyRadioB">-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Chemia</th>
+                                    <td>
+                                        <input type="radio" name="chemistryOlympiad" id="chemistryRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="chemistryOlympiad" id=chemistryRadioF>-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="chemistryOlympiad" id=chemistryRadioB>-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Fizyka</th>
+                                    <td>
+                                        <input type="radio" name="physicsOlympiad" id="physicsRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="physicsOlympiad" id=physicsRadioF>-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="physicsOlympiad" id=physicsRadioB>-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Geografia</th>
+                                    <td>
+                                        <input type="radio" name="geographyOlympiad" id="geographyRadioL" class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="geographyOlympiad" id=geographyRadioF>-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="geographyOlympiad" id=geographyRadioB>-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Historia muzyki</th>
+                                    <td>
+                                        <input type="radio" name="historyOfMusicOlympiad" id="historyOfMusicRadioL"
+                                               class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="historyOfMusicOlympiad" id=historyOfMusicRadioF>-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="historyOfMusicOlympiad"-->
+                                    <!--                                               id=historyOfMusicRadioB>-->
+                                    <!--                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <th>Historia sztuki</th>
+                                    <td>
+                                        <input type="radio" name="historyOfArtOlympiad" id="historyOfArtRadioL"
+                                               class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="historyOfArtOlympiad" id=historyOfArtRadioF>-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="historyOfArtOlympiad" id=historyOfArtRadioB>-->
+                                    <!--                                    </td>-->
+                                    <!--                                </tr>-->
+                            </table>
+                        </div>
+                    </div>
+                    <div class="collapse" id="other">
+                        <h3 style="text-align: center; margin-top: 20px">Dodatkowe parametry</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Umiejętność szybkiego liczenia</th>
+                                    <td>
+                                        <select name="fastCounting">
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność szybkiego czytania</th>
+                                    <td>
+                                        <select name="fastReading" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność rozwiązywania problemów</th>
+                                    <td>
+                                        <select name="troubleshooting" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność szybkiego zapamiętywania</th>
+                                    <td>
+                                        <select name="quickMemorization" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności aktorskie</th>
+                                    <td>
+                                        <select name="actingSkills" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności wokalne</th>
+                                    <td>
+                                        <select name="vocalSkills" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności taneczne</th>
+                                    <td>
+                                        <select name="danceSkills" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności pisarskie</th>
+                                    <td>
+                                        <select name="writingSkills" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności fotograficzne</th>
+                                    <td>
+                                        <select name="photographicSkills" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zdolności lingwistyczne</th>
+                                    <td>
+                                        <select name="linguisticSkills" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności sportowe/predyspozycje sportowe</th>
+                                    <td>
+                                        <select name="sportSkills" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wyczynowe uprawianie sportu</th>
+                                    <td>
+                                        <select name="extremeSport" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Sprawność fizyczna</th>
+                                    <td>
+                                        <select name="physicalFitness" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wytrzymałość fizyczna</th>
+                                    <td>
+                                        <select name="physicalEndurance" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność pracy na otwartym terenie</th>
+                                    <td>
+                                        <select name="workInTheOpenGround" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność posługiwania się mapą</th>
+                                    <td>
+                                        <select name="abilityToUseAMap" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowania biologiczno-przyrodnicze</th>
+                                    <td>
+                                        <select name="biologicalAndNaturalInterests" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowanie technologią</th>
+                                    <td>
+                                        <select name="interestInTechnology" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
 
                     <input class="commit" type="reset" value="Wyczyść formularz">
 
-                    <input class="commit" type="submit" value="Zapisz">
-
+                    <input class="commit" type="submit" value="Zapisz" style="margin-left: 450px;">
                 </form>
+
+                <!--                <button type="button" class="commit"><a href="/thanksForSignIn">Powrót</a></button>-->
+                <!--                <a class="btn-mybutton" data-toggle="collapse" href="#dateOfStudent" role="button">Informacje o uczniu</a>-->
+                <!--                <a class="btn-mybutton" data-toggle="collapse" href="#result" role="button">Egzaminy</a>-->
+                <!--                <a class="btn-mybutton" data-toggle="collapse" href="#grades" role="button">Oceny</a>-->
+                <!--                <a class="btn-mybutton" data-toggle="collapse" href="#olympiad" role="button">Olimpiady</a>-->
+                <!--                <a class="btn-mybutton" data-toggle="collapse" href="#other" role="button">Dodatkowe parametry</a>-->
             </div>
         </div>
     </div>

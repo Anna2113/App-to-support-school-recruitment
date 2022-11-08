@@ -66,6 +66,10 @@ public class Grade {
         this.physicalEducationGrade = physicalEducationGrade;
     }
 
+    public Grade(Student student) {
+        this.student = student;
+    }
+
     @Override
     public String toString() {
         return "Grade{" +

@@ -18,6 +18,15 @@ h1{
     font-family: Calibri;
     background: linear-gradient(to right, #cac531, #f3f9a7);
 }
+.btn-mybutton{
+    margin: auto;
+    text-align: center;
+    border-radius: 5px;
+    padding:10px;
+    font-size: 1.2rem;
+    color: black;
+    background: linear-gradient(to right, #cac531, #f3f9a7);
+}
 
 .btnRegister{
     display: block;
@@ -37,9 +46,15 @@ h1{
     text-align: center;
     padding:6px;
     font-size: 1.2rem;
+    color: black;
     font-family: Calibri;
     /*display: inline;*/
     /*margin: auto;*/
+}
+
+.commit{
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 
@@ -136,3 +151,16 @@ h1{
     margin-left: 250px;
 }
 
+/*.newContainer{*/
+/*    background-color: blue;*/
+/*}*/
+
+.radio{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.table2{
+    background-color: lightseagreen;
+    margin-top: 5px;
+}

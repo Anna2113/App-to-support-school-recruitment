@@ -47,19 +47,19 @@ public class Student {
     private Boolean languagePolish;
     private Boolean locked = false;
     private Boolean enabled = true;
-//    private String className;
-    @OneToOne(mappedBy = "student")
+    //    private String className;
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Exam exams;
-    @OneToOne(mappedBy = "student")
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Grade grades;
-    @OneToOne(mappedBy = "student")
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Olympiad olympiads;
-    @OneToOne(mappedBy = "student")
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private ExtraParameters extraParameters;
 
 
     public Student(Long id, String firstName,
-                   String lastName, String email, LocalDate dateOfBirth ,List<AppUserRole> appUserRole) {
+                   String lastName, String email, LocalDate dateOfBirth, List<AppUserRole> appUserRole) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

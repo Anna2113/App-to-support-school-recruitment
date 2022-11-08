@@ -21,25 +21,35 @@
 
 <div class="containerButtons">
 
-        <button type="button" class="btnSt"><a href="/studentForm">Dodaj ucznia</a></button>
-        <button type="button" class="btnSt"><a href="#">Edytuj dane ucznia</a></button>
-        <button type="button" class="btnSt"><a href="#">Wyświetl listę klas</a></button>
-        <button type="button" class="btnSt"><a href="#">Usuń ucznia</a></button>
+    <button type="button" class="btnSt"><a href="/studentForm">Dodaj ucznia</a></button>
+    <button type="button" class="btnSt"><a href="#">Edytuj dane ucznia</a></button>
+    <button type="button" class="btnSt"><a href="#">Wyświetl listę klas</a></button>
+    <button type="button" class="btnSt"><a href="#">Usuń ucznia</a></button>
 </div>
 
 <div class="tabelka">
     <table class="table">
-            <th class="firstTh">Imie</th>
-            <th class="firstTh">Nazwisko</th>
-            <th class="firstTh">Rocznik</th>
-<!--            <th class="firstTh">Klasa</th>-->
+        <th class="firstTh">Imie</th>
+        <th class="firstTh">Nazwisko</th>
+        <th class="firstTh">Rocznik</th>
+        <th class="firstTh">Więcje</th>
+        <!--            <th class="firstTh">Klasa</th>-->
         <tr th:each="student: ${allStudents}" class="firstTr">
             <td class="firstTd" th:text="${student.firstName}"/>
             <td class="firstTd" th:text="${student.lastName}"/>
             <td class="firstTd" th:text="${student.dateOfBirth}"/>
+            <td class="firstTd">
+                <button class="btnSt">
+                    <a th:href="@{'/aboutStudent/' + ${student.id}}">Wybierz</a>
+                </button>
+            </td>
         </tr>
     </table>
 </div>
 <p>Utworzyć możliwość zaznaczania ucznia np. do usunięcia lub edycji</p>
+<p>Dorobić przycisk do powrotu z formularza</p>
+<p>Dorobić komunikat o zapisanym uczniu</p>
+<p>Dorobić walidację sprawdzającą uzupełnienie wszystkich pól w formularzu</p>
+<p>Zaznaczyć brak jako default</p>
 </body>
 </html>

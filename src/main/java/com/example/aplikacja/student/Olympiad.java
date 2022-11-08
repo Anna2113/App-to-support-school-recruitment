@@ -90,6 +90,10 @@ public class Olympiad {
         this.student = student;
     }
 
+    public Olympiad(Student student) {
+        this.student = student;
+    }
+
     @Override
     public String toString() {
         return "Olympiad{" +

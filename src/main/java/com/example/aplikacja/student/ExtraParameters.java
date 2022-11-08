@@ -11,7 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@AllArgsConstructor
 public class ExtraParameters {
 
     @SequenceGenerator(
@@ -25,36 +24,58 @@ public class ExtraParameters {
             generator = "sequenceExtraParameters"
     )
 
+    @Column
     private Long id;
-    private Boolean fastCounting;
-    private Boolean fastReading;
-    private Boolean troubleshooting;
-    private Boolean quickMemorization;
-    private Boolean actingSkills;
-    private Boolean vocalSkills;
-    private Boolean danceSkills;
-    private Boolean writingSkills;
-    private Boolean photographicSkills;
-    private Boolean linguisticSkills;
-    private Boolean sportSkills; //umiejętności sportowe
-    private Boolean extremeSport; //sport wyczynowy
-    private Boolean physicalFitness; //sprawność fizyczna
-    private Boolean physicalEndurance; //wytrzymałość fizyczna
-    private Boolean workInTheOpenGround; // praca na otwartym terenie
-    private Boolean abilityToUseAMap; //posługiwanie się mapą
-    private Boolean biologicalAndNaturalInterests;
-    private Boolean interestInTechnology;
+    @Enumerated(EnumType.STRING)
+    private Ability fastCounting;
+    @Enumerated(EnumType.STRING)
+    private Ability fastReading;
+    @Enumerated(EnumType.STRING)
+    private Ability troubleshooting;
+    @Enumerated(EnumType.STRING)
+    private Ability quickMemorization;
+    @Enumerated(EnumType.STRING)
+    private Ability actingSkills;
+    @Enumerated(EnumType.STRING)
+    private Ability vocalSkills;
+    @Enumerated(EnumType.STRING)
+    private Ability danceSkills;
+    @Enumerated(EnumType.STRING)
+    private Ability writingSkills;
+    @Enumerated(EnumType.STRING)
+    private Ability photographicSkills;
+    @Enumerated(EnumType.STRING)
+    private Ability linguisticSkills;
+    @Enumerated(EnumType.STRING)
+    private Ability sportSkills; //umiejętności sportowe
+    @Enumerated(EnumType.STRING)
+    private Ability extremeSport; //sport wyczynowy
+    @Enumerated(EnumType.STRING)
+    private Ability physicalFitness; //sprawność fizyczna
+    @Enumerated(EnumType.STRING)
+    private Ability physicalEndurance; //wytrzymałość fizyczna
+    @Enumerated(EnumType.STRING)
+    private Ability workInTheOpenGround; // praca na otwartym terenie
+    @Enumerated(EnumType.STRING)
+    private Ability abilityToUseAMap; //posługiwanie się mapą
+    @Enumerated(EnumType.STRING)
+    private Ability biologicalAndNaturalInterests;
+    @Enumerated(EnumType.STRING)
+    private Ability interestInTechnology;
     @OneToOne
     private Student student;
 
-    public ExtraParameters(Long id, Boolean fastCounting, Boolean fastReading,
-                           Boolean troubleshooting, Boolean quickMemorization,
-                           Boolean actingSkills, Boolean vocalSkills, Boolean danceSkills,
-                           Boolean writingSkills, Boolean photographicSkills,
-                           Boolean linguisticSkills, Boolean sportSkills, Boolean extremeSport,
-                           Boolean physicalFitness, Boolean physicalEndurance,
-                           Boolean workInTheOpenGround, Boolean abilityToUseAMap,
-                           Boolean biologicalAndNaturalInterests, Boolean interestInTechnology) {
+    public ExtraParameters(Long id, Ability fastCounting,
+                           Ability fastReading, Ability troubleshooting,
+                           Ability quickMemorization, Ability actingSkills,
+                           Ability vocalSkills, Ability danceSkills,
+                           Ability writingSkills, Ability photographicSkills,
+                           Ability linguisticSkills, Ability sportSkills,
+                           Ability extremeSport, Ability physicalFitness,
+                           Ability physicalEndurance, Ability workInTheOpenGround,
+                           Ability abilityToUseAMap,
+                           Ability biologicalAndNaturalInterests,
+                           Ability interestInTechnology, Student student) {
         this.id = id;
         this.fastCounting = fastCounting;
         this.fastReading = fastReading;
@@ -74,8 +95,12 @@ public class ExtraParameters {
         this.abilityToUseAMap = abilityToUseAMap;
         this.biologicalAndNaturalInterests = biologicalAndNaturalInterests;
         this.interestInTechnology = interestInTechnology;
+        this.student = student;
     }
 
+    public ExtraParameters(Student student) {
+        this.student = student;
+    }
 
     @Override
     public String toString() {

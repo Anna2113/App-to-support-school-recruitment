@@ -3,6 +3,7 @@ package com.example.aplikacja.student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
@@ -26,13 +27,18 @@ public class StudentController {
     }
 
     @PostMapping("/student/student")
-    public String add(StudentDTO student, ExamDTO exam, Model model, Principal principal) {
+    public String add(StudentDTO student, ExamDTO exam,
+                      GradeDTO grade, OlympiadDTO olympiad
+                     , ExtraParametersDTO extparam,
+                      Model model, Principal principal) {
         if (principal == null) {
             return "userIsLogout";
         } else {
             Student appUserWithEmail = studentService.findUserByEmail(student.getEmail()).orElse(null);
             if (appUserWithEmail == null) {
-                studentService.addStudent(student,exam);
+                studentService.addStudent(student,exam, grade, olympiad
+                        , extparam
+                );
                 model.addAttribute("addedStudent",
                         "Student został dodany, przejdź do następnej zakładki.");
                 return "/student/student";
@@ -43,72 +49,29 @@ public class StudentController {
         }
     }
 
-    @PostMapping("/student/examResult")
-    public String addExam(Exam exam, Model model, Principal principal, Student student) {
+    @GetMapping("/aboutStudent/{id}")
+    public String showMoreAboutStudent(@PathVariable("id") Long id, Model model, Principal principal) {
         if (principal == null) {
             return "userIsLogout";
         } else {
-            Student appUserWithEmail = studentService.findUserByEmail(student.getEmail()).orElse(null);
-            if (appUserWithEmail != null) {
-                studentService.addResult(exam, student);
-                model.addAttribute("addedExamResult", "Wyniki egzaminów zostały dodane.");
-                return "/student/student";
-            } else {
-                model.addAttribute("studentNotExist", "Nie znaleziono takiego studenta.");
-                return "/student/student";
-            }
+            Student student = studentService.findUserByEmail(principal.getName()).orElse(null);
+
+            model.addAttribute("student", student);
+
+            return "/student/moreAboutStudent";
         }
     }
 
-    @PostMapping("/student/grade")
-    public String addGrade(Grade grade, Student student, Model model, Principal principal) {
+    @GetMapping("/list/{id}")
+    public String listOfStudents(@PathVariable("id") Long id, Model model, Principal principal) {
         if (principal == null) {
             return "userIsLogout";
         } else {
-            Student appUserWithEmail = studentService.findUserByEmail(student.getEmail()).orElse(null);
-            if (appUserWithEmail != null) {
-                studentService.addGrades(grade, student);
-                model.addAttribute("addedGradeResult", "Oceny zostały dodane.");
-                return "/student/student";
-            } else {
-                model.addAttribute("studentNotExist", "Nie znaleziono takiego studenta.");
-                return "/student/student";
-            }
-        }
-    }
+            Student student = studentService.findUserByEmail(principal.getName()).orElse(null);
 
-    @PostMapping("/student/olympiad")
-    public String addOlympiad(Olympiad olympiad, Student student, Model model, Principal principal) {
-        if (principal == null) {
-            return "userIsLogout";
-        } else {
-            Student appUserWithEmail = studentService.findUserByEmail(student.getEmail()).orElse(null);
-            if (appUserWithEmail != null) {
-                studentService.addOlympiads(olympiad, student);
-                model.addAttribute("addedOlympiadResult", "Olimpiady zostały dodane");
-                return "/student/student";
-            } else {
-                model.addAttribute("studentNotExist", "Nie znaleziono takiego studenta.");
-                return "/student/student";
-            }
-        }
-    }
+            model.addAttribute("student", student);
 
-    @PostMapping("/student/extraParameters")
-    public String addOtherParam(ExtraParameters extrp, Student student, Model model, Principal principal) {
-        if (principal == null) {
-            return "userIsLogout";
-        } else {
-            Student appUserWithEmail = studentService.findUserByEmail(student.getEmail()).orElse(null);
-            if (appUserWithEmail != null) {
-                studentService.addOtherParams(extrp, student);
-                model.addAttribute("addedExtraParameters", "Zdolności zostały dodane");
-                return "/student/student";
-            } else {
-                model.addAttribute("studentNotExist", "Nie znaleziono takiego studenta.");
-                return "/student/student";
-            }
+            return "/thanksForSignIn";
         }
-
     }
 }

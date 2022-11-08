@@ -11,7 +11,7 @@ spring:
         enabled: true
   datasource:
     password: $database13$
-    url: jdbc:postgresql://localhost:5433/aplikacja
+    url: jdbc:postgresql://localhost:5433/aplikacjaMagisterska
     username: postgres
   jpa:
     hibernate:

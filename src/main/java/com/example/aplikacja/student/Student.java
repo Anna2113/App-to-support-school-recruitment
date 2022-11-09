@@ -64,6 +64,7 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+
         this.dateOfBirth = dateOfBirth;
         this.appUserRole = appUserRole;
     }

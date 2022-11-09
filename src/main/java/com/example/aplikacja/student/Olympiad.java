@@ -57,6 +57,7 @@ public class Olympiad {
     @Enumerated(EnumType.STRING)
     private LaureateOrFinalist historyOfArtOlympiad;
     @Enumerated(EnumType.STRING)
+    private LaureateOrFinalist ITOlympiad;
     @OneToOne
     private Student student;
 
@@ -70,7 +71,8 @@ public class Olympiad {
                     LaureateOrFinalist chemistryOlympiad, LaureateOrFinalist physicsOlympiad,
                     LaureateOrFinalist geographyOlympiad,
                     LaureateOrFinalist historyOfMusicOlympiad,
-                    LaureateOrFinalist historyOfArtOlympiad, Student student) {
+                    LaureateOrFinalist historyOfArtOlympiad, LaureateOrFinalist ITOlympiad,
+                    Student student) {
         this.id = id;
         this.polishOlympiad = polishOlympiad;
         this.mathOlympiad = mathOlympiad;
@@ -87,6 +89,7 @@ public class Olympiad {
         this.geographyOlympiad = geographyOlympiad;
         this.historyOfMusicOlympiad = historyOfMusicOlympiad;
         this.historyOfArtOlympiad = historyOfArtOlympiad;
+        this.ITOlympiad = ITOlympiad;
         this.student = student;
     }
 
@@ -113,6 +116,8 @@ public class Olympiad {
                 ", geographyOlympiad=" + geographyOlympiad +
                 ", historyOfMusicOlympiad=" + historyOfMusicOlympiad +
                 ", historyOfArtOlympiad=" + historyOfArtOlympiad +
+                ", ITOlympiad=" + ITOlympiad +
+                ", student=" + student +
                 '}';
     }
 }

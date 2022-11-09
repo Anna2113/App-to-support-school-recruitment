@@ -19,4 +19,5 @@ public class OlympiadDTO {
     private LaureateOrFinalist geographyOlympiad;
     private LaureateOrFinalist historyOfMusicOlympiad;
     private LaureateOrFinalist historyOfArtOlympiad;
+    private LaureateOrFinalist ITOlympiad;
 }

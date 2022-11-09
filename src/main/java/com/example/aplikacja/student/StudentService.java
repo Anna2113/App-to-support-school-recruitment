@@ -37,9 +37,19 @@ public class StudentService implements UserDetailsService {
     }
 
     public Optional<Student> findUserById(Long id) {
-
         return studentRepository.findById(id);
     }
+
+    public Optional<Exam> findExamById(Long id){
+        return examRepository.findById(id);
+    }
+
+    public Optional<Grade> findGradeById(Long id){return gradeRepository.findById(id);}
+
+    public Optional<Olympiad> findOlympiadById(Long id){return olympiadRepository.findById(id);}
+
+    public Optional<ExtraParameters> findExParamById(Long id){return extraParameters.findById(id);}
+
 
     public Student addStudent(StudentDTO student, ExamDTO exam
                               ,GradeDTO grade, OlympiadDTO olymp
@@ -93,7 +103,7 @@ public class StudentService implements UserDetailsService {
         grade.setPhysicsGrade(dto.getPhysicsGrade());
         grade.setGeographyGrade(dto.getGeographyGrade());
         grade.setITGrade(dto.getITGrade());
-        grade.setPhysicalEducationGrade(grade.getPhysicalEducationGrade());
+        grade.setPhysicalEducationGrade(dto.getPhysicalEducationGrade());
         student.setGrades(grade);
     }
 
@@ -114,6 +124,7 @@ public class StudentService implements UserDetailsService {
         olympiad.setGeographyOlympiad(dto.getGeographyOlympiad());
         olympiad.setHistoryOfMusicOlympiad(dto.getHistoryOfMusicOlympiad());
         olympiad.setHistoryOfArtOlympiad(dto.getHistoryOfArtOlympiad());
+        olympiad.setITOlympiad(dto.getITOlympiad());
         student.setOlympiads(olympiad);
     }
 //
@@ -141,102 +152,6 @@ public class StudentService implements UserDetailsService {
     }
 
 
-//    public Exam addResult(Exam exam, Student student) {
-//        Student student1 = findUserByEmail(student.getEmail()).orElse(null);
-//        if (student1 != null) {
-//            Exam ex = new Exam();
-//            ex.setLanguagePolishResult(exam.getLanguagePolishResult());
-//            ex.setMath(exam.getMath());
-//            ex.setForeignLanguage(exam.getForeignLanguage());
-//            ex.setStudent(student1);
-//            return examRepository.save(ex);
-//        } else {
-//            return exam;
-//        }
-//    }
-//
-//    public Grade addGrades(Grade grade, Student student) {
-//        Student student1 = findUserByEmail(student.getEmail()).orElse(null);
-//        if (student1 != null) {
-//            Grade gr = new Grade();
-//            gr.setAverageOfGrades(grade.getAverageOfGrades());
-//            gr.setPolishGrade(grade.getPolishGrade());
-//            gr.setMathGrade(grade.getMathGrade());
-//            gr.setEnglishGrade(grade.getEnglishGrade());
-//            gr.setOtherLanguageGrade(grade.getOtherLanguageGrade());
-//            gr.setCivicsGrade(grade.getCivicsGrade());
-//            gr.setHistoryGrade(grade.getHistoryGrade());
-//            gr.setPhysicsGrade(grade.getPhysicsGrade());
-//            gr.setChemistryGrade(grade.getChemistryGrade());
-//            gr.setBiologyGrade(grade.getBiologyGrade());
-//            gr.setGeographyGrade(grade.getGeographyGrade());
-//            gr.setITGrade(grade.getITGrade());
-//            gr.setPhysicalEducationGrade(grade.getPhysicalEducationGrade());
-//            gr.setStudent(grade.getStudent());
-//
-//            return gradeRepository.save(gr);
-//        } else {
-//            return grade;
-//        }
-//    }
-//
-//    public Olympiad addOlympiads(Olympiad olympiad, Student student) {
-//        Student student1 = findUserByEmail(student.getEmail()).orElse(null);
-//        if (student1 != null) {
-//            Olympiad ol = new Olympiad();
-//            ol.setPolishOlympiad(olympiad.getPolishOlympiad());
-//            ol.setMathOlympiad(olympiad.getMathOlympiad());
-//            ol.setEnglishOlympiad(olympiad.getEnglishOlympiad());
-//            ol.setGermanOlympiad(olympiad.getGermanOlympiad());
-//            ol.setFrenchOlympiad(olympiad.getFrenchOlympiad());
-//            ol.setSpanishOlympiad(olympiad.getSpanishOlympiad());
-//            ol.setItalianOlympiad(olympiad.getItalianOlympiad());
-//            ol.setHistoryOlympiad(olympiad.getHistoryOlympiad());
-//            ol.setCivicsOlympiad(olympiad.getCivicsOlympiad());
-//            ol.setBiologyOlympiad(olympiad.getBiologyOlympiad());
-//            ol.setChemistryOlympiad(olympiad.getChemistryOlympiad());
-//            ol.setPhysicsOlympiad(olympiad.getPhysicsOlympiad());
-//            ol.setGeographyOlympiad(olympiad.getGeographyOlympiad());
-//            ol.setHistoryOfMusicOlympiad(olympiad.getHistoryOfMusicOlympiad());
-//            ol.setHistoryOfArtOlympiad(olympiad.getHistoryOfArtOlympiad());
-//            ol.setStudent(olympiad.getStudent());
-//
-//            return olympiadRepository.save(ol);
-//        } else {
-//            return olympiad;
-//        }
-//    }
-//
-//    public ExtraParameters addOtherParams(ExtraParameters expar, Student student){
-//        Student student1 = findUserByEmail(student.getEmail()).orElse(null);
-//        if(student1 != null){
-//            ExtraParameters exp = new ExtraParameters();
-//            exp.setFastCounting(expar.getFastCounting());
-//            exp.setFastReading(expar.getFastReading());
-//            exp.setTroubleshooting(expar.getTroubleshooting());
-//            exp.setQuickMemorization(expar.getQuickMemorization());
-//            exp.setActingSkills(expar.getActingSkills());
-//            exp.setVocalSkills(expar.getVocalSkills());
-//            exp.setDanceSkills(expar.getDanceSkills());
-//            exp.setWritingSkills(expar.getWritingSkills());
-//            exp.setPhotographicSkills(expar.getPhotographicSkills());
-//            exp.setLinguisticSkills(expar.getLinguisticSkills());
-//            exp.setSportSkills(expar.getSportSkills());
-//            exp.setExtremeSport(expar.getExtremeSport());
-//            exp.setPhysicalFitness(expar.getPhysicalFitness());
-//            exp.setPhysicalEndurance(expar.getPhysicalEndurance());
-//            exp.setWorkInTheOpenGround(expar.getWorkInTheOpenGround());
-//            exp.setAbilityToUseAMap(expar.getAbilityToUseAMap());
-//            exp.setBiologicalAndNaturalInterests(expar.getBiologicalAndNaturalInterests());
-//            exp.setInterestInTechnology(expar.getInterestInTechnology());
-//            exp.setStudent(expar.getStudent());
-//
-//            return extraParameters.save(exp);
-//        }else{
-//            return expar;
-//        }
-//    }
-
     public Optional<Student> findUserByEmail(String email) {
         return studentRepository.findByEmail(email);
     }
@@ -244,6 +159,7 @@ public class StudentService implements UserDetailsService {
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
+
 
 
 }

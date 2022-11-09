@@ -198,7 +198,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Język obcy nowożytny coś nowego:</th>
+                                    <th>Język obcy nowożytny:</th>
                                     <td>
                                         <input type="text" name="foreignLanguage"
                                                pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*">
@@ -278,6 +278,7 @@
                         <div class="card card-body">
                             <table class="table">
                                 <th style="text-align: center">Olimpiady</th>
+                                <th></th>
                                 <tr>
                                     <th>Język polski</th>
                                     <td>
@@ -491,6 +492,23 @@
                                     <!--                                        <input type="radio" checked name="historyOfArtOlympiad" id=historyOfArtRadioB>-->
                                     <!--                                    </td>-->
                                     <!--                                </tr>-->
+                                </tr>
+                                <tr>
+                                    <th>Informatyka</th>
+                                    <td>
+                                        <input type="radio" name="ITOlympiad" id="ITOlympiadL"
+                                               class="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" name="historyOfArtOlympiad" id=historyOfArtRadioF>-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td>-->
+                                    <!--                                        <input type="radio" checked name="historyOfArtOlympiad" id=historyOfArtRadioB>-->
+                                    <!--                                    </td>-->
+                                    <!--                                </tr>-->
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -682,10 +700,17 @@
                         </div>
                     </div>
 
-                    <input class="commit" type="reset" value="Wyczyść formularz">
+                    <span th:text="${emailExist}" class="emailError"/><br>
+                    <span th:text="${addedStudent}" class="confirmationOfAdding"/><br>
 
-                    <input class="commit" type="submit" value="Zapisz" style="margin-left: 450px;">
+                    <input class="commit btnSt" type="reset" value="Wyczyść formularz">
+
+                    <input class="commit btnSt" type="submit" value="Zapisz" style="margin-left: 450px;">
+
                 </form>
+<!--                <button type="button" class="btnSt"><a href="/previousPage" style="color: black">Lista uczniów</a></button>-->
+                <button class="btnSt" type="button">
+                    <a th:href="@{'/showStudents'}" style="color: black">Lista uczniów</a></button>
 
                 <!--                <button type="button" class="commit"><a href="/thanksForSignIn">Powrót</a></button>-->
                 <!--                <a class="btn-mybutton" data-toggle="collapse" href="#dateOfStudent" role="button">Informacje o uczniu</a>-->

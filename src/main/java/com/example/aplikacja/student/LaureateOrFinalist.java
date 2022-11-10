@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum LaureateOrFinalist {
 
-    Finalista("Finalista"),
     Laureat("Laureat"),
+    Finalista("Finalista"),
     Brak("Brak");
 
     private String label;

@@ -18,6 +18,8 @@
 </head>
 <body>
 <h1>Informacje o uczniu</h1>
+<button type="button" class="btnSt"><a href="#" style="color: black">Edytuj dane ucznia</a></button>
+<button type="button" class="btnSt"><a href="#" style="color: black">Usuń ucznia</a></button>
 <h2 style="text-align: center">Podstawowe dane</h2>
 <div class="tabelka">
     <table class="table">
@@ -66,10 +68,28 @@
             <td class="firstTd" th:text="${olympiad.englishOlympiad}"></td>
         </tr>
         <tr class="firstTr">
-            <td class="firstTd">Drugi język obcy</td>
+            <td class="firstTd">Język niemiecki</td>
             <td class="firstTd" th:text="${grade.otherLanguageGrade}"/>
             <td class="firstTd">Brak danych</td>
             <td class="firstTd" th:text="${olympiad.germanOlympiad}"></td>
+        </tr>
+        <tr class="firstTr">
+            <td class="firstTd">Język francuski</td>
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd" th:text="${olympiad.frenchOlympiad}"/>
+        </tr>
+        <tr class="firstTr">
+            <td class="firstTd">Język hiszpański</td>
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd" th:text="${olympiad.spanishOlympiad}"/>
+        </tr>
+        <tr class="firstTr">
+            <td class="firstTd">Język włoski</td>
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd" th:text="${olympiad.italianOlympiad}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Wiedza o społeczeństwie</td>
@@ -119,41 +139,16 @@
             <td class="firstTd">Brak danych</td>
             <td class="firstTd">Brak danych</td>
         </tr>
-    </table>
-</div>
-<h2 style="text-align: center">Olimpiady dodatkowe</h2>
-<div class="tabelka">
-    <table class="table">
-        <th class="firstTh">Przedmiot</th>
-        <th class="firstTh">Olimpiada</th>
-        <tr class="firstTr">
-            <td class="firstTd">Język francuski</td>
-            <!--            <td class="firstTd" th:text="${grade.physicalEducationGrade}"/>-->
-            <!--            <td class="firstTd">Brak danych</td>-->
-            <td class="firstTd" th:text="${olympiad.frenchOlympiad}"></td>
-        </tr>
-        <tr class="firstTr">
-            <td class="firstTd">Język hiszpański</td>
-            <!--            <td class="firstTd" th:text="${grade.physicalEducationGrade}"/>-->
-            <!--            <td class="firstTd">Brak danych</td>-->
-            <td class="firstTd" th:text="${olympiad.spanishOlympiad}"/>
-        </tr>
-        <tr class="firstTr">
-            <td class="firstTd">Język włoski</td>
-            <!--            <td class="firstTd" th:text="${grade.physicalEducationGrade}"/>-->
-            <!--            <td class="firstTd">Brak danych</td>-->
-            <td class="firstTd" th:text="${olympiad.italianOlympiad}"/>
-        </tr>
         <tr class="firstTr">
             <td class="firstTd">Historia muzyki</td>
-            <!--            <td class="firstTd" th:text="${grade.physicalEducationGrade}"/>-->
-            <!--            <td class="firstTd">Brak danych</td>-->
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd">Brak danych</td>
             <td class="firstTd" th:text="${olympiad.historyOfMusicOlympiad}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Historia sztuki</td>
-            <!--            <td class="firstTd" th:text="${grade.physicalEducationGrade}"/>-->
-            <!--            <td class="firstTd">Brak danych</td>-->
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd">Brak danych</td>
             <td class="firstTd" th:text="${olympiad.historyOfArtOlympiad}"/>
         </tr>
     </table>

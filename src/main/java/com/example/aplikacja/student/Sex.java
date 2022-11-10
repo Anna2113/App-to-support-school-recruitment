@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum Sex {
-    Female("Kobieta"),
-    Male("Mężczyzna");
+    Kobieta("Kobieta"),
+    Mężczyzna("Mężczyzna");
 
     private String label;
 

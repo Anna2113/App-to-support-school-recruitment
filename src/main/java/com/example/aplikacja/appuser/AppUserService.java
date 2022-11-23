@@ -61,16 +61,16 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public AppUser updateUser(AppUser appUser) {
-        AppUser userToUpdate = findUserById(appUser.getId()).orElse(null);
-        if (userToUpdate != null) {
-            userToUpdate.setFirstName(appUser.getFirstName());
-            userToUpdate.setLastName(appUser.getLastName());
-            return userRepository.save(userToUpdate);
-        } else {
-            return appUser;
-        }
-    }
+//    public AppUser updateUser(Student appUser) {
+//        AppUser userToUpdate = findUserById(appUser.getId()).orElse(null);
+//        if (userToUpdate != null) {
+//            userToUpdate.setFirstName(appUser.getFirstName());
+//            userToUpdate.setLastName(appUser.getLastName());
+//            return userRepository.save(userToUpdate);
+//        } else {
+//            return appUser;
+//        }
+//    }
 
     public Optional<AppUser> findUserById(Long id) {
         return userRepository.findById(id);

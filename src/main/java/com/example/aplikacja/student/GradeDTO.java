@@ -17,4 +17,5 @@ public class GradeDTO {
     private String geographyGrade;
     private String ITGrade;
     private String physicalEducationGrade;
+    private String designAndTechnology;
 }

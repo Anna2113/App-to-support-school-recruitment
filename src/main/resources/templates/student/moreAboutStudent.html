@@ -18,9 +18,18 @@
 </head>
 <body>
 <h1>Informacje o uczniu</h1>
-<button type="button" class="btnSt"><a href="#" style="color: black">Edytuj dane ucznia</a></button>
-<button type="button" class="btnSt"><a href="#" style="color: black">Usuń ucznia</a></button>
 <h2 style="text-align: center">Podstawowe dane</h2>
+<div class="containerButtons">
+
+    <button class="btnSt" type="button"><a th:href="@{'/updateStudent/' + ${student.id}}" style="color: black">
+        Edytuj dane ucznia</a></button>
+
+    <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}" style="color: black">Usuń
+        ucznia</a></button>
+
+    <button type="button" class="btnSt"><a th:href="@{'/changeClass'}" style="color: black">Klasa</a></button>
+
+</div>
 <div class="tabelka">
     <table class="table">
         <th class="firstTh">Imie</th>
@@ -40,6 +49,17 @@
         </tr>
     </table>
 </div>
+<h2 style="text-align: center">Średnia ocen ze świadectwa</h2>
+<div class="tabelka">
+    <table class="table">
+        <th class="firstTh">Średnia ocen</th>
+        <th class="firstTh">Wartość</th>
+        <tr>
+            <td class="firstTd">Średnia</td>
+            <td class="firstTd" th:text="${student.grades.averageOfGrades}"/>
+        </tr>
+    </table>
+</div>
 
 <h2 style="text-align: center">Rezultaty</h2>
 
@@ -51,105 +71,111 @@
         <th class="firstTh">Olimpiada</th>
         <tr class="firstTr">
             <td class="firstTd">Języki polski</td>
-            <td class="firstTd" th:text="${grade.polishGrade}"/>
-            <td class="firstTd" th:text="${exam.languagePolishResult}"/>
-            <td class="firstTd" th:text="${olympiad.polishOlympiad}"></td>
+            <td class="firstTd" th:text="${student.grades.polishGrade}"/>
+            <td class="firstTd" th:text="${student.exams.languagePolishResult}"/>
+            <td class="firstTd" th:text="${student.olympiads.polishOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Matematyka</td>
-            <td class="firstTd" th:text="${grade.mathGrade}"/>
-            <td class="firstTd" th:text="${exam.math}"/>
-            <td class="firstTd" th:text="${olympiad.mathOlympiad}"></td>
+            <td class="firstTd" th:text="${student.grades.mathGrade}"/>
+            <td class="firstTd" th:text="${student.exams.math}"/>
+            <td class="firstTd" th:text="${student.olympiads.mathOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Języki angielski</td>
-            <td class="firstTd" th:text="${grade.englishGrade}"/>
-            <td class="firstTd" th:text="${exam.foreignLanguage}"/>
-            <td class="firstTd" th:text="${olympiad.englishOlympiad}"></td>
+            <td class="firstTd" th:text="${student.grades.englishGrade}"/>
+            <td class="firstTd" th:text="${student.exams.foreignLanguage}"/>
+            <td class="firstTd" th:text="${student.olympiads.englishOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Język niemiecki</td>
-            <td class="firstTd" th:text="${grade.otherLanguageGrade}"/>
+            <td class="firstTd" th:text="${student.grades.otherLanguageGrade}"/>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.germanOlympiad}"></td>
+            <td class="firstTd" th:text="${student.olympiads.germanOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Język francuski</td>
             <td class="firstTd">Brak danych</td>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.frenchOlympiad}"/>
+            <td class="firstTd" th:text="${student.olympiads.frenchOlympiad}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Język hiszpański</td>
             <td class="firstTd">Brak danych</td>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.spanishOlympiad}"/>
+            <td class="firstTd" th:text="${student.olympiads.spanishOlympiad}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Język włoski</td>
             <td class="firstTd">Brak danych</td>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.italianOlympiad}"/>
+            <td class="firstTd" th:text="${student.olympiads.italianOlympiad}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Wiedza o społeczeństwie</td>
-            <td class="firstTd" th:text="${grade.civicsGrade}"/>
+            <td class="firstTd" th:text="${student.grades.civicsGrade}"/>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.civicsOlympiad}"></td>
+            <td class="firstTd" th:text="${student.olympiads.civicsOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Historia</td>
-            <td class="firstTd" th:text="${grade.historyGrade}"/>
+            <td class="firstTd" th:text="${student.grades.historyGrade}"/>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.historyOlympiad}"></td>
+            <td class="firstTd" th:text="${student.olympiads.historyOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Fizyka</td>
-            <td class="firstTd" th:text="${grade.physicsGrade}"/>
+            <td class="firstTd" th:text="${student.grades.physicsGrade}"/>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.physicsOlympiad}"></td>
+            <td class="firstTd" th:text="${student.olympiads.physicsOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Chemia</td>
-            <td class="firstTd" th:text="${grade.chemistryGrade}"/>
+            <td class="firstTd" th:text="${student.grades.chemistryGrade}"/>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.chemistryOlympiad}"></td>
+            <td class="firstTd" th:text="${student.olympiads.chemistryOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Biologia</td>
-            <td class="firstTd" th:text="${grade.biologyGrade}"/>
+            <td class="firstTd" th:text="${student.grades.biologyGrade}"/>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.biologyOlympiad}"></td>
+            <td class="firstTd" th:text="${student.olympiads.biologyOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Geogafia</td>
-            <td class="firstTd" th:text="${grade.geographyGrade}"/>
+            <td class="firstTd" th:text="${student.grades.geographyGrade}"/>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.geographyOlympiad}"></td>
+            <td class="firstTd" th:text="${student.olympiads.geographyOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Informatyka</td>
-            <td class="firstTd" th:text="${grade.ITGrade}"/>
+            <td class="firstTd" th:text="${student.grades.ITGrade}"/>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.ITOlympiad}"></td>
-        </tr>
-        <tr class="firstTr">
-            <td class="firstTd">Wychowanie fizyczne</td>
-            <td class="firstTd" th:text="${grade.physicalEducationGrade}"/>
-            <td class="firstTd">Brak danych</td>
-            <td class="firstTd">Brak danych</td>
+            <td class="firstTd" th:text="${student.olympiads.ITOlympiad}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Historia muzyki</td>
             <td class="firstTd">Brak danych</td>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.historyOfMusicOlympiad}"/>
+            <td class="firstTd" th:text="${student.olympiads.historyOfMusicOlympiad}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Historia sztuki</td>
             <td class="firstTd">Brak danych</td>
             <td class="firstTd">Brak danych</td>
-            <td class="firstTd" th:text="${olympiad.historyOfArtOlympiad}"/>
+            <td class="firstTd" th:text="${student.olympiads.historyOfArtOlympiad}"/>
+        </tr>
+        <tr class="firstTr">
+            <td class="firstTd">Technika</td>
+            <td class="firstTd" th:text="${student.grades.designAndTechnology}"/>
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd">Brak danych</td>
+        </tr>
+        <tr class="firstTr">
+            <td class="firstTd">Wychowanie fizyczne</td>
+            <td class="firstTd" th:text="${student.grades.physicalEducationGrade}"/>
+            <td class="firstTd">Brak danych</td>
+            <td class="firstTd">Brak danych</td>
         </tr>
     </table>
 </div>
@@ -161,75 +187,75 @@
         <th class="firstTh">Wartość</th>
         <tr class="firstTr">
             <td class="firstTd">Umiejętność szybkiego liczenia</td>
-            <td class="firstTd" th:text="${extrParam.fastCounting}"/>
+            <td class="firstTd" th:text="${student.extraParameters.fastCounting}"></td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętność szybkiego czytania</td>
-            <td class="firstTd" th:text="${extrParam.fastReading}"/>
+            <td class="firstTd" th:text="${student.extraParameters.fastReading}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętność rozwiązywania problemów</td>
-            <td class="firstTd" th:text="${extrParam.troubleshooting}"/>
+            <td class="firstTd" th:text="${student.extraParameters.troubleshooting}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętność szybkiego zapamiętywania</td>
-            <td class="firstTd" th:text="${extrParam.quickMemorization}"/>
+            <td class="firstTd" th:text="${student.extraParameters.quickMemorization}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętności aktorskie</td>
-            <td class="firstTd" th:text="${extrParam.actingSkills}"/>
+            <td class="firstTd" th:text="${student.extraParameters.actingSkills}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętności wokalne</td>
-            <td class="firstTd" th:text="${extrParam.vocalSkills}"/>
+            <td class="firstTd" th:text="${student.extraParameters.vocalSkills}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętności taneczne</td>
-            <td class="firstTd" th:text="${extrParam.danceSkills}"/>
+            <td class="firstTd" th:text="${student.extraParameters.danceSkills}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętności pisarskie</td>
-            <td class="firstTd" th:text="${extrParam.writingSkills}"/>
+            <td class="firstTd" th:text="${student.extraParameters.writingSkills}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętności fotograficzne</td>
-            <td class="firstTd" th:text="${extrParam.photographicSkills}"/>
+            <td class="firstTd" th:text="${student.extraParameters.photographicSkills}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Zdolności lingwistyczne</td>
-            <td class="firstTd" th:text="${extrParam.linguisticSkills}"/>
+            <td class="firstTd" th:text="${student.extraParameters.linguisticSkills}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętności sportowe/predyspozycje sportowe</td>
-            <td class="firstTd" th:text="${extrParam.sportSkills}"/>
+            <td class="firstTd" th:text="${student.extraParameters.sportSkills}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Wyczynowe uprawianie sportu</td>
-            <td class="firstTd" th:text="${extrParam.extremeSport}"/>
+            <td class="firstTd" th:text="${student.extraParameters.extremeSport}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Sprawność fizyczna</td>
-            <td class="firstTd" th:text="${extrParam.physicalFitness}"/>
+            <td class="firstTd" th:text="${student.extraParameters.physicalFitness}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Wytrzymałość fizyczna</td>
-            <td class="firstTd" th:text="${extrParam.physicalEndurance}"/>
+            <td class="firstTd" th:text="${student.extraParameters.physicalEndurance}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętność pracy na otwartym terenie</td>
-            <td class="firstTd" th:text="${extrParam.workInTheOpenGround}"/>
+            <td class="firstTd" th:text="${student.extraParameters.workInTheOpenGround}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętność posługiwania się mapą</td>
-            <td class="firstTd" th:text="${extrParam.abilityToUseAMap}"/>
+            <td class="firstTd" th:text="${student.extraParameters.abilityToUseAMap}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Zainteresowania biologiczno-przyrodnicze</td>
-            <td class="firstTd" th:text="${extrParam.biologicalAndNaturalInterests}"/>
+            <td class="firstTd" th:text="${student.extraParameters.biologicalAndNaturalInterests}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Zainteresowanie technologią</td>
-            <td class="firstTd" th:text="${extrParam.interestInTechnology}"/>
+            <td class="firstTd" th:text="${student.extraParameters.interestInTechnology}"/>
         </tr>
     </table>
 </div>
@@ -237,7 +263,8 @@
 <div>
     <button class="btnSt" type="button" style="display: block; margin: auto; margin-bottom: 20px">
         <a th:href="@{'/showStudents'}" style="color: black">
-            Lista uczniów</a></button>
+            Lista uczniów</a>
+    </button>
 </div>
 
 

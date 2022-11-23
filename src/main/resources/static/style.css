@@ -52,6 +52,21 @@ h1{
     /*margin: auto;*/
 }
 
+.btnConfirm{
+    display: block;
+    margin: auto;
+    width: 10%;
+    margin-bottom: 10px;
+    margin-top: 50px;
+}
+
+.btnCancle{
+    display: block;
+    margin: auto;
+    width: 10%;
+    margin-bottom: 50px
+}
+
 .commit{
     margin-top: 20px;
     margin-bottom: 20px;

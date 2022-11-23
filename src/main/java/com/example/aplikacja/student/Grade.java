@@ -41,6 +41,7 @@ public class Grade {
     private String geographyGrade;
     private String ITGrade;
     private String physicalEducationGrade;
+    private String designAndTechnology;
     @OneToOne
     private Student student;
 
@@ -49,7 +50,7 @@ public class Grade {
                  String mathGrade, String englishGrade, String otherLanguageGrade,
                  String civicsGrade, String historyGrade, String physicsGrade,
                  String chemistryGrade, String biologyGrade, String geographyGrade,
-                 String ITGrade, String physicalEducationGrade) {
+                 String ITGrade, String physicalEducationGrade, String designAndTechnology ) {
         this.id = id;
         this.averageOfGrades = averageOfGrades;
         this.polishGrade = polishGrade;
@@ -64,6 +65,7 @@ public class Grade {
         this.geographyGrade = geographyGrade;
         this.ITGrade = ITGrade;
         this.physicalEducationGrade = physicalEducationGrade;
+        this.designAndTechnology = designAndTechnology;
     }
 
     public Grade(Student student) {
@@ -74,19 +76,21 @@ public class Grade {
     public String toString() {
         return "Grade{" +
                 "id=" + id +
-                ", averageOfGrades=" + averageOfGrades +
-                ", polishGrade=" + polishGrade +
-                ", mathGrade=" + mathGrade +
-                ", englishGrade=" + englishGrade +
-                ", otherLanguageGrade=" + otherLanguageGrade +
-                ", civicsGrade=" + civicsGrade +
-                ", historyGrade=" + historyGrade +
-                ", physicsGrade=" + physicsGrade +
-                ", chemistryGrade=" + chemistryGrade +
-                ", biologyGrade=" + biologyGrade +
-                ", geographyGrade=" + geographyGrade +
-                ", ITGrade=" + ITGrade +
-                ", physicalEducationGrade=" + physicalEducationGrade +
+                ", averageOfGrades='" + averageOfGrades + '\'' +
+                ", polishGrade='" + polishGrade + '\'' +
+                ", mathGrade='" + mathGrade + '\'' +
+                ", englishGrade='" + englishGrade + '\'' +
+                ", otherLanguageGrade='" + otherLanguageGrade + '\'' +
+                ", civicsGrade='" + civicsGrade + '\'' +
+                ", historyGrade='" + historyGrade + '\'' +
+                ", physicsGrade='" + physicsGrade + '\'' +
+                ", chemistryGrade='" + chemistryGrade + '\'' +
+                ", biologyGrade='" + biologyGrade + '\'' +
+                ", geographyGrade='" + geographyGrade + '\'' +
+                ", ITGrade='" + ITGrade + '\'' +
+                ", physicalEducationGrade='" + physicalEducationGrade + '\'' +
+                ", designAndTechnology='" + designAndTechnology + '\'' +
+                ", student=" + student +
                 '}';
     }
 }

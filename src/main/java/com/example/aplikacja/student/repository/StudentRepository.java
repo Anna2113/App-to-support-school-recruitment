@@ -1,10 +1,13 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.repository;
 
+import com.example.aplikacja.student.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -25,9 +28,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "SET a.enabled = FALSE WHERE a.email = ?1")
     int disableStudent(String email);
 
-
-
-
+    @Query("SELECT a FROM Student a WHERE a.lastName = ?1")
+    List<Student> getStudentBySurname(String surname);
 
 
 }

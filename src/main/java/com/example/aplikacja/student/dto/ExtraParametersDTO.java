@@ -1,5 +1,6 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.dto;
 
+import com.example.aplikacja.student.enums.Ability;
 import lombok.Data;
 
 @Data
@@ -11,7 +12,7 @@ public class ExtraParametersDTO {
     private Ability  actingSkills;
     private Ability  vocalSkills;
     private Ability  danceSkills;
-    private Ability  writingSkills;
+    private Ability writingSkills;
     private Ability  photographicSkills;
     private Ability  linguisticSkills;
     private Ability  sportSkills; //umiejętności sportowe

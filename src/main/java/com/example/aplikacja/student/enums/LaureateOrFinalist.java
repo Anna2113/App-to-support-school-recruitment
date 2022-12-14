@@ -1,4 +1,4 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.enums;
 
 import lombok.Getter;
 

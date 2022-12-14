@@ -1,10 +1,9 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.entity;
 
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter

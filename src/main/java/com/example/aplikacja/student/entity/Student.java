@@ -1,12 +1,11 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.entity;
 
 import com.example.aplikacja.appuser.AppUserRole;
+import com.example.aplikacja.student.enums.Sex;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 
@@ -64,7 +63,6 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-
         this.dateOfBirth = dateOfBirth;
         this.appUserRole = appUserRole;
     }
@@ -81,5 +79,4 @@ public class Student {
                 ", czy mówi w języku polskim =" + languagePolish +
                 '}';
     }
-
 }

@@ -1,5 +1,6 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.dto;
 
+import com.example.aplikacja.student.enums.LaureateOrFinalist;
 import lombok.Data;
 
 @Data

@@ -1,6 +1,9 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.controller;
 
 import com.example.aplikacja.appuser.AppUserService;
+import com.example.aplikacja.student.dto.*;
+import com.example.aplikacja.student.entity.*;
+import com.example.aplikacja.student.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +27,11 @@ public class StudentController {
         return "/student/student";
     }
 
-    @GetMapping("/addClass")
-    public String addClass(Model model) {
-        model.addAttribute(new KlasaDTO());
-        return "/class/addClass";
-    }
+//    @GetMapping("/addClass")
+//    public String addClass(Model model) {
+//        model.addAttribute(new KlasaDTO());
+//        return "/class/addClass";
+//    }
 
     @PostMapping("/student/student")
     public String add(StudentDTO student, ExamDTO exam,
@@ -53,23 +56,23 @@ public class StudentController {
         }
     }
 
-    @PostMapping("/class/addClass")
-    public String add(KlasaDTO klasa, Model model, Principal principal) {
-        if (principal == null) {
-            return "userIsLogout";
-        } else {
-            Klasa classWithSymbol = studentService.findClassBySymbol(klasa.getSymbol()).orElse(null);
-            if (classWithSymbol == null) {
-                studentService.addClass(klasa);
-                model.addAttribute("addedClass",
-                        "Klasa została dodana!");
-                return "/class/addClass";
-            } else {
-                model.addAttribute("emailExist", "Taka klasa już istnieje");
-                return "/class/addClass";
-            }
-        }
-    }
+//    @PostMapping("/class/addClass")
+//    public String add(KlasaDTO klasa, Model model, Principal principal) {
+//        if (principal == null) {
+//            return "userIsLogout";
+//        } else {
+//            Klasa classWithSymbol = studentService.findClassBySymbol(klasa.getSymbol()).orElse(null);
+//            if (classWithSymbol == null) {
+//                studentService.addClass(klasa);
+//                model.addAttribute("addedClass",
+//                        "Klasa została dodana!");
+//                return "/class/addClass";
+//            } else {
+//                model.addAttribute("emailExist", "Taka klasa już istnieje");
+//                return "/class/addClass";
+//            }
+//        }
+//    }
 
 
     @GetMapping("/showStudents")
@@ -78,28 +81,20 @@ public class StudentController {
         return "/thanksForSignIn";
     }
 
-    @GetMapping("/listOfClass")
-    public String showList(Model model) {
-        model.addAttribute("allClass", studentService.getAllKlass());
-        return "/listOfClass";
-    }
+//    @GetMapping("/listOfClass")
+//    public String showList(Model model) {
+//        model.addAttribute("allClass", studentService.getAllKlass());
+//        return "/listOfClass";
+//    }
 
-    @GetMapping("/confirmDelete/{id}")
-    private String confirm(@PathVariable("id") Long id, Model model, Principal principal) {
-        Student student = studentService.findUserByEmail(principal.getName()).orElse(new Student());
-        model.addAttribute("student", student.getId());
-        model.addAttribute("id", id);
 
-        return "/student/confirmDelete";
-    }
-
-    @GetMapping("/changeClass")
-    private String changeClass(Model model, Principal principal) {
-        Student student = studentService.findUserByEmail(principal.getName()).orElse(new Student());
-        model.addAttribute("student", student);
-
-        return "/student/changeClass";
-    }
+//    @GetMapping("/changeClass")
+//    private String changeClass(Model model, Principal principal) {
+//        Student student = studentService.findUserByEmail(principal.getName()).orElse(new Student());
+//        model.addAttribute("student", student);
+//
+//        return "/student/changeClass";
+//    }
 
     @GetMapping("/aboutStudent/{id}")
     public String showMoreAboutStudent(@PathVariable("id") Long id, Model model, Principal principal) {
@@ -142,6 +137,15 @@ public class StudentController {
         return "/student/updateStudent";
     }
 
+    @GetMapping("/confirmDelete/{id}")
+    private String confirm(@PathVariable("id") Long id, Model model, Principal principal) {
+        Student student = studentService.findUserByEmail(principal.getName()).orElse(new Student());
+        model.addAttribute("student", student.getId());
+        model.addAttribute("id", id);
+
+        return "/student/confirmDelete";
+    }
+
     @GetMapping("/delete/{id}")
     public String deleteStudent(@PathVariable("id") Long id, Model model, Principal principal) {
         if (principal == null) {
@@ -154,4 +158,18 @@ public class StudentController {
         }
     }
 
+//    @GetMapping("/findStudentBySurname")
+//    private String findStudentBySurname(Principal principal, Model model, String surname) {
+//        if (principal == null) {
+//            return "userIsLogout";
+//        } else {
+//            Student student = studentService.findUserByEmail(principal.getName()).orElse(null);
+//            model.addAttribute("students", studentService.getStudentsSurname());
+//            model.addAttribute("student", studentService.findStudentBySurname(surname));
+//            model.addAttribute("notFindStudent", "Sorry... Student not find try again.");
+//            model.addAttribute(student);
+//
+//            return "/thanksForSignIn";
+//        }
+//    }
 }

@@ -1,5 +1,8 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.service;
 
+import com.example.aplikacja.student.dto.*;
+import com.example.aplikacja.student.entity.*;
+import com.example.aplikacja.student.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -23,7 +28,7 @@ public class StudentService implements UserDetailsService {
     private final GradeRepository gradeRepository;
     private final OlympiadRepository olympiadRepository;
     private final ExtraParametersRepository extraParameters;
-    private final KlasaRepository klassRepository;
+//    private final KlasaRepository klassRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email)
@@ -48,10 +53,14 @@ public class StudentService implements UserDetailsService {
 
     public Optional<ExtraParameters> findExParamById(Long id){return extraParameters.findById(id);}
 
-    public Optional<Klasa> findClassBySymbol(String symbol){return klassRepository.findBySymbol(symbol);}
+//    public Optional<Klasa> findClassBySymbol(String symbol){return klassRepository.findBySymbol(symbol);}
+
+//    public String addPoints(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olympiad,
+//                            ExtraParametersDTO extparam, )
+
 
     public Student addStudent(StudentDTO student, ExamDTO exam
-                              ,GradeDTO grade, OlympiadDTO olymp
+                              , GradeDTO grade, OlympiadDTO olymp
                               , ExtraParametersDTO extparam
     ) {
         Student studentToAdd = findUserByEmail(student.getEmail()).orElse(null);
@@ -151,21 +160,21 @@ public class StudentService implements UserDetailsService {
         student.setExtraParameters(extpar);
     }
 
-    public Klasa addClass(KlasaDTO cl){
-        Klasa klasaToAdd = findClassBySymbol(cl.getSymbol()).orElse(null);
-        if(klasaToAdd == null){
-            Klasa klasa1 = new Klasa();
-            klasa1.setNameOfClass(cl.getNameOfClass());
-            klasa1.setSymbol(cl.getSymbol());
-            klasa1.setLiczba(cl.getLiczba());
-
-            klasa1 = klassRepository.save(klasa1);
-
-            return klasa1;
-        }else{
-            return klasaToAdd;
-        }
-    }
+//    public Klasa addClass(KlasaDTO cl){
+//        Klasa klasaToAdd = findClassBySymbol(cl.getSymbol()).orElse(null);
+//        if(klasaToAdd == null){
+//            Klasa klasa1 = new Klasa();
+//            klasa1.setNameOfClass(cl.getNameOfClass());
+//            klasa1.setSymbol(cl.getSymbol());
+//            klasa1.setLiczba(cl.getLiczba());
+//
+//            klasa1 = klassRepository.save(klasa1);
+//
+//            return klasa1;
+//        }else{
+//            return klasaToAdd;
+//        }
+//    }
 
 
     public Optional<Student> findUserByEmail(String email) {
@@ -176,9 +185,9 @@ public class StudentService implements UserDetailsService {
         return studentRepository.findAll();
     }
 
-    public List<Klasa> getAllKlass(){
-        return klassRepository.findAll();
-    }
+//    public List<Klasa> getAllKlass(){
+//        return klassRepository.findAll();
+//    }
 
 
     public Student updateStudent(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olymp,
@@ -288,6 +297,16 @@ public class StudentService implements UserDetailsService {
     public void deleteOurStudent(Student student){
         studentRepository.delete(student);
     }
+
+//    public Set<String> getStudentsSurname(){
+//        return studentRepository.findAll().stream()
+//                .map(Student::getLastName)
+//                .collect(Collectors.toSet());
+//    }
+//
+//    public List<Student> findStudentBySurname(String surname){
+//        return studentRepository.getStudentBySurname(surname);
+//    }
 
 }
 

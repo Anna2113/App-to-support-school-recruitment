@@ -1,5 +1,6 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.entity;
 
+import com.example.aplikacja.student.enums.LaureateOrFinalist;
 import lombok.*;
 
 import javax.persistence.*;

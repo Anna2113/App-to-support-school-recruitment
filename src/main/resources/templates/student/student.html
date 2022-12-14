@@ -30,12 +30,12 @@
     <div class="row">
         <div class="row" style="display: block;margin: auto; margin-top: 25px">
             <div>
-                <a class="btn-mybutton" data-toggle="collapse" href="#dateOfStudent" role="button">Informacje o
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#dateOfStudent" role="button">Informacje o
                     uczniu</a>
-                <a class="btn-mybutton" data-toggle="collapse" href="#result" role="button">Egzaminy</a>
-                <a class="btn-mybutton" data-toggle="collapse" href="#grades" role="button">Oceny</a>
-                <a class="btn-mybutton" data-toggle="collapse" href="#olympiad" role="button">Olimpiady</a>
-                <a class="btn-mybutton" data-toggle="collapse" href="#other" role="button">Dodatkowe parametry</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#result" role="button">Egzaminy</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#grades" role="button">Oceny</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#olympiad" role="button">Olimpiady</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#other" role="button">Dodatkowe parametry</a>
                 <form th:action="@{/student/student}" method="post">
                     <input name="_method" type="hidden" value="post"/>
                     <input type="hidden" name="id">
@@ -117,7 +117,7 @@
                                     <td>
                                         <select name="sex" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="sexOpt : ${T(com.example.aplikacja.student.Sex).values()}"
+                                            <option th:each="sexOpt : ${T(com.example.aplikacja.student.enums.Sex).values()}"
                                                     th:text="${sexOpt.label}" th:value="${sexOpt}"></option>
                                         </select>
                                     </td>
@@ -127,7 +127,7 @@
                                     <td>
                                         <select name="align" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="alignOpt : ${T(com.example.aplikacja.student.Align).values()}"
+                                            <option th:each="alignOpt : ${T(com.example.aplikacja.student.enums.Align).values()}"
                                                     th:text="${alignOpt.label}"
                                                     th:value="${alignOpt.value}"></option>
                                         </select>
@@ -138,7 +138,7 @@
                                     <td>
                                         <select name="languagePolish" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="languageOpt : ${T(com.example.aplikacja.student.LanguagePolish).values()}"
+                                            <option th:each="languageOpt : ${T(com.example.aplikacja.student.enums.LanguagePolish).values()}"
                                                     th:text="${languageOpt.label}"
                                                     th:value="${languageOpt.value}"></option>
                                         </select>
@@ -287,7 +287,7 @@
                                     <th>Język polski</th>
                                     <td>
                                         <input type="radio" name="polishOlympiad" id="polishRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -301,7 +301,7 @@
                                     <th>Matematyka</th>
                                     <td>
                                         <input type="radio" name="mathOlympiad" id="mathRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -315,7 +315,7 @@
                                     <th>Język angielski</th>
                                     <td>
                                         <input type="radio" name="englishOlympiad" id="englishRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -329,7 +329,7 @@
                                     <th>Język niemiecki</th>
                                     <td>
                                         <input type="radio" name="germanOlympiad" id="deutschRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -343,7 +343,7 @@
                                     <th>Język francuski</th>
                                     <td>
                                         <input type="radio" name="frenchOlympiad" id="frenchRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -357,7 +357,7 @@
                                     <th>Język hiszpański</th>
                                     <td>
                                         <input type="radio" name="spanishOlympiad" id="spanishRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -371,7 +371,7 @@
                                     <th>Język włoski</th>
                                     <td>
                                         <input type="radio" name="italianOlympiad" id="italianRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -385,7 +385,7 @@
                                     <th>Historia</th>
                                     <td>
                                         <input type="radio" name="historyOlympiad" id="historyRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -399,7 +399,7 @@
                                     <th>Wiedza o społeczeństwie</th>
                                     <td>
                                         <input type="radio" name="civicsOlympiad" id="wosRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -413,7 +413,7 @@
                                     <th>Biologia</th>
                                     <td>
                                         <input type="radio" name="biologyOlympiad" id="biologyRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -427,7 +427,7 @@
                                     <th>Chemia</th>
                                     <td>
                                         <input type="radio" name="chemistryOlympiad" id="chemistryRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -441,7 +441,7 @@
                                     <th>Fizyka</th>
                                     <td>
                                         <input type="radio" name="physicsOlympiad" id="physicsRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -455,7 +455,7 @@
                                     <th>Geografia</th>
                                     <td>
                                         <input type="radio" name="geographyOlympiad" id="geographyRadioL" class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -470,7 +470,7 @@
                                     <td>
                                         <input type="radio" name="historyOfMusicOlympiad" id="historyOfMusicRadioL"
                                                class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -486,7 +486,7 @@
                                     <td>
                                         <input type="radio" name="historyOfArtOlympiad" id="historyOfArtRadioL"
                                                class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -502,7 +502,7 @@
                                     <td>
                                         <input type="radio" name="ITOlympiad" id="ITOlympiadL"
                                                class="radio"
-                                               th:each="olympOpt : ${T(com.example.aplikacja.student.LaureateOrFinalist).values()}"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
                                                th:text="${olympOpt.label}" th:value="${olympOpt}">
                                     </td>
                                     <!--                                    <td>-->
@@ -525,7 +525,7 @@
                                     <td>
                                         <select name="fastCounting">
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -535,7 +535,7 @@
                                     <td>
                                         <select name="fastReading" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -545,7 +545,7 @@
                                     <td>
                                         <select name="troubleshooting" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -555,7 +555,7 @@
                                     <td>
                                         <select name="quickMemorization" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -565,7 +565,7 @@
                                     <td>
                                         <select name="actingSkills" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -575,7 +575,7 @@
                                     <td>
                                         <select name="vocalSkills" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -585,7 +585,7 @@
                                     <td>
                                         <select name="danceSkills" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -595,7 +595,7 @@
                                     <td>
                                         <select name="writingSkills" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -605,7 +605,7 @@
                                     <td>
                                         <select name="photographicSkills" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -615,7 +615,7 @@
                                     <td>
                                         <select name="linguisticSkills" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -625,7 +625,7 @@
                                     <td>
                                         <select name="sportSkills" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -635,7 +635,7 @@
                                     <td>
                                         <select name="extremeSport" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -645,7 +645,7 @@
                                     <td>
                                         <select name="physicalFitness" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -655,7 +655,7 @@
                                     <td>
                                         <select name="physicalEndurance" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -665,7 +665,7 @@
                                     <td>
                                         <select name="workInTheOpenGround" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -675,7 +675,7 @@
                                     <td>
                                         <select name="abilityToUseAMap" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -685,7 +685,7 @@
                                     <td>
                                         <select name="biologicalAndNaturalInterests" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>
@@ -695,7 +695,7 @@
                                     <td>
                                         <select name="interestInTechnology" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.Ability).values()}"
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
                                         </select>
                                     </td>

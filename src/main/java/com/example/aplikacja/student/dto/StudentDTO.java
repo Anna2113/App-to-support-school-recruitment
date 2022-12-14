@@ -1,12 +1,8 @@
-package com.example.aplikacja.student;
+package com.example.aplikacja.student.dto;
 
-import com.example.aplikacja.appuser.AppUserRole;
+import com.example.aplikacja.student.entity.Exam;
+import com.example.aplikacja.student.enums.Sex;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 @Data
 public class StudentDTO {

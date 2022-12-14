@@ -1,6 +1,5 @@
 package com.example.aplikacja.appuser;
 
-import com.example.aplikacja.student.Student;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,18 +1,13 @@
 package com.example.aplikacja.appuser;
 
 
-import com.example.aplikacja.student.Student;
-import com.example.aplikacja.student.StudentService;
+import com.example.aplikacja.student.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -60,19 +55,5 @@ public class UserController {
             return "thanksForSignIn";
         }
     }
-
-//    @GetMapping("/adminPanel/allUsers")
-//    public String adminPanelAllUsers(Model model, Principal principal) {
-//        if (principal == null) {
-//            return "userIsLogout";
-//        } else {
-//            List<AppUser> allUsers = new ArrayList<>();
-//            allUsers = appUserService.getAllUsers();
-//            AppUser appUser = appUserService.findUserByEmail(principal.getName()).orElse(null);
-//            model.addAttribute(appUser);
-//            model.addAttribute("allUsers", allUsers);
-//            return "/adminPanel/allUsers";
-//        }
-//    }
 
 }

@@ -55,8 +55,14 @@ public class StudentService implements UserDetailsService {
 
 //    public Optional<Klasa> findClassBySymbol(String symbol){return klassRepository.findBySymbol(symbol);}
 
-//    public String addPoints(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olympiad,
-//                            ExtraParametersDTO extparam, )
+    public String addPoints(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olympiad,
+                            ExtraParametersDTO extparam){
+
+
+
+
+        return "";
+    }
 
 
     public Student addStudent(StudentDTO student, ExamDTO exam
@@ -149,12 +155,17 @@ public class StudentService implements UserDetailsService {
         extpar.setWritingSkills(dto.getWritingSkills());
         extpar.setPhotographicSkills(dto.getPhotographicSkills());
         extpar.setLinguisticSkills(dto.getLinguisticSkills());
+        extpar.setLanguageCertificate(dto.getLanguageCertificate());
+        extpar.setInterestInPolitics(dto.getInterestInPolitics());
+        extpar.setCommunicationSkills(dto.getCommunicationSkills());
         extpar.setSportSkills(dto.getSportSkills());
         extpar.setExtremeSport(dto.getExtremeSport());
         extpar.setPhysicalFitness(dto.getPhysicalFitness());
         extpar.setPhysicalEndurance(dto.getPhysicalEndurance());
         extpar.setWorkInTheOpenGround(dto.getWorkInTheOpenGround());
         extpar.setAbilityToUseAMap(dto.getAbilityToUseAMap());
+        extpar.setPeriodicTable(dto.getPeriodicTable());
+        extpar.setChemicalExperiments(dto.getChemicalExperiments());
         extpar.setBiologicalAndNaturalInterests(dto.getBiologicalAndNaturalInterests());
         extpar.setInterestInTechnology(dto.getInterestInTechnology());
         student.setExtraParameters(extpar);
@@ -275,12 +286,17 @@ public class StudentService implements UserDetailsService {
         extpar.setWritingSkills(dto.getWritingSkills());
         extpar.setPhotographicSkills(dto.getPhotographicSkills());
         extpar.setLinguisticSkills(dto.getLinguisticSkills());
+        extpar.setLanguageCertificate(dto.getLanguageCertificate());
+        extpar.setInterestInPolitics(dto.getInterestInPolitics());
+        extpar.setCommunicationSkills(dto.getCommunicationSkills());
         extpar.setSportSkills(dto.getSportSkills());
         extpar.setExtremeSport(dto.getExtremeSport());
         extpar.setPhysicalFitness(dto.getPhysicalFitness());
         extpar.setPhysicalEndurance(dto.getPhysicalEndurance());
         extpar.setWorkInTheOpenGround(dto.getWorkInTheOpenGround());
         extpar.setAbilityToUseAMap(dto.getAbilityToUseAMap());
+        extpar.setPeriodicTable(dto.getPeriodicTable());
+        extpar.setChemicalExperiments(dto.getChemicalExperiments());
         extpar.setBiologicalAndNaturalInterests(dto.getBiologicalAndNaturalInterests());
         extpar.setInterestInTechnology(dto.getInterestInTechnology());
         student.setExtraParameters(extpar);

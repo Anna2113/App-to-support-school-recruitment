@@ -621,6 +621,36 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>Posiadanie certyfikatu językowego</th>
+                                    <td>
+                                        <select name="languageCertificate" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowanie polityką</th>
+                                    <td>
+                                        <select name="interestInPolitics" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności komunikacyjne</th>
+                                    <td>
+                                        <select name="communicationSkills" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>Umiejętności sportowe/predyspozycje sportowe</th>
                                     <td>
                                         <select name="sportSkills" required>
@@ -674,6 +704,27 @@
                                     <th>Umiejętność posługiwania się mapą</th>
                                     <td>
                                         <select name="abilityToUseAMap" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                <tr>
+                                    <th>Dobra znajomość tablicy Mendelejewa</th>
+                                    <td>
+                                        <select name="periodicTable" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tworzenie własnych doświadczeń chemicznych</th>
+                                    <td>
+                                        <select name="chemicalExperiments" required>
                                             <option value="">Wybierz</option>
                                             <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
                                                     th:text="${abilityOpt.label}" th:value="${abilityOpt}"></option>

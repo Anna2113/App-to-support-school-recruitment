@@ -46,6 +46,7 @@ public class Student {
     private Boolean languagePolish;
     private Boolean locked = false;
     private Boolean enabled = true;
+    private Double points;
     //    private String className;
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Exam exams;
@@ -58,25 +59,36 @@ public class Student {
 
 
     public Student(Long id, String firstName,
-                   String lastName, String email, LocalDate dateOfBirth, List<AppUserRole> appUserRole) {
+                   String lastName, String email, LocalDate dateOfBirth,
+                   List<AppUserRole> appUserRole, Double points) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.appUserRole = appUserRole;
+        this.points = points;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "id =" + id +
-                ", imie ='" + firstName +
-                ", nazwisko ='" + lastName +
-                ", data urodzenia =" + dateOfBirth +
-                ", płeć =" + sex +
-                ", cudzoziemiec =" + align +
-                ", czy mówi w języku polskim =" + languagePolish +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", appUserRole=" + appUserRole +
+                ", dateOfBirth=" + dateOfBirth +
+                ", sex=" + sex +
+                ", align=" + align +
+                ", languagePolish=" + languagePolish +
+                ", locked=" + locked +
+                ", enabled=" + enabled +
+                ", points=" + points +
+                ", exams=" + exams +
+                ", grades=" + grades +
+                ", olympiads=" + olympiads +
+                ", extraParameters=" + extraParameters +
                 '}';
     }
 }

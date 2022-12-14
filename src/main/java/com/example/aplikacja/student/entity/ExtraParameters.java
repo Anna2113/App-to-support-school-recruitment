@@ -48,6 +48,12 @@ public class ExtraParameters {
     @Enumerated(EnumType.STRING)
     private Ability linguisticSkills;
     @Enumerated(EnumType.STRING)
+    private Ability languageCertificate;
+    @Enumerated(EnumType.STRING)
+    private Ability interestInPolitics;
+    @Enumerated(EnumType.STRING)
+    private Ability communicationSkills;
+    @Enumerated(EnumType.STRING)
     private Ability sportSkills; //umiejętności sportowe
     @Enumerated(EnumType.STRING)
     private Ability extremeSport; //sport wyczynowy
@@ -60,22 +66,24 @@ public class ExtraParameters {
     @Enumerated(EnumType.STRING)
     private Ability abilityToUseAMap; //posługiwanie się mapą
     @Enumerated(EnumType.STRING)
+    private Ability periodicTable; //układ okresowy pierwiastków
+    @Enumerated(EnumType.STRING)
+    private Ability chemicalExperiments;
+    @Enumerated(EnumType.STRING)
     private Ability biologicalAndNaturalInterests;
     @Enumerated(EnumType.STRING)
     private Ability interestInTechnology;
     @OneToOne
     private Student student;
 
-    public ExtraParameters(Long id, Ability fastCounting,
-                           Ability fastReading, Ability troubleshooting,
-                           Ability quickMemorization, Ability actingSkills,
-                           Ability vocalSkills, Ability danceSkills,
-                           Ability writingSkills, Ability photographicSkills,
-                           Ability linguisticSkills, Ability sportSkills,
-                           Ability extremeSport, Ability physicalFitness,
-                           Ability physicalEndurance, Ability workInTheOpenGround,
-                           Ability abilityToUseAMap,
-                           Ability biologicalAndNaturalInterests,
+    public ExtraParameters(Long id, Ability fastCounting, Ability fastReading, Ability troubleshooting,
+                           Ability quickMemorization, Ability actingSkills, Ability vocalSkills,
+                           Ability danceSkills, Ability writingSkills, Ability photographicSkills,
+                           Ability linguisticSkills, Ability languageCertificate,
+                           Ability interestInPolitics, Ability communicationSkills, Ability sportSkills,
+                           Ability extremeSport, Ability physicalFitness, Ability physicalEndurance,
+                           Ability workInTheOpenGround, Ability abilityToUseAMap, Ability periodicTable,
+                           Ability chemicalExperiments, Ability biologicalAndNaturalInterests,
                            Ability interestInTechnology, Student student) {
         this.id = id;
         this.fastCounting = fastCounting;
@@ -88,12 +96,17 @@ public class ExtraParameters {
         this.writingSkills = writingSkills;
         this.photographicSkills = photographicSkills;
         this.linguisticSkills = linguisticSkills;
+        this.languageCertificate = languageCertificate;
+        this.interestInPolitics = interestInPolitics;
+        this.communicationSkills = communicationSkills;
         this.sportSkills = sportSkills;
         this.extremeSport = extremeSport;
         this.physicalFitness = physicalFitness;
         this.physicalEndurance = physicalEndurance;
         this.workInTheOpenGround = workInTheOpenGround;
         this.abilityToUseAMap = abilityToUseAMap;
+        this.periodicTable = periodicTable;
+        this.chemicalExperiments = chemicalExperiments;
         this.biologicalAndNaturalInterests = biologicalAndNaturalInterests;
         this.interestInTechnology = interestInTechnology;
         this.student = student;

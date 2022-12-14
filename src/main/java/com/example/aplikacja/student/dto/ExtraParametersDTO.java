@@ -15,12 +15,17 @@ public class ExtraParametersDTO {
     private Ability writingSkills;
     private Ability  photographicSkills;
     private Ability  linguisticSkills;
+    private Ability languageCertificate;
+    private Ability interestInPolitics;
+    private Ability communicationSkills;
     private Ability  sportSkills; //umiejętności sportowe
     private Ability  extremeSport; //sport wyczynowy
     private Ability  physicalFitness; //sprawność fizyczna
     private Ability  physicalEndurance; //wytrzymałość fizyczna
     private Ability  workInTheOpenGround; // praca na otwartym terenie
     private Ability  abilityToUseAMap; //posługiwanie się mapą
+    private Ability periodicTable;
+    private Ability chemicalExperiments;
     private Ability  biologicalAndNaturalInterests;
     private Ability  interestInTechnology;
 }

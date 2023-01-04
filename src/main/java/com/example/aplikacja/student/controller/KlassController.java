@@ -1,0 +1,208 @@
+package com.example.aplikacja.student.controller;
+
+import com.example.aplikacja.student.dto.*;
+import com.example.aplikacja.student.entity.*;
+import com.example.aplikacja.student.service.KlassService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import java.security.Principal;
+
+@Controller
+public class KlassController {
+
+    private KlassService klassService;
+
+    public KlassController(KlassService klassService) {
+        this.klassService = klassService;
+    }
+
+    @GetMapping("/addClass")
+    public String addClass(Model model) {
+        model.addAttribute(new KlasaDTO());
+        return "/class/addClass";
+    }
+
+    @PostMapping("/class/addClass")
+    public String add(KlasaDTO klasa, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Klasa classWithSymbol = klassService.findClassBySymbol(klasa.getSymbol()).orElse(null);
+            if (classWithSymbol == null) {
+                klassService.addClass(klasa);
+                model.addAttribute("addedClass",
+                        "Klasa została dodana!");
+                return "/class/addClass";
+            } else {
+                model.addAttribute("emailExist", "Taka klasa już istnieje");
+                return "/class/addClass";
+            }
+        }
+    }
+
+    @GetMapping("/listOfClass")
+    public String showList(Model model) {
+        model.addAttribute("allClass", klassService.getAllKlass());
+        return "/listOfClass";
+    }
+
+//    @GetMapping("/moreAboutClass")
+//    public String showClass(Klasa klasa, Model model, Principal principal) {
+//        Klasa kl = klassService.findClassBySymbol(principal.getName()).orElse(null);
+//        model.addAttribute(klasa);
+//        model.addAttribute("klasa", kl);
+//        return "/class/moreAboutClass";
+//    }
+
+    @GetMapping("/changeClass")
+    private String changeClass(Model model, Principal principal) {
+        Student student = klassService.findUserByEmail(principal.getName()).orElse(new Student());
+        model.addAttribute("student", student);
+
+        return "/student/changeClass";
+    }
+
+    @GetMapping("/aboutClass/{id}")
+    public String showMoreAboutStudent(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Klasa klasa = klassService.findClassById(id).orElse(null);
+            model.addAttribute("klasa", klasa);
+
+            return "/class/moreAboutClass";
+        }
+    }
+
+    @GetMapping("/countAvg/{id}")
+    public String points(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Klasa klasa = klassService.findClassById(id).orElse(null);
+            klassService.countParameters(klasa);
+            model.addAttribute("klasa", klasa);
+
+            return "/class/moreAboutClass";
+        }
+    }
+
+//    @GetMapping("/countMinAvg/{id}")
+//    public String averageKier(@PathVariable("id") Long id, Model model, Principal principal) {
+//        if (principal == null) {
+//            return "userIsLogout";
+//        } else {
+//            KlasaDTO klasa = klassService.findClassDTOById(id).orElse(null);
+//            WeightOfGradeDTO weight = klassService.findWeightById(id).orElse(null);
+//            klassService.minSrKier(klasa, weight);
+//            model.addAttribute("klasa", klasa);
+////            model.addAttribute(new KlasaDTO());
+////            model.addAttribute(new WeightOfGradeDTO());
+//
+//            return "/class/moreAboutClass";
+//        }
+//    }
+
+//    @PutMapping("/countMinAvgSr")
+//    public String makeCountAverageKier(Klasa klasa, WeightOfGradeDTO weight,
+//                                       Model model) {
+//        Klasa newClass = klassService.minSrKier(klasa, weight);
+//        if (klasa != null) {
+//            model.addAttribute("klasa", newClass);
+//            return "/class/moreAboutClass";
+//        } else {
+//            return "/class/moreAboutClass";
+//        }
+//    }
+
+
+    @GetMapping("/updateClass/{id}")
+    public String updateClass(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Klasa klasa = klassService.findClassById(id).orElse(null);
+            model.addAttribute("klasa", klasa);
+            model.addAttribute(new KlasaDTO());
+            model.addAttribute(new WeightOfGradeDTO());
+            return "/class/updateClass";
+        }
+    }
+
+    @PutMapping("/changeClass")
+    public String makeUpdateClass(KlasaDTO klasa, Model model, WeightOfGradeDTO wog) {
+        Klasa newClass = klassService.updateKlasa(klasa);
+        Klasa newClassSubject = klassService.updateSubjectOfKlass(klasa, wog);
+        Klasa newClassSkills = klassService.updateSkillsOfKlass(klasa);
+        Klasa newParams = klassService.addNewParameters(klasa);
+        if (klasa != null) {
+            model.addAttribute("klasa", newClass);
+            model.addAttribute("subject", newClassSubject);
+            model.addAttribute("skills", newClassSkills);
+            model.addAttribute("params", newParams);
+            model.addAttribute("updateClass",
+                    "Nastąpiła aktualizacja!");
+            return "/class/updateClass";
+        } else {
+            model.addAttribute("errorClass",
+                    "Wystąpił błąd podczas aktualizacji");
+            return "/class/updateClass";
+        }
+    }
+
+    @GetMapping("/confirmDeleteClass/{id}")
+    private String confirm(@PathVariable("id") Long id, Model model, Principal principal) {
+        Klasa klasa = klassService.findClassBySymbol(principal.getName()).orElse(new Klasa());
+        model.addAttribute("klasa", klasa.getId());
+        model.addAttribute("id", id);
+
+        return "/class/confirmDeleteClass";
+    }
+
+    @GetMapping("/deleteClass/{id}")
+    public String deleteClass(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Klasa klasa = klassService.findClassById(id).orElse(null);
+            klassService.deleteOurClass(klasa);
+            model.addAttribute("allClass", klassService.getAllKlass());
+            return "/listOfClass";
+        }
+    }
+
+
+    @GetMapping("/enterParameters/{id}")
+    public String parameters(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Klasa klasa = klassService.findClassById(id).orElse(null);
+            model.addAttribute(klasa);
+            model.addAttribute("klasa", klasa);
+            return "/class/parametersOfClass";
+        }
+    }
+
+    @PutMapping("/addParameters")
+    public String addNewParam(KlasaDTO klasa, Model model) {
+        Klasa newParams = klassService.addNewParameters(klasa);
+        if (klasa != null) {
+            model.addAttribute("params", newParams);
+            model.addAttribute("updateClass",
+                    "Nastąpiła aktualizacja!");
+            return "/class/parametersOfClass";
+        } else {
+            model.addAttribute("errorClass",
+                    "Wystąpił błąd podczas aktualizacji");
+            return "/class/parametersOfClass";
+        }
+    }
+
+
+}

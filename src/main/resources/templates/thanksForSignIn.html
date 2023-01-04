@@ -96,14 +96,16 @@
             <th class="firstTh">Imie</th>
             <th class="firstTh">Nazwisko</th>
             <th class="firstTh">Rocznik</th>
+            <th class="firstTh">Płeć</th>
             <th class="firstTh">Pochodzenie</th>
-            <th class="firstTh">Język</th>
+            <th class="firstTh">Język polski</th>
             <th class="firstTh">Więcje</th>
             <!--            <th class="firstTh">Klasa</th>-->
             <tr th:each="student: ${allStudents}" class="firstTr">
                 <td class="firstTd" th:text="${student.firstName}"/>
                 <td class="firstTd" th:text="${student.lastName}"/>
                 <td class="firstTd" th:text="${student.dateOfBirth}"/>
+                <td class="firstTd" th:text="${student.sex}"/>
                 <td class="firstTd" th:text="${student.align}"/>
                 <td class="firstTd" th:text="${student.languagePolish}"/>
                 <td class="firstTd">
@@ -122,9 +124,7 @@
     <p>Zaznaczyć "brak" jako default</p>
     <p>Poprawić nieścisłości językowe.</p>
     <p>Dodać wyszukiwanie ucznia po nazwisku i filtracje po roczniku</p>
-    <p>Dodać komunikat po aktualizacji ucznia.</p>
-    <p>Zmienić wyświetlanie pochodzenia i języka</p>
-    <p>Poprawć edycję w nazwie klasy i symbolu klasy, bo nie działa</p>
+    <p>Poprawić edycję radiobuttonów przy uczniu</p>
     <p>Przygotować algorytm wyliczania punktów</p>
     <p>Przygotować algorytm klasyfikacji</p>
 

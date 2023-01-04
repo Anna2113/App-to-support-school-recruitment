@@ -44,8 +44,24 @@
             <td class="firstTd" th:text="${student.lastName}"/>
             <td class="firstTd" th:text="${student.dateOfBirth}"/>
             <td class="firstTd" th:text="${student.sex}"/>
-            <!--            <td class="firstTd" th:text="${student.align}"/>-->
-            <!--            <td class="firstTd" th:text="${student.languagePolish}"/>-->
+        </tr>
+    </table>
+</div>
+<h2 style="text-align: center">Liczba zdobytych punktów podczas rekrutacji</h2>
+<div class="tabelka">
+    <table class="table">
+        <th class="firstTh">Punkty</th>
+        <th class="firstTh">Policz</th>
+        <tr>
+            <td class="firstTd" th:text="${student.points}"/>
+            <td class="firstTd">
+                <button class="btnSt">
+                    <a th:href="@{'/countPoints/' + ${student.id}}" style="color: black">Policz punkty</a>
+                </button>
+                <!--                <button class="btnSt">-->
+                <!--                    <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>-->
+                <!--                </button>-->
+            </td>
         </tr>
     </table>
 </div>

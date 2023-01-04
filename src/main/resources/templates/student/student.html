@@ -47,7 +47,7 @@
                                     <th>Imie:</th>
                                     <td>
                                         <input type="text" pattern="[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]{1,32}"
-                                               name="firstName">
+                                               name="firstName" required>
                                     </td>
                                 </tr>
                                 <tr>
@@ -129,7 +129,7 @@
                                             <option value="">Wybierz</option>
                                             <option th:each="alignOpt : ${T(com.example.aplikacja.student.enums.Align).values()}"
                                                     th:text="${alignOpt.label}"
-                                                    th:value="${alignOpt.value}"></option>
+                                                    th:value="${alignOpt}"></option>
                                         </select>
                                     </td>
                                 </tr>
@@ -140,7 +140,7 @@
                                             <option value="">Wybierz</option>
                                             <option th:each="languageOpt : ${T(com.example.aplikacja.student.enums.LanguagePolish).values()}"
                                                     th:text="${languageOpt.label}"
-                                                    th:value="${languageOpt.value}"></option>
+                                                    th:value="${languageOpt}"></option>
                                         </select>
                                     </td>
                                 </tr>

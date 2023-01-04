@@ -5,15 +5,13 @@ import lombok.Getter;
 @Getter
 public enum LanguagePolish {
 
-    YESPOLISH("TAK", Boolean.TRUE),
-    NOPOLISH("NIE", Boolean.FALSE);
+    TAK("TAK"),
+    NIE("NIE");
 
     private String label;
-    private Boolean value;
 
-    LanguagePolish(String label, Boolean value) {
+    LanguagePolish(String label) {
         this.label = label;
-        this.value = value;
     }
 
 

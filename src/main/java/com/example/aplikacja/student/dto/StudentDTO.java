@@ -1,6 +1,8 @@
 package com.example.aplikacja.student.dto;
 
 import com.example.aplikacja.student.entity.Exam;
+import com.example.aplikacja.student.enums.Align;
+import com.example.aplikacja.student.enums.LanguagePolish;
 import com.example.aplikacja.student.enums.Sex;
 import lombok.Data;
 
@@ -12,6 +14,7 @@ public class StudentDTO {
     private String email;
     private String dateOfBirth;
     private Sex sex;
-    private Boolean align;
-    private Boolean languagePolish;
+    private Align align;
+    private LanguagePolish languagePolish;
+    private Double points;
 }

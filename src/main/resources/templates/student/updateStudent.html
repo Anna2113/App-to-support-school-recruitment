@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="style.css">-->
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+    <title>Edycja danych</title>
+</head>
+<body>
+<div class="container-fluid" id="tytul">
+    <header>
+        <h1>Edycja danych ucznia</h1>
+    </header>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="row" style="display: block;margin: auto; margin-top: 25px">
+            <div>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#dateOfStudent" role="button">Informacje o
+                    uczniu</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#result" role="button">Egzaminy</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#grades" role="button">Oceny</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#olympiad" role="button">Olimpiady</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#other" role="button">Dodatkowe parametry</a>
+                <form th:action="@{/changeStudent}" method="post">
+                    <input name="_method" type="hidden" value="PUT"/>
+                    <input type="hidden" name="id" th:value="${student.id}"/>
+                    <div class="collapse show" id="dateOfStudent">
+                        <h3 style="text-align: center; margin-top: 25px">Dane o studencie</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Imie:</th>
+                                    <td>
+                                        <input type="text" name="firstName" pattern="[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]{1,32}"
+                                               th:value="${student.firstName}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Nazwisko:</th>
+                                    <td>
+                                        <input type="text" name="lastName"
+                                               pattern="[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]{1,32}" required
+                                               th:value="${student.lastName}"
+                                               oninvalid="InvalidSurname(this);"
+                                               oninput="InvalidSurname(this);"/>
+
+                                        <script> function InvalidSurname(textbox) {
+
+                                            if (textbox.validity.patternMismatch) {
+                                                textbox.setCustomValidity('Enter valid surname');
+                                            } else if (textbox.validity.valueMissing) {
+                                                textbox.setCustomValidity('This field cannot be empty ');
+                                            } else {
+                                                textbox.setCustomValidity('');
+                                            }
+                                            return true;
+                                        }</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Data urodzenia:</th>
+                                    <td>
+                                        <input id="dateofbirth" type="date" name="dateOfBirth"
+                                               pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"
+                                               min='1899-01-01'
+                                               max='2000-13-13'
+                                               th:value="${student.dateOfBirth}"
+                                               required
+
+                                               oninvalid="InvalidDate(this);"
+                                               oninput="InvalidDate(this);"/>
+                                        <script>
+                                            let today = new Date();
+                                            let dd = today.getDate();
+                                            let mm = today.getMonth() + 1; //January is 0!
+                                            let yyyy = today.getFullYear();
+
+                                            if (dd < 10) {
+                                                dd = '0' + dd;
+                                            }
+
+                                            if (mm < 10) {
+                                                mm = '0' + mm;
+                                            }
+
+                                            today = yyyy + '-' + mm + '-' + dd;
+                                            document.getElementById("dateofbirth").setAttribute("max", today);
+                                        </script>
+
+                                        <script> function InvalidDate(numberbox) {
+                                            if (numberbox.validity.patternMismatch) {
+                                                numberbox.setCustomValidity('Enter valid date');
+                                            } else if (numberbox.validity.valueMissing) {
+                                                numberbox.setCustomValidity('This field cannot be empty ');
+                                            } else {
+                                                numberbox.setCustomValidity('');
+                                            }
+                                            return true;
+                                        }</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Płeć:</th>
+                                    <td>
+                                        <select name="sex" th:field="${student.sex}" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="sexOpt : ${T(com.example.aplikacja.student.enums.Sex).values()}"
+                                                    th:text="${sexOpt.label}" th:value="${sexOpt}"
+                                                    th:selected="${student.sex}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Czy uczeń jest cudzoziemcem ?</th>
+                                    <td>
+                                        <select name="align" th:field="${student.align}" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="alignOpt : ${T(com.example.aplikacja.student.enums.Align).values()}"
+                                                    th:text="${alignOpt.label}"
+                                                    th:value="${alignOpt}"
+                                                    th:selected="${student.align}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Czy porozumiewa się w języku polskim ?</th>
+                                    <td>
+                                        <select name="languagePolish" th:field="${student.languagePolish}" required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="languageOpt : ${T(com.example.aplikacja.student.enums.LanguagePolish).values()}"
+                                                    th:text="${languageOpt.label}"
+                                                    th:value="${languageOpt}"
+                                                    th:selected="${student.languagePolish}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Kontakt:</th>
+                                    <td>
+                                        <input type="email" name="email"
+                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                               th:value="${student.email}"
+                                               required
+
+                                               oninvalid="InvalidEmail(this);"
+                                               oninput="InvalidEmail(this);"/>
+
+                                        <script> function InvalidEmail(textbox) {
+
+                                            if (textbox.validity.patternMismatch) {
+                                                textbox.setCustomValidity('Enter valid email');
+                                            } else if (textbox.validity.valueMissing) {
+                                                textbox.setCustomValidity('This field cannot be empty ');
+                                            } else {
+                                                textbox.setCustomValidity('');
+                                            }
+                                            return true;
+                                        }</script>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="collapse" id="result">
+                        <h3 style="text-align: center; margin-top: 20px">Wyniki z egzmainów</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Język polski:</th>
+                                    <td>
+                                        <input type="text" name="languagePolishResult"
+                                               pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*"
+                                               th:value="${student.exams.languagePolishResult}">
+                                        <label class="percent">%</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Matematyka:</th>
+                                    <td>
+                                        <input type="text" name="math"
+                                               pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*"
+                                               th:value="${student.exams.math}">
+                                        <label class="percent">%</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język obcy nowożytny:</th>
+                                    <td>
+                                        <input type="text" name="foreignLanguage"
+                                               pattern="[1-9]{1}[0-9]*[0]*([.]{1}[0-9]{1}[0-9]{1})*"
+                                               th:value="${student.exams.foreignLanguage}">
+                                        <label class="percent">%</label>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="collapse" id="grades">
+                        <h3 style="text-align: center; margin-top: 20px">Oceny ze świadectwa</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Średnia ocen ze świadectwa:</th>
+                                    <td><input type="text" name="averageOfGrades" pattern="[1-6]{1}[,]{1}[0-99]{2}"
+                                               th:value="${student.grades.averageOfGrades}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język polski:</th>
+                                    <td><input class="text" name="polishGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.polishGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Matematyka:</th>
+                                    <td><input class="text" name="mathGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.mathGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język angielski:</th>
+                                    <td><input class="text" name="englishGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.englishGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Drugi język obcy:</th>
+                                    <td><input class="text" name="otherLanguageGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.otherLanguageGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wiedza o społeczeństwie:</th>
+                                    <td><input class="text" name="civicsGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.civicsGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Historia:</th>
+                                    <td><input class="text" name="historyGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.historyGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Fizyka:</th>
+                                    <td><input class="text" name="physicsGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.physicsGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Chemia:</th>
+                                    <td><input class="text" name="chemistryGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.chemistryGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Biologia:</th>
+                                    <td><input class="text" name="biologyGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.biologyGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Geografia:</th>
+                                    <td><input class="text" name="geographyGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.geographyGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Informatyka:</th>
+                                    <td><input class="text" name="ITGrade" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.ITGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Technika:</th>
+                                    <td><input class="text" name="designAndTechnology" pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.physicalEducationGrade}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wychowanie fizyczne:</th>
+                                    <td><input class="text" name="physicalEducationGrade"
+                                               pattern="[1-6]{1}[.]{1}[0|5]{1}"
+                                               th:value="${student.grades.designAndTechnology}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="collapse" id="olympiad">
+                        <h3 style="text-align: center; margin-top: 20px">Olimpiady</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <th style="text-align: center">Olimpiady</th>
+                                <th></th>
+                                <tr>
+                                    <th>Język polski</th>
+                                    <td>
+                                        <input class="radio"
+                                               th:type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.polishOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Matematyka</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.mathOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język angielski</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.englishOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język niemiecki</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.germanOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język francuski</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.frenchOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język hiszpański</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.spanishOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Język włoski</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.italianOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Historia</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.historyOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wiedza o społeczeństwie</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.civicsOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Biologia</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.biologyOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Chemia</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.chemistryOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Fizyka</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.physicsOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Geografia</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.geographyOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Historia muzyki</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.historyOfMusicOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Historia sztuki</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.historyOfArtOlympiad)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Informatyka</th>
+                                    <td>
+                                        <input class="radio"
+                                               type="radio"
+                                               th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
+                                               th:text="${olympOpt.label}"
+                                               th:checked="${olympOpt.equals(student.olympiads.ITOlympiad)}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="collapse" id="other">
+                        <h3 style="text-align: center; margin-top: 20px">Dodatkowe parametry</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Umiejętność szybkiego liczenia</th>
+                                    <td>
+                                        <select name="fastCounting" th:field="${student.extraParameters.fastCounting}"
+                                                required>
+                                            <option value="">Wybierz</option>
+                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                    th:selected="${student.extraParameters.fastCounting}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność szybkiego czytania</th>
+                                    <td>
+                                        <select name="fastReading" th:field="${student.extraParameters.fastReading}"
+                                                required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.fastReading}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność rozwiązywania problemów</th>
+                                    <td>
+                                        <select name="troubleshooting"
+                                                th:field="${student.extraParameters.troubleshooting}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.troubleshooting}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność szybkiego zapamiętywania</th>
+                                    <td>
+                                        <select name="quickMemorization"
+                                                th:field="${student.extraParameters.quickMemorization}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.quickMemorization}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności aktorskie</th>
+                                    <td>
+                                        <select name="actingSkills" th:field="${student.extraParameters.actingSkills}"
+                                                required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.actingSkills}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności wokalne</th>
+                                    <td>
+                                        <select name="vocalSkills" th:field="${student.extraParameters.vocalSkills}"
+                                                required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.vocalSkills}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności taneczne</th>
+                                    <td>
+                                        <select name="danceSkills" th:field="${student.extraParameters.danceSkills}"
+                                                required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.danceSkills}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności pisarskie</th>
+                                    <td>
+                                        <select name="writingSkills" th:field="${student.extraParameters.writingSkills}"
+                                                required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.writingSkills}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności fotograficzne</th>
+                                    <td>
+                                        <select name="photographicSkills"
+                                                th:field="${student.extraParameters.photographicSkills}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.photographicSkills}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zdolności lingwistyczne</th>
+                                    <td>
+                                        <select name="linguisticSkills"
+                                                th:field="${student.extraParameters.linguisticSkills}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.linguisticSkills}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Posiadanie certyfikatu językowego</th>
+                                    <td>
+                                        <select name="languageCertificate"
+                                                th:field="${student.extraParameters.languageCertificate}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.languageCertificate}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowanie polityką</th>
+                                    <td>
+                                        <select name="interestInPolitics"
+                                                th:field="${student.extraParameters.interestInPolitics}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.interestInPolitics}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności komunikacyjne</th>
+                                    <td>
+                                        <select name="communicationSkills"
+                                                th:field="${student.extraParameters.communicationSkills}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.communicationSkills}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności sportowe/predyspozycje sportowe</th>
+                                    <td>
+                                        <select name="sportSkills" th:field="${student.extraParameters.sportSkills}"
+                                                required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.sportSkills}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wyczynowe uprawianie sportu</th>
+                                    <td>
+                                        <select name="extremeSport" th:field="${student.extraParameters.extremeSport}"
+                                                required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.extremeSport}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Sprawność fizyczna</th>
+                                    <td>
+                                        <select name="physicalFitness"
+                                                th:field="${student.extraParameters.physicalFitness}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.physicalFitness}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wytrzymałość fizyczna</th>
+                                    <td>
+                                        <select name="physicalEndurance"
+                                                th:field="${student.extraParameters.physicalEndurance}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.physicalEndurance}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność pracy na otwartym terenie</th>
+                                    <td>
+                                        <select name="workInTheOpenGround"
+                                                th:field="${student.extraParameters.workInTheOpenGround}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.workInTheOpenGround}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność posługiwania się mapą</th>
+                                    <td>
+                                        <select name="abilityToUseAMap"
+                                                th:field="${student.extraParameters.abilityToUseAMap}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.abilityToUseAMap}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Dobra znajomość tablicy Mendelejewa</th>
+                                    <td>
+                                        <select name="periodicTable"
+                                                th:field="${student.extraParameters.periodicTable}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.periodicTable}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tworzenie własnych doświadczeń chemicznych</th>
+                                    <td>
+                                        <select name="chemicalExperiments"
+                                                th:field="${student.extraParameters.chemicalExperiments}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.chemicalExperiments}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowania biologiczno-przyrodnicze</th>
+                                    <td>
+                                        <select name="biologicalAndNaturalInterests"
+                                                th:field="${student.extraParameters.biologicalAndNaturalInterests}"
+                                                required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.biologicalAndNaturalInterests}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowanie technologią</th>
+                                    <td>
+                                        <select name="interestInTechnology"
+                                                th:field="${student.extraParameters.interestInTechnology}" required/>
+                                        <option value="">Wybierz</option>
+                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                                th:selected="${student.extraParameters.interestInTechnology}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <span th:text="${errorStudent}" class="emailError"/><br>
+                    <span th:text="${updateStudent}" class="confirmationOfAdding"/><br>
+                    <input class="commit btnSt" type="reset" value="Wyczyść formularz">
+
+                    <input class="commit btnSt" type="submit" value="Zapisz" style="margin-left: 450px;">
+
+                </form>
+                <!--                <button type="button" class="btnSt"><a href="/previousPage" style="color: black">Lista uczniów</a></button>-->
+
+                <button class="btnSt" type="button" style="margin-top: 30px">
+                    <a th:href="@{'/showStudents'}" style="color: black">Lista uczniów</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

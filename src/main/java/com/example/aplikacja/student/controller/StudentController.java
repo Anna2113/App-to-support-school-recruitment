@@ -3,6 +3,7 @@ package com.example.aplikacja.student.controller;
 import com.example.aplikacja.appuser.AppUserService;
 import com.example.aplikacja.student.dto.*;
 import com.example.aplikacja.student.entity.*;
+import com.example.aplikacja.student.service.KlassService;
 import com.example.aplikacja.student.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ public class StudentController {
 
     private StudentService studentService;
     private AppUserService appUserService;
+    private KlassService klassService;
 
     @GetMapping("/studentForm") //przycisk "Dodaj ucznia na podstronie hello"
     public String addStudent(Model model) {
@@ -36,16 +38,14 @@ public class StudentController {
     @PostMapping("/student/student")
     public String add(StudentDTO student, ExamDTO exam,
                       GradeDTO grade, OlympiadDTO olympiad
-            , ExtraParametersDTO extparam,
+            , ExtraParametersDTO extparam, KlasaDTO klasa,
                       Model model, Principal principal) {
         if (principal == null) {
             return "userIsLogout";
         } else {
             Student appUserWithEmail = studentService.findUserByEmail(student.getEmail()).orElse(null);
             if (appUserWithEmail == null) {
-                studentService.addStudent(student, exam, grade, olympiad
-                        , extparam
-                );
+                studentService.addStudent(student, exam, grade, olympiad, extparam);
                 model.addAttribute("addedStudent",
                         "Student został dodany!");
                 return "/student/student";
@@ -115,6 +115,31 @@ public class StudentController {
             return "/student/moreAboutStudent";
         }
     }
+
+    @GetMapping("/countPoints/{id}")
+    public String points(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Student student = studentService.findUserById(id).orElse(null);
+            Exam exam = studentService.findExamById(id).orElse(null);
+//            Grade grade = studentService.findGradeById(id).orElse(null);
+//            Olympiad olympiad = studentService.findOlympiadById(id).orElse(null);
+//            ExtraParameters extrParam = studentService.findExParamById(id).orElse(null);
+//            Klasa klasa = studentService.findClassById(id).orElse(null);
+            Student newparam = studentService.pointsOfStudent(student, exam);
+            model.addAttribute("student", student);
+            model.addAttribute("exam", exam);
+//            model.addAttribute("grade", grade);
+//            model.addAttribute("olympiad", olympiad);
+//            model.addAttribute("extrParam", extrParam);
+//            model.addAttribute("klasa", klasa);
+            model.addAttribute("student", newparam);
+
+            return "/student/moreAboutStudent";
+        }
+    }
+
 
     @GetMapping("/updateStudent/{id}")
     public String updateUser(@PathVariable("id") Long id, Model model, Principal principal) {

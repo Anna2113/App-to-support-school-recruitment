@@ -1,6 +1,9 @@
 package com.example.aplikacja.student.entity;
 
 import com.example.aplikacja.appuser.AppUserRole;
+import com.example.aplikacja.student.dto.WeightOfGradeDTO;
+import com.example.aplikacja.student.enums.Align;
+import com.example.aplikacja.student.enums.LanguagePolish;
 import com.example.aplikacja.student.enums.Sex;
 import lombok.*;
 
@@ -42,8 +45,10 @@ public class Student {
     private LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
     private Sex sex;
-    private Boolean align;
-    private Boolean languagePolish;
+    @Enumerated(EnumType.STRING)
+    private Align align;
+    @Enumerated(EnumType.STRING)
+    private LanguagePolish languagePolish;
     private Boolean locked = false;
     private Boolean enabled = true;
     private Double points;
@@ -56,6 +61,10 @@ public class Student {
     private Olympiad olympiads;
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private ExtraParameters extraParameters;
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Klasa klasa;
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private WeightOfGrade weightOfGrade;
 
 
     public Student(Long id, String firstName,

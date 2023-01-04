@@ -5,15 +5,14 @@ import lombok.Getter;
 @Getter
 public enum Align {
 
-    ALIGN("TAK", Boolean.TRUE),
-    NOTALIGN("NIE", Boolean.FALSE);
+
+    Obcokrajowiec("TAK"),
+    Polak("NIE");
 
     private String label;
-    private Boolean value;
 
-    Align(String label, Boolean value) {
+    Align(String label) {
         this.label = label;
-        this.value = value;
     }
 
 }

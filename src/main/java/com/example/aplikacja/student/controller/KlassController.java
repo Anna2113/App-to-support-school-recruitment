@@ -3,6 +3,7 @@ package com.example.aplikacja.student.controller;
 import com.example.aplikacja.student.dto.*;
 import com.example.aplikacja.student.entity.*;
 import com.example.aplikacja.student.service.KlassService;
+import com.example.aplikacja.student.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import java.security.Principal;
 public class KlassController {
 
     private KlassService klassService;
+    private StudentService studentService;
 
     public KlassController(KlassService klassService) {
         this.klassService = klassService;
@@ -49,6 +51,16 @@ public class KlassController {
     public String showList(Model model) {
         model.addAttribute("allClass", klassService.getAllKlass());
         return "/listOfClass";
+    }
+
+    @GetMapping("/listOfClassForStudents/{id}")
+    public String showListForStudent(@PathVariable("id") Long id, Model model, Principal principal) {
+        Klasa klasa = klassService.findClassById(id).orElse(null);
+        Student student = klassService.findStudentById(id).orElse(null);
+        model.addAttribute("allClass", klassService.getAllKlass());
+        model.addAttribute("klasa", klasa);
+        model.addAttribute("student", student);
+        return "/student/changeClass";
     }
 
 //    @GetMapping("/moreAboutClass")
@@ -92,33 +104,18 @@ public class KlassController {
         }
     }
 
-//    @GetMapping("/countMinAvg/{id}")
-//    public String averageKier(@PathVariable("id") Long id, Model model, Principal principal) {
-//        if (principal == null) {
-//            return "userIsLogout";
-//        } else {
-//            KlasaDTO klasa = klassService.findClassDTOById(id).orElse(null);
-//            WeightOfGradeDTO weight = klassService.findWeightById(id).orElse(null);
-//            klassService.minSrKier(klasa, weight);
-//            model.addAttribute("klasa", klasa);
-////            model.addAttribute(new KlasaDTO());
-////            model.addAttribute(new WeightOfGradeDTO());
-//
-//            return "/class/moreAboutClass";
-//        }
-//    }
+    @GetMapping("/countMinAvg/{id}")
+    public String averageKier(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Klasa klasa = klassService.findClassById(id).orElse(null);
+            klassService.minSrKier(klasa, klasa.getWeightOfGrade());
+            model.addAttribute("klasa", klasa);
 
-//    @PutMapping("/countMinAvgSr")
-//    public String makeCountAverageKier(Klasa klasa, WeightOfGradeDTO weight,
-//                                       Model model) {
-//        Klasa newClass = klassService.minSrKier(klasa, weight);
-//        if (klasa != null) {
-//            model.addAttribute("klasa", newClass);
-//            return "/class/moreAboutClass";
-//        } else {
-//            return "/class/moreAboutClass";
-//        }
-//    }
+            return "/class/moreAboutClass";
+        }
+    }
 
 
     @GetMapping("/updateClass/{id}")

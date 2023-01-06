@@ -84,7 +84,7 @@ public class StudentController {
 //    @GetMapping("/listOfClass")
 //    public String showList(Model model) {
 //        model.addAttribute("allClass", studentService.getAllKlass());
-//        return "/listOfClass";
+//        return "/student/changeClass";
 //    }
 
 
@@ -106,13 +106,30 @@ public class StudentController {
             Grade grade = studentService.findGradeById(id).orElse(null);
             Olympiad olympiad = studentService.findOlympiadById(id).orElse(null);
             ExtraParameters extrParam = studentService.findExParamById(id).orElse(null);
+            Klasa klasa = studentService.findClassById(id).orElse(null);
             model.addAttribute("student", student);
             model.addAttribute("exam", exam);
             model.addAttribute("grade", grade);
             model.addAttribute("olympiad", olympiad);
             model.addAttribute("extrParam", extrParam);
+            model.addAttribute("klasa", klasa);
 
             return "/student/moreAboutStudent";
+        }
+    }
+
+    @GetMapping("/allCountPoints/{id}")
+    public String allPoints(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Student student = studentService.findUserById(id).orElse(null);
+            Klasa klasa = studentService.findClassById(id).orElse(null);
+                studentService.addPoints(student, klasa, klasa.getWeightOfGrade());
+                model.addAttribute("student", student);
+                model.addAttribute("klasa", klasa);
+
+                return "/student/changeClass";
         }
     }
 
@@ -152,7 +169,6 @@ public class StudentController {
             return "/student/updateStudent";
         }
     }
-
 
     @PutMapping("/changeStudent")
     public String makeUpdate(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olymp,
@@ -197,4 +213,5 @@ public class StudentController {
 //            return "/thanksForSignIn";
 //        }
 //    }
+
 }

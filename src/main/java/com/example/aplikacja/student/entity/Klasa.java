@@ -54,10 +54,17 @@ public class Klasa {
     private String first;
     private String second;
     private String third;
+    private String weightExamMath;
+    private String weightExamPolish;
+    private String weightExamEnglish;
 
 
-
-    public Klasa(NameOfClass nameOfClass, String symbol, String liczba, Boolean locked, Boolean enabled, Double minAvgGrade, Double numberOfPointsForOlimp, Double numberOfPointsForFinalist, Double minAmountOfPointsFromExams, List<WeightOfGrade> weightOfGrade, List<Skills> umiejetnosci) {
+    public Klasa(NameOfClass nameOfClass, String symbol, String liczba, Boolean locked,
+                 Boolean enabled, Double minAvgGrade, Double numberOfPointsForOlimp,
+                 Double numberOfPointsForFinalist, Double minAmountOfPointsFromExams,
+                 List<WeightOfGrade> weightOfGrade, List<Skills> umiejetnosci, List<Subject> przedmioty,
+                 Student student, String first, String second, String third, String weightExamMath,
+                 String weightExamPolish, String weightExamEnglish) {
         this.nameOfClass = nameOfClass;
         this.symbol = symbol;
         this.liczba = liczba;
@@ -69,6 +76,14 @@ public class Klasa {
         this.minAmountOfPointsFromExams = minAmountOfPointsFromExams;
         this.weightOfGrade = weightOfGrade;
         this.umiejetnosci = umiejetnosci;
+        this.przedmioty = przedmioty;
+        this.student = student;
+        this.first = first;
+        this.second = second;
+        this.third = third;
+        this.weightExamMath = weightExamMath;
+        this.weightExamPolish = weightExamPolish;
+        this.weightExamEnglish = weightExamEnglish;
     }
 
     @Override
@@ -86,7 +101,14 @@ public class Klasa {
                 ", minAmountOfPointsFromExams=" + minAmountOfPointsFromExams +
                 ", weightOfGrade=" + weightOfGrade +
                 ", umiejetnosci=" + umiejetnosci +
+                ", przedmioty=" + przedmioty +
+                ", student=" + student +
+                ", first='" + first + '\'' +
+                ", second='" + second + '\'' +
+                ", third='" + third + '\'' +
+                ", weightExamMath=" + weightExamMath +
+                ", weightExamPolish=" + weightExamPolish +
+                ", weightExamEnglish=" + weightExamEnglish +
                 '}';
     }
-
 }

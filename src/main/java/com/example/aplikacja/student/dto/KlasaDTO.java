@@ -28,4 +28,7 @@ public class KlasaDTO {
     private String first;
     private String second;
     private String third;
+    private String weightExamMath;
+    private String weightExamPolish;
+    private String weightExamEnglish;
 }

@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -48,6 +45,7 @@ public class StudentService implements UserDetailsService {
         return klassRepository.findById(id);
     }
 
+
     public Optional<Exam> findExamById(Long id) {
         return examRepository.findById(id);
     }
@@ -64,36 +62,64 @@ public class StudentService implements UserDetailsService {
         return extraParameters.findById(id);
     }
 
-//    public Optional<Klasa> findClassBySymbol(String symbol){return klassRepository.findBySymbol(symbol);}
 
-//    public Student addPoints(Student student, Exam exam, Grade grade, Olympiad olympiad,
-//                             ExtraParameters extparam) {
-//        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-//        double liczbaPkt = 0;
-//        double egzamin = 0;
-//        double srPrzedKier = 0; //Średnia przedmiotów kierunkowych
-////        double math = Double.parseDouble(exam.getMath());
-//        double polish = Double.parseDouble(exam.getLanguagePolishResult());
-//        double english = Double.parseDouble(exam.getForeignLanguage());
-//        double grMath = Double.parseDouble(grade.getMathGrade());
-//        double grIt = Double.parseDouble(grade.getITGrade());
-//        double grGeo = Double.parseDouble(grade.getGeographyGrade());
-////        double waga1 = weight.getWartosc1();
-////        double waga2 = weight.getWartosc2();
-////        double waga3 = weight.getWartosc3();
-//
-//        egzamin = polish * 0.5 + english * 0.5;
-//
-////            srPrzedKier = grMath * waga1 + grIt * waga2 + grGeo * waga3;
-//
-////            liczbaPkt = egzamin + srPrzedKier;
-//
-//        studentToUpdate.setPoints(egzamin);
-//        studentRepository.save(studentToUpdate);
-//
-//        return studentToUpdate;
-//
-//    }
+    public Optional<Klasa> findClassBySymbol(String symbol) {
+        return klassRepository.findBySymbol(symbol);
+    }
+
+    public Student addPoints(Student student, Klasa klasa, List<WeightOfGrade> lista) {
+        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
+        Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
+        double liczbaPkt = 0.0;
+        double egzamin = 0.0;
+        double srednia = 0.0; //Średnia przedmiotów kierunkowych
+
+        double math = Double.parseDouble(studentToUpdate.getExams().getMath());
+        double polish = Double.parseDouble(studentToUpdate.getExams().getLanguagePolishResult());
+        double english = Double.parseDouble(studentToUpdate.getExams().getForeignLanguage());
+
+        double grMath = Double.parseDouble(studentToUpdate.getGrades().getMathGrade());
+        double grIt = Double.parseDouble(studentToUpdate.getGrades().getITGrade());
+        double grGeo = Double.parseDouble(studentToUpdate.getGrades().getGeographyGrade());
+        double grPol = Double.parseDouble(studentToUpdate.getGrades().getPolishGrade());
+        double grHis = Double.parseDouble(studentToUpdate.getGrades().getHistoryGrade());
+        double grWos = Double.parseDouble(studentToUpdate.getGrades().getCivicsGrade());
+
+        double weightMathExam = Double.parseDouble(klasaToUpdate.getWeightExamMath());
+        double weightPolishExam = Double.parseDouble(klasaToUpdate.getWeightExamPolish());
+        double weightEnglishExam = Double.parseDouble(klasaToUpdate.getWeightExamEnglish());
+
+        if(studentToUpdate != null) {
+
+            egzamin = math * weightMathExam + polish * weightPolishExam + english * weightEnglishExam;
+
+            //Utworzyć listę typu subject (chyba trzeba zrobić klasę), która przechowuje
+            // przedmioty kierunkowe. Wtedy wywoływać listę z przedmiotami tak jak z wagami
+            // i nie będzie trzeba robić dla konkretnego profilu klasy.
+
+            if (klasaToUpdate.getNameOfClass().getLabel().equals("MatGeoInf")) {
+                srednia = lista.stream().mapToDouble(w -> w.getWartosc() * grMath
+                        + w.getWartosc() * grIt +
+                        grGeo * w.getWartosc()).sum();
+
+            }
+
+            if(klasaToUpdate.getNameOfClass().getLabel().equals("Humanistyczna")){
+                srednia = lista.stream().mapToDouble(w -> w.getWartosc() * grPol
+                        + w.getWartosc() * grHis +
+                        grWos * w.getWartosc()).sum();
+            }
+            liczbaPkt = egzamin + srednia;
+
+
+            studentToUpdate.setPoints(liczbaPkt);
+//            studentRepository.save(studentToUpdate);
+
+            return studentRepository.save(studentToUpdate);
+        }else{
+            return studentToUpdate;
+        }
+    }
 
     public Student pointsOfStudent(Student student, Exam exam) {
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);

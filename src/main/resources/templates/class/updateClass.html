@@ -128,11 +128,11 @@
                     <div class="collapse" id="parametersOfClass" style="width: 90%">
                         <h3 style="margin-top: 50px">Wprowadź parametry</h3>
                         <div class="slidecontainer" style="margin-top: 50px;">
-                            <h6>Minimalna średnia przedmiotów kierunkowych</h6>
-                            <input type="range" min="0" max="7" step="0.01" value="2.5" class="slider" id="minAvgGrade"
-                                   name="minAvgGrade" th:value="${klasa.minAvgGrade}">
-                            <label for="minAvgGrade">Wartość: <span id="demo"></span></label>
-                            <hr>
+                            <!--                            <h6>Minimalna średnia przedmiotów kierunkowych</h6>-->
+                            <!--                            <input type="range" min="0" max="7" step="0.01" value="2.5" class="slider" id="minAvgGrade"-->
+                            <!--                                   name="minAvgGrade" th:value="${klasa.minAvgGrade}">-->
+                            <!--                            <label for="minAvgGrade">Wartość: <span id="demo"></span></label>-->
+                            <!--                            <hr>-->
 
                             <h6>Liczba punktów dla ucznia będącego laureatem olimpiady</h6>
                             <input type="range" min="0" max="1" step="0.1" value="0.2" class="slider"
@@ -146,6 +146,24 @@
                                    id="numberOfPointsForFinalist"
                                    name="numberOfPointsForFinalist" th:value="${klasa.numberOfPointsForFinalist}">
                             <label for="numberOfPointsForFinalist">Wartość: <span id="lfinal"></span></label>
+                            <hr>
+
+                            <h6>Waga punktów za egzamin z matematyki</h6>
+                            <input type="text"
+                                   name="weightExamMath" th:value="${klasa.weightExamMath}">
+                            <label>Matematyka: <span id="lExamMath"></span></label>
+                            <hr>
+
+                            <h6>Waga punktów za egzamin z języka polskiego</h6>
+                            <input type="text"
+                                   name="weightExamPolish" th:value="${klasa.weightExamPolish}">
+                            <label>Język polski: <span id="lExamPolish"></span></label>
+                            <hr>
+
+                            <h6>Waga punktów za egzamin z języka angielskiego</h6>
+                            <input type="text"
+                                   name="weightExamEnglish" th:value="${klasa.weightExamEnglish}">
+                            <label>Język angielski: <span id="lExamEnglish"></span></label>
                             <hr>
 
                             <!--                            <h6>Minimalna liczba punktów z egzaminu dla wybranego profilu</h6>-->
@@ -181,7 +199,7 @@
                             <hr>
 
                             <h6>Wpisz trzy wartości ułamkowe, które posłużą do wyliczenia minimalnej
-                            liczby punktów z egzaminów.</h6>
+                                liczby punktów z egzaminów.</h6>
                             <label>1 wartość</label>
                             <td>
                                 <input type="text" name="first" th:value="${klasa.first}"
@@ -216,8 +234,8 @@
                 </form>
             </div>
             <script>
-                var slider = document.getElementById("minAvgGrade");
-                var output = document.getElementById("demo");
+                // var slider = document.getElementById("minAvgGrade");
+                // var output = document.getElementById("demo");
                 var olimp = document.getElementById("numberOfPointsForOlimp");
                 var labelOlimp = document.getElementById("lolimp");
                 var finalista = document.getElementById("numberOfPointsForFinalist");
@@ -232,8 +250,15 @@
                 var labelThird = document.getElementById("lthirdSubject");
                 // var minAve = document.getElementById("minAveGrade");
                 // var lminAve = document.getElementById("lminAveGrade");
+                // var weightOfMath = document.getElementById("weightExamMath");
+                // var labelExamMath = document.getElementById("lExamMath");
+                // var weightOfPolsih = document.getElementById("weightExamPolish");
+                // var labelExamPolish = document.getElementById("lExamPolish");
+                // var weightOfEnglish = document.getElementById("weightExamEnglish");
+                // var labelExamEnglish = document.getElementById("lExamEnglish");
 
-                output.innerHTML = slider.value;
+
+                // output.innerHTML = slider.value;
                 labelOlimp.innerHTML = olimp.value;
                 labelfinal.innerHTML = finalista.value;
                 // labelExam.innerHTML = exam.value;
@@ -241,10 +266,13 @@
                 labelSecond.innerHTML = second.value;
                 labelThird.innerHTML = third.value;
                 // lminAve.innerHTML = minAve.value;
+                // labelExamMath.innerHTML = weightOfMath.value;
+                // labelExamPolish.innerHTML = weightOfPolsih.value;
+                // labelExamEnglish.innerHTML = weightOfEnglish.value;
 
-                slider.oninput = function () {
-                    output.innerHTML = this.value;
-                }
+                // slider.oninput = function () {
+                //     output.innerHTML = this.value;
+                // }
 
                 olimp.oninput = function () {
                     labelOlimp.innerHTML = this.value;
@@ -269,6 +297,18 @@
                 }
                 // minAve.oninput = function () {
                 //     lminAve.innerHTML = this.value;
+                // }
+
+                // weightOfMath.oninput = function () {
+                //     labelExamMath.innerHTML = this.value;
+                // }
+                //
+                // weightOfPolsih.oninput = function () {
+                //     labelExamPolish.innerHTML = this.value;
+                // }
+                //
+                // weightOfEnglish.oninput = function () {
+                //     labelExamEnglish.innerHTML = this.value;
                 // }
 
             </script>

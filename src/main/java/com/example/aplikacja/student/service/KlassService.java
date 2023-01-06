@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
@@ -37,6 +38,8 @@ public class KlassService {
     public Optional<WeightOfGradeDTO> findWeightById(Long id) {
         return klassRepository.findWById(id);
     }
+
+    public Optional<Student> findStudentById(Long id){return studentRepository.findById(id);}
 
     public Optional<KlasaDTO> findClassDTOById(Long id){return klassRepository.findKDById(id);}
 
@@ -105,21 +108,21 @@ public class KlassService {
 
     }
 
-    public Klasa minSrKier(KlasaDTO klasa, WeightOfGradeDTO weight){
+    public Klasa minSrKier(Klasa klasa, List<WeightOfGrade> lista){
         Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
         if (klasaToUpdate != null) {
+            double minimum = lista.stream().mapToDouble(w -> w.getWartosc() * 6 + w.getWartosc() * 2).sum();
 
-            double minimum;
-            double miniSre;
-            minimum = 6 * weight.getWartosc1() + 2 * weight.getWartosc1() +
-                    6 * weight.getWartosc2() + 2 * weight.getWartosc2() +
-                    6 * weight.getWartosc3() + 2 * weight.getWartosc3();
+            //            double miniSre;
+//            minimum = 6 * weight.getWartosc1() + 2 * weight.getWartosc1() +
+//                    6 * weight.getWartosc2() + 2 * weight.getWartosc2() +
+//                    6 * weight.getWartosc3() + 2 * weight.getWartosc3();
 
-            miniSre = minimum / 2*(weight.getWartosc1() + weight.getWartosc2() + weight.getWartosc3());
+//            miniSre = minimum.get() / 2*(weight.getWartosc1() + weight.getWartosc2() + weight.getWartosc3());
 
 //            Minimalna średnia kierunkowa = (ocena.math * 0.4 + ocena.inf * 0.3 + ocena.geo * 0.2)/ 0.9.
 
-            klasaToUpdate.setMinAvgGrade(miniSre);
+            klasaToUpdate.setMinAvgGrade(minimum);
             klassRepository.save(klasaToUpdate);
 
             return klasaToUpdate;
@@ -191,6 +194,9 @@ public class KlassService {
             klasaToUpdate.setFirst(String.valueOf(klasa.getFirst()));
             klasaToUpdate.setSecond(String.valueOf(klasa.getSecond()));
             klasaToUpdate.setThird(String.valueOf(klasa.getThird()));
+            klasaToUpdate.setWeightExamMath(String.valueOf(klasa.getWeightExamMath()));
+            klasaToUpdate.setWeightExamPolish(String.valueOf(klasa.getWeightExamPolish()));
+            klasaToUpdate.setWeightExamEnglish(String.valueOf(klasa.getWeightExamEnglish()));
             return klassRepository.save(klasaToUpdate);
         }
         return klasaToUpdate;

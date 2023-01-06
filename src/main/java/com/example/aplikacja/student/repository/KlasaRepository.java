@@ -16,6 +16,7 @@ import java.util.Optional;
 @Repository
 @Transactional(readOnly = true)
 public interface KlasaRepository extends JpaRepository<Klasa, Long> {
+
     Optional<Klasa> findById(Long id);
 
     Optional<WeightOfGradeDTO> findWById(Long id);

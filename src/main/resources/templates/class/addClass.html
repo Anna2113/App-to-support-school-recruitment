@@ -56,7 +56,7 @@
                 <h3 style="text-align: center; margin-top: 25px">Wybierz 3 przedmioty definiujące klasę</h3>
 
                 <input type="checkbox" name="przedmioty" style="display: block; margin: auto;
-                                margin-left: 250px" required
+                                margin-left: 250px"
                        th:each="role: ${T(com.example.aplikacja.student.enums.Subject).values()}"
                        th:text="${role.label}"
                        th:value="${role}"/>

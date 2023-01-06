@@ -61,13 +61,12 @@
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Minimalna średnia ocen</td>
-            <td colspan="2" class="firstTd"></td>
-            <td class="firstTd" th:text="${klasa.minAvgGrade}"/>
-<!--            <td class="firstTd">-->
-<!--                <button class="btnSt">-->
-<!--                    <a th:href="@{'/countMinAvg/' + ${klasa.id}}" style="color: black">Policz punkty</a>-->
-<!--                </button>-->
-<!--            </td>-->
+            <td colspan="2" class="firstTd" th:text="${klasa.minAvgGrade}"/>
+            <td class="firstTd">
+                <button class="btnSt">
+                    <a th:href="@{'/countMinAvg/' + ${klasa.id}}" style="color: black">Policz punkty</a>
+                </button>
+            </td>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Waga punktów za laureata olimpiady</td>
@@ -79,6 +78,25 @@
             <td colspan="2" class="firstTd"></td>
             <td class="firstTd" th:text="${klasa.numberOfPointsForFinalist}"/>
         </tr>
+
+        <tr class="firstTr">
+            <td class="firstTd">Waga punktów za egzamin z matematyki</td>
+            <td colspan="2" class="firstTd"></td>
+            <td class="firstTd" th:text="${klasa.weightExamMath}"/>
+        </tr>
+
+        <tr class="firstTr">
+            <td class="firstTd">Waga punktów za egzamin z języka polskiego</td>
+            <td colspan="2" class="firstTd"></td>
+            <td class="firstTd" th:text="${klasa.weightExamPolish}"/>
+        </tr>
+
+        <tr class="firstTr">
+            <td class="firstTd">Waga punktów za egzamin z języka angielskiego</td>
+            <td colspan="2" class="firstTd"></td>
+            <td class="firstTd" th:text="${klasa.weightExamEnglish}"/>
+        </tr>
+
         <tr>
             <td class="firstTd">Minimalna liczba punktów za egzamin</td>
             <td colspan="2" class="firstTd" th:text="${klasa.minAmountOfPointsFromExams}"/>

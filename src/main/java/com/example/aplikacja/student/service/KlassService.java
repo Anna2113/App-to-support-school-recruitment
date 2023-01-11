@@ -10,6 +10,7 @@ import com.example.aplikacja.student.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -51,6 +52,7 @@ public class KlassService {
             klasa1.setNameOfClass(cl.getNameOfClass());
             klasa1.setSymbol(cl.getSymbol());
             klasa1.setLiczba(cl.getLiczba());
+            klasa1.setYear(java.sql.Date.valueOf(cl.getYear()));
 //            klasa1.setUmiejetnosci(new ArrayList<>());
 //            klasa1.getUmiejetnosci().addAll(cl.getUmiejetnosci());
 
@@ -81,6 +83,7 @@ public class KlassService {
             klasaToUpdate.setNameOfClass(klasa.getNameOfClass());
             klasaToUpdate.setSymbol(klasa.getSymbol());
             klasaToUpdate.setLiczba(klasa.getLiczba());
+//            klasaToUpdate.setYear(java.sql.Date.valueOf(klasa.getYear()));
 
             return klassRepository.save(klasaToUpdate);
         } else {

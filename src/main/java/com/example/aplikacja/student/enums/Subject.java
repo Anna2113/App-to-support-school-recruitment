@@ -20,8 +20,8 @@ public enum Subject {
     Geografia("Geografia"),
     Informatyka("Informatyka"),
     Technika("Technika"),
-    Muzyka("Historia muzyki"),
-    Plastyka("historia sztuki"),
+    Muzyka("Muzyka"),
+    Plastyka("Plastyka"),
     WF("Wychowanie fizyczne");
     private String label;
 

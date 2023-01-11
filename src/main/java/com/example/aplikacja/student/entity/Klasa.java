@@ -5,8 +5,11 @@ import com.example.aplikacja.student.enums.NameOfClass;
 import com.example.aplikacja.student.enums.Skills;
 import com.example.aplikacja.student.enums.Subject;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -35,6 +38,9 @@ public class Klasa {
     private NameOfClass nameOfClass;
     private String symbol;
     private String liczba;
+    @Column(columnDefinition = "DATE")
+    @DateTimeFormat(pattern = "yyyy")
+    private Date year;
     private Boolean locked = false;
     private Boolean enabled = true;
     private Double minAvgGrade;
@@ -59,7 +65,8 @@ public class Klasa {
     private String weightExamEnglish;
 
 
-    public Klasa(NameOfClass nameOfClass, String symbol, String liczba, Boolean locked,
+    public Klasa(NameOfClass nameOfClass, String symbol, String liczba, Date year,
+                 Boolean locked,
                  Boolean enabled, Double minAvgGrade, Double numberOfPointsForOlimp,
                  Double numberOfPointsForFinalist, Double minAmountOfPointsFromExams,
                  List<WeightOfGrade> weightOfGrade, List<Skills> umiejetnosci, List<Subject> przedmioty,
@@ -68,6 +75,7 @@ public class Klasa {
         this.nameOfClass = nameOfClass;
         this.symbol = symbol;
         this.liczba = liczba;
+        this.year = year;
         this.locked = locked;
         this.enabled = enabled;
         this.minAvgGrade = minAvgGrade;

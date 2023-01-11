@@ -154,6 +154,10 @@ h1{
     font-size: 1.2rem;
 }
 
+table {
+    border-collapse: collapse;
+}
+
 .firstTh{
     width:400px;
     background: linear-gradient(to right, #cac531, #f3f9a7);

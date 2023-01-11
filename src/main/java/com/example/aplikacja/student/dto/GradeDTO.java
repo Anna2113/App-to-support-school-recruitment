@@ -18,4 +18,6 @@ public class GradeDTO {
     private String ITGrade;
     private String physicalEducationGrade;
     private String designAndTechnology;
+    private String music;
+    private String art;
 }

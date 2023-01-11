@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class StudentController {
@@ -125,7 +126,13 @@ public class StudentController {
         } else {
             Student student = studentService.findUserById(id).orElse(null);
             Klasa klasa = studentService.findClassById(id).orElse(null);
-                studentService.addPoints(student, klasa, klasa.getWeightOfGrade());
+                studentService.addPointsMatGeoInf(student, klasa);
+                studentService.addPointsHuman(student, klasa);
+                studentService.addPointsBiolChem(student, klasa);
+                studentService.addPointsMatAngNiem(student, klasa);
+                studentService.addPointsActor(student, klasa);
+                studentService.addPointsMusic(student, klasa);
+                studentService.addPointsSport(student, klasa);
                 model.addAttribute("student", student);
                 model.addAttribute("klasa", klasa);
 
@@ -133,29 +140,29 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/countPoints/{id}")
-    public String points(@PathVariable("id") Long id, Model model, Principal principal) {
-        if (principal == null) {
-            return "userIsLogout";
-        } else {
-            Student student = studentService.findUserById(id).orElse(null);
-            Exam exam = studentService.findExamById(id).orElse(null);
-//            Grade grade = studentService.findGradeById(id).orElse(null);
-//            Olympiad olympiad = studentService.findOlympiadById(id).orElse(null);
-//            ExtraParameters extrParam = studentService.findExParamById(id).orElse(null);
-//            Klasa klasa = studentService.findClassById(id).orElse(null);
-            Student newparam = studentService.pointsOfStudent(student, exam);
-            model.addAttribute("student", student);
-            model.addAttribute("exam", exam);
-//            model.addAttribute("grade", grade);
-//            model.addAttribute("olympiad", olympiad);
-//            model.addAttribute("extrParam", extrParam);
-//            model.addAttribute("klasa", klasa);
-            model.addAttribute("student", newparam);
-
-            return "/student/moreAboutStudent";
-        }
-    }
+//    @GetMapping("/countPoints/{id}")
+//    public String points(@PathVariable("id") Long id, Model model, Principal principal) {
+//        if (principal == null) {
+//            return "userIsLogout";
+//        } else {
+//            Student student = studentService.findUserById(id).orElse(null);
+//            Exam exam = studentService.findExamById(id).orElse(null);
+////            Grade grade = studentService.findGradeById(id).orElse(null);
+////            Olympiad olympiad = studentService.findOlympiadById(id).orElse(null);
+////            ExtraParameters extrParam = studentService.findExParamById(id).orElse(null);
+////            Klasa klasa = studentService.findClassById(id).orElse(null);
+//            Student newparam = studentService.pointsOfStudent(student, exam);
+//            model.addAttribute("student", student);
+//            model.addAttribute("exam", exam);
+////            model.addAttribute("grade", grade);
+////            model.addAttribute("olympiad", olympiad);
+////            model.addAttribute("extrParam", extrParam);
+////            model.addAttribute("klasa", klasa);
+//            model.addAttribute("student", newparam);
+//
+//            return "/student/moreAboutStudent";
+//        }
+//    }
 
 
     @GetMapping("/updateStudent/{id}")

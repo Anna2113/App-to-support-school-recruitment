@@ -18,15 +18,15 @@
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<!--    <script th:inline="javascript">-->
-<!--        let real_data = /*[[${doctors}]]*/'noValue';-->
-<!--        $(document).ready(function () {-->
-<!--            $("#surnameInput").autocomplete({-->
-<!--                minLength: 1,-->
-<!--                source: real_data-->
-<!--            })-->
-<!--        });-->
-<!--    </script>-->
+    <!--    <script th:inline="javascript">-->
+    <!--        let real_data = /*[[${doctors}]]*/'noValue';-->
+    <!--        $(document).ready(function () {-->
+    <!--            $("#surnameInput").autocomplete({-->
+    <!--                minLength: 1,-->
+    <!--                source: real_data-->
+    <!--            })-->
+    <!--        });-->
+    <!--    </script>-->
 
 </head>
 <body>
@@ -42,57 +42,10 @@
     <!--    <button type="button" class="btnSt"><a href="#" style="color: black">Usuń ucznia</a></button>-->
 </div>
 
-<!--<section class="vh-100" style="background-color: #eee;">-->
-<!--    <div>-->
-<!--        <div>-->
-<!--            <h2>Reservation of visit</h2>-->
-<!--        </div>-->
-<!--        <h2>Find your student</h2>-->
-<!--        <form th:action="@{/findStudentBySurname}">-->
-<!--            <div class="ui-widget searchDoctor">-->
-<!--                <label for="surnameInput">Search student by surname:</label>-->
-<!--                <input id="surnameInput" name="surname"/>-->
-<!--                <div class="searchAndReset">-->
-<!--                    <button type="submit">Search</button>-->
-<!--                    <button type="reset">Reset</button>-->
-<!--                </div>-->
-
-<!--            </div>-->
-
-<!--        </form>-->
-
-<!--    </div>-->
-
-<!--    <div th:if="${student != null}" class="tabelka">-->
-<!--        <table>-->
-<!--            <thead>-->
-<!--            <th class="firstTh">Imie</th>-->
-<!--            <th class="firstTh">Nazwisko</th>-->
-<!--            <th class="firstTh">Rocznik</th>-->
-<!--            <th class="firstTh"> Więcej</th>-->
-<!--            </thead>-->
-<!--            <tbody style="border: 2px solid black">-->
-<!--            <tr th:each="d: ${student}"-->
-<!--                style="border: 2px solid black">-->
-<!--                <td class="firstTd" th:text="${d.firstName}"/>-->
-<!--                <td class="firstTd" th:text="${d.lastName}"/>-->
-<!--                <td class="firstTd" th:text="${d.dateOfBirth}"/>-->
-<!--                <td class="firstTd">-->
-<!--                        <button class="btnSt">-->
-<!--                            <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>-->
-<!--                        </button>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-
-<!--    <div th:if="${student == null}">-->
-<!--        <h3 th:text="${notFindStudent}"></h3>-->
-<!--    </div>-->
-
-    <div class="tabelka">
-        <table class="table">
+<div class="tabelka">
+    <table class="table">
+<!--        <thead>-->
+        <tr>
             <th class="firstTh">Imie</th>
             <th class="firstTh">Nazwisko</th>
             <th class="firstTh">Rocznik</th>
@@ -100,33 +53,108 @@
             <th class="firstTh">Pochodzenie</th>
             <th class="firstTh">Język polski</th>
             <th class="firstTh">Więcje</th>
-            <!--            <th class="firstTh">Klasa</th>-->
-            <tr th:each="student: ${allStudents}" class="firstTr">
-                <td class="firstTd" th:text="${student.firstName}"/>
-                <td class="firstTd" th:text="${student.lastName}"/>
-                <td class="firstTd" th:text="${student.dateOfBirth}"/>
-                <td class="firstTd" th:text="${student.sex}"/>
-                <td class="firstTd" th:text="${student.align}"/>
-                <td class="firstTd" th:text="${student.languagePolish}"/>
-                <td class="firstTd">
-                    <button class="btnSt">
-                        <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>
-                    </button>
-    <!--                <button class="btnSt">-->
-    <!--                    <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>-->
-    <!--                </button>-->
-                </td>
-            </tr>
-        </table>
-    </div>
-    <p>Dorobić walidację sprawdzającą uzupełnienie wszystkich pól w formularzu</p>
-    <p>Dorobić walidację checkboxów</p>
-    <p>Zaznaczyć "brak" jako default</p>
-    <p>Poprawić nieścisłości językowe.</p>
-    <p>Dodać wyszukiwanie ucznia po nazwisku i filtracje po roczniku</p>
-    <p>Poprawić edycję radiobuttonów przy uczniu</p>
-    <p>Przygotować algorytm wyliczania punktów</p>
-    <p>Przygotować algorytm klasyfikacji</p>
+        </tr>
+<!--        <tr>-->
+<!--            <th class="firstTh"></th>-->
+<!--            <th class="firstTh"></th>-->
+<!--            <th class="firstTh">-->
+<!--                <select class="field-filter" data-field-index="0">-->
+<!--                    <option value="">Wszystkie</option>-->
+<!--                    <option value="2007">2006</option>-->
+<!--                    <option value="2008">2007</option>-->
+<!--                    <option value="2009">2008</option>-->
+<!--                </select>-->
+<!--            </th>-->
+<!--            <th class="firstTh">-->
+<!--                <select class="field-filter" data-field-index="0" name="sex">-->
+<!--                    <option value="">Wszystkie</option>-->
+<!--&lt;!&ndash;                    <option value="woman">Kobieta</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option value="man">Mężczyzna</option>&ndash;&gt;-->
+<!--                    <option th:each="sexOpt : ${T(com.example.aplikacja.student.enums.Sex).values()}"-->
+<!--                            th:text="${sexOpt.label}"-->
+<!--                            th:value="${sexOpt}"></option>-->
+<!--                </select>-->
+<!--            </th>-->
+<!--            <th class="firstTh">-->
+<!--                <select class="field-filter" data-field-index="0">-->
+<!--                    <option value="">Wszystkie</option>-->
+<!--                    <option value="polak">Polak</option>-->
+<!--                    <option value="obcokrajowiec">Obcokrajowiec</option>-->
+<!--                </select>-->
+<!--            </th>-->
+<!--            <th class="firstTh">-->
+<!--                <select class="field-filter" data-field-index="0">-->
+<!--                    <option value="">Wszystkie</option>-->
+<!--                    <option value="yes">TAK</option>-->
+<!--                    <option value="no">NIE</option>-->
+<!--                </select>-->
+<!--            </th>-->
+<!--            <th class="firstTh"></th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+        <tr th:each="student: ${allStudents}" class="firstTr">
+            <td class="firstTd" th:text="${student.firstName}"/>
+            <td class="firstTd" th:text="${student.lastName}"/>
+            <td class="firstTd" th:text="${student.dateOfBirth}"/>
+            <td class="firstTd" th:text="${student.sex}"/>
+            <td class="firstTd" th:text="${student.align}"/>
+            <td class="firstTd" th:text="${student.languagePolish}"/>
+            <td class="firstTd">
+                <button class="btnSt">
+                    <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>
+                </button>
+                <!--                <button class="btnSt">-->
+                <!--                    <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>-->
+                <!--                </button>-->
+            </td>
+        </tr>
+<!--        </tbody>-->
+    </table>
+    <script>
+        (function () {
+            var tabFilter = [];
+            var table = document.querySelector("table");
+
+            document.querySelectorAll("table thead .field-filter")
+                .forEach(function (item) {
+                    item.addEventListener("input", function (e) {
+                        createFilter(e.target);
+                    });
+                });
+
+            function createFilter(el) {
+                tabFilter[el.dataset.fieldIndex] = el.value.toUpperCase();
+                execFilter();
+            }
+
+            function execFilter() {
+                let filterLength = tabFilter.length;
+
+                table.querySelectorAll("tbody tr")
+                    .forEach(function (item) {
+                        for (var i = 0; i < filterLength; i++) {
+                            if (!item.getElementsByTagName("td")[i].textContent.toUpperCase().includes(tabFilter[i])) {
+                                item.style.display = "none";
+                            } else {
+                                item.style.removeProperty("display");
+                            }
+                        }
+                    })
+            }
+        })();
+
+    </script>
+</div>
+<p>Dorobić walidację sprawdzającą uzupełnienie wszystkich pól w formularzu</p>
+<p>Dorobić walidację checkboxów</p>
+<p>Zaznaczyć "brak" jako default</p>
+<p>Poprawić nieścisłości językowe.</p>
+<p>Dodać wyszukiwanie ucznia po nazwisku i filtracje po roczniku</p>
+<p>Poprawić edycję radiobuttonów przy uczniu</p>
+<p>Ewentualna zmiana plastyki w klasie Aktorskiej na inny przedmiot</p>
+<p>Przygotować algorytm wyliczania punktów</p>
+<p>Przygotować algorytm klasyfikacji</p>
 
 </body>
 </html>

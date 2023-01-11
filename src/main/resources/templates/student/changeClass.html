@@ -25,12 +25,27 @@
         <th class="firstTh">Klasa</th>
         <th class="firstTh">Symbol</th>
         <th class="firstTh">Punkty</th>
-        <th class="firstTh">Policz</th>
+
         <!--            <th class="firstTh">Klasa</th>-->
         <tr th:each="klasa: ${allClass}" class="firstTr">
             <td class="firstTd" th:text="${klasa.nameOfClass}"/>
             <td class="firstTd" th:text="${klasa.symbol}"/>
-            <td class="firstTd" th:text="${student.points}"/>
+            <td class="firstTd">
+                <p th:text="${student.pointsMatGeoInf}"/>
+                <p th:text="${student.pointsHuman}"/>
+                <p th:text="${student.pointsBiolChemAng}"/>
+                <p th:text="${student.pointsMatAngNiem}"/>
+                <p th:text="${student.pointsSportowa}"/>
+                <p th:text="${student.pointsMuzyczna}"/>
+                <p th:text="${student.pointsAktorska}"/>
+            </td>
+<!--            <td class="firstTd" th:text="${student.pointsMatGeoInf}"/>-->
+<!--            <td class="firstTd" th:text="${student.pointsHuman}"/>-->
+<!--            <td class="firstTd" th:text="${student.pointsBiolChemAng}"/>-->
+        </tr>
+        <tr>
+            <td class="firstTd"></td>
+            <td class="firstTd"></td>
             <td class="firstTd">
                 <button class="btnSt">
                     <a th:href="@{'/allCountPoints/' + ${student.id}}" style="color: black">Policz punkty</a>

@@ -6,10 +6,11 @@ import lombok.Getter;
 public enum NameOfClass {
     MatGeoInf("MatGeoInf"),
     Humanistyczna("Humanistyczna"),
-    Lingwistyczna("Lingwistyczna"),
+    MatAngNiem("MatAngNiem"),
     Sportowa("Sportowa"),
     BiolChem("BiolChem"),
-    Artystyczna("Artystyczna");
+    Muzyczna("Muzyczna"),
+    Aktorska("Aktorska");
 
     private String label;
 

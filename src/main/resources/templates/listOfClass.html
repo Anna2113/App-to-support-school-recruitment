@@ -27,12 +27,14 @@
         <th class="firstTh">Profil klasy</th>
         <th class="firstTh">Symbol</th>
         <th class="firstTh">Limit uczniów</th>
+        <th class="firstTh">Rocznik</th>
         <th class="firstTh">Więcje</th>
         <!--            <th class="firstTh">Klasa</th>-->
         <tr th:each="klasa: ${allClass}" class="firstTr">
             <td class="firstTd" th:text="${klasa.nameOfClass}"/>
             <td class="firstTd" th:text="${klasa.symbol}"/>
             <td class="firstTd" th:text="${klasa.liczba}"/>
+            <td class="firstTd" th:text="${#dates.year(klasa.year)}"/>
             <td class="firstTd">
                                 <button class="btnSt">
                                     <a th:href="@{'/aboutClass/' + ${klasa.id}}" style="color: black">Wybierz</a>

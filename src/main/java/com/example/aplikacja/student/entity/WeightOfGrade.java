@@ -34,8 +34,6 @@ public class WeightOfGrade {
     @Enumerated(EnumType.STRING)
     private Subject subject;
     private Double wartosc = 1.0;
-    @OneToOne
-    private Student student;
 
     public WeightOfGrade(Klasa klasa, Subject subject, Double wartosc) {
         this.klasa = klasa;

@@ -6,6 +6,7 @@ import com.example.aplikacja.student.enums.Skills;
 import com.example.aplikacja.student.enums.Subject;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class KlasaDTO {
     private NameOfClass nameOfClass;
     private String symbol;
     private String liczba;
+    private String year;
     private Boolean locked = false;
     private Boolean enabled = true;
     private Double minAvgGrade;

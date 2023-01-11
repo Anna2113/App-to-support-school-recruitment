@@ -5,6 +5,7 @@ import com.example.aplikacja.student.dto.WeightOfGradeDTO;
 import com.example.aplikacja.student.enums.Align;
 import com.example.aplikacja.student.enums.LanguagePolish;
 import com.example.aplikacja.student.enums.Sex;
+import com.example.aplikacja.student.enums.Skills;
 import lombok.*;
 
 import javax.persistence.*;
@@ -51,7 +52,17 @@ public class Student {
     private LanguagePolish languagePolish;
     private Boolean locked = false;
     private Boolean enabled = true;
-    private Double points;
+    private Double pointsMatGeoInf;
+    private Double pointsHuman;
+    private Double pointsBiolChemAng;
+    private Double pointsMatAngNiem;
+    private Double pointsMuzyczna;
+    private Double pointsAktorska;
+    private Double pointsSportowa;
+
+//    @Enumerated
+//    @ElementCollection(targetClass = Klasa.class)
+//    private List<Klasa> listaKlas;
     //    private String className;
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Exam exams;
@@ -63,20 +74,29 @@ public class Student {
     private ExtraParameters extraParameters;
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Klasa klasa;
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private WeightOfGrade weightOfGrade;
+    @OneToMany(mappedBy = "student")
+    private List<ClassStudentResult> listaPom;
 
 
-    public Student(Long id, String firstName,
-                   String lastName, String email, LocalDate dateOfBirth,
-                   List<AppUserRole> appUserRole, Double points) {
-        this.id = id;
+    public Student(String firstName, String lastName, String email, List<AppUserRole> appUserRole, LocalDate dateOfBirth, Sex sex, Align align, LanguagePolish languagePolish, Boolean locked, Boolean enabled, Double pointsMatGeoInf, Double pointsHuman, Exam exams, Grade grades, Olympiad olympiads, ExtraParameters extraParameters, Klasa klasa, List<ClassStudentResult> listaPom) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
         this.appUserRole = appUserRole;
-        this.points = points;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.align = align;
+        this.languagePolish = languagePolish;
+        this.locked = locked;
+        this.enabled = enabled;
+        this.pointsMatGeoInf = pointsMatGeoInf;
+        this.pointsHuman = pointsHuman;
+        this.exams = exams;
+        this.grades = grades;
+        this.olympiads = olympiads;
+        this.extraParameters = extraParameters;
+        this.klasa = klasa;
+        this.listaPom = listaPom;
     }
 
     @Override
@@ -93,11 +113,14 @@ public class Student {
                 ", languagePolish=" + languagePolish +
                 ", locked=" + locked +
                 ", enabled=" + enabled +
-                ", points=" + points +
+                ", pointsMatGeoInf=" + pointsMatGeoInf +
+                ", pointsHuman=" + pointsHuman +
                 ", exams=" + exams +
                 ", grades=" + grades +
                 ", olympiads=" + olympiads +
                 ", extraParameters=" + extraParameters +
+                ", klasa=" + klasa +
+                ", listaPom=" + listaPom +
                 '}';
     }
 }

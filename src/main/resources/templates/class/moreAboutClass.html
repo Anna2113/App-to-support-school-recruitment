@@ -36,12 +36,14 @@
         <th class="firstTh">Nazwa</th>
         <th class="firstTh">Symbol</th>
         <th class="firstTh">Limit uczniów</th>
+        <th class="firstTh">Rocznik</th>
         <th class="firstTh">Przedmioty kierunkowe</th>
         <th class="firstTh">Umiejętności kierunkowe</th>
         <tr class="firstTr">
             <td class="firstTd" th:text="${klasa.nameOfClass}"/>
             <td class="firstTd" th:text="${klasa.symbol}"/>
-            <td class="firstTd" th:text="${klasa.liczba}"></td>
+            <td class="firstTd" th:text="${klasa.liczba}"/>
+            <td class="firstTd" th:text="${#dates.year(klasa.year)}"/>
             <td class="firstTd">
                 <p th:each="role: ${klasa.weightOfGrade}" th:text="${role.subject.label}">
             </td>

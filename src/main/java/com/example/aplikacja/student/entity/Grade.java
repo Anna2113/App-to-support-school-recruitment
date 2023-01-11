@@ -1,6 +1,7 @@
 package com.example.aplikacja.student.entity;
 
 
+import com.example.aplikacja.student.enums.Subject;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,6 +42,8 @@ public class Grade {
     private String ITGrade;
     private String physicalEducationGrade;
     private String designAndTechnology;
+    private String music;
+    private String art;
     @OneToOne
     private Student student;
 
@@ -49,7 +52,8 @@ public class Grade {
                  String mathGrade, String englishGrade, String otherLanguageGrade,
                  String civicsGrade, String historyGrade, String physicsGrade,
                  String chemistryGrade, String biologyGrade, String geographyGrade,
-                 String ITGrade, String physicalEducationGrade, String designAndTechnology ) {
+                 String ITGrade, String physicalEducationGrade, String designAndTechnology,
+                 String music, String art) {
         this.id = id;
         this.averageOfGrades = averageOfGrades;
         this.polishGrade = polishGrade;
@@ -65,6 +69,8 @@ public class Grade {
         this.ITGrade = ITGrade;
         this.physicalEducationGrade = physicalEducationGrade;
         this.designAndTechnology = designAndTechnology;
+        this.music = music;
+        this.art = art;
     }
 
     public Grade(Student student) {

@@ -20,6 +20,11 @@
 <h1>Punktacja ucznia</h1>
 
 <h2 style="text-align: center">Liczba zdobytych punktów podczas rekrutacji w ramach każdego profilu klasy</h2>
+<div class="containerButtons">
+    <button class="btnSt" type="button" style="margin-top: 30px">
+        <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wróć do obecnego ucznia</a>
+    </button>
+</div>
 <div class="tabelka">
     <table class="table">
         <th class="firstTh">Klasa</th>
@@ -34,10 +39,10 @@
                 <p th:text="${student.pointsMatGeoInf}"/>
                 <p th:text="${student.pointsHuman}"/>
                 <p th:text="${student.pointsBiolChemAng}"/>
-                <p th:text="${student.pointsMatAngNiem}"/>
-                <p th:text="${student.pointsSportowa}"/>
-                <p th:text="${student.pointsMuzyczna}"/>
-                <p th:text="${student.pointsAktorska}"/>
+                <p th:text="${student.pointsMAN}"/>
+                <p th:text="${student.pointsS}"/>
+                <p th:text="${student.pointsM}"/>
+                <p th:text="${student.pointsA}"/>
             </td>
 <!--            <td class="firstTd" th:text="${student.pointsMatGeoInf}"/>-->
 <!--            <td class="firstTd" th:text="${student.pointsHuman}"/>-->

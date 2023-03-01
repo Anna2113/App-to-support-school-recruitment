@@ -2,7 +2,7 @@ package com.example.aplikacja.student.entity;
 
 import lombok.*;
 import javax.persistence.*;
-
+@ToString
 @Getter
 @Setter
 @EqualsAndHashCode

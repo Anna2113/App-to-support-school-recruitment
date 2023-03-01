@@ -21,13 +21,17 @@
 <h2 style="text-align: center">Podstawowe dane</h2>
 <div class="containerButtons">
 
+    <p th:text="${classExist}" class="emailError"/><br>
+
     <button class="btnSt" type="button"><a th:href="@{'/updateStudent/' + ${student.id}}" style="color: black">
         Edytuj dane ucznia</a></button>
 
     <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}" style="color: black">Usuń
         ucznia</a></button>
 
-    <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}" style="color: black">Klasa</a></button>
+    <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}" style="color: black">Punkty</a></button>
+
+    <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}" style="color: black">Klasyfikuj ucznia</a></button>
 
 </div>
 <div class="tabelka">
@@ -76,6 +80,19 @@
         </tr>
     </table>
 </div>
+
+<h2 style="text-align: center">Klasa ucznia</h2>
+<div class="tabelka">
+    <table class="table">
+        <th class="firstTh">Klasa</th>
+        <th class="firstTh">Nazwa</th>
+        <tr>
+            <td class="firstTd">Klasa</td>
+            <td class="firstTd" th:text="${student.classForStudent}"/>
+        </tr>
+    </table>
+</div>
+
 
 <h2 style="text-align: center">Rezultaty</h2>
 
@@ -215,7 +232,7 @@
         <th class="firstTh">Wartość</th>
         <tr class="firstTr">
             <td class="firstTd">Umiejętność szybkiego liczenia</td>
-            <td class="firstTd" th:text="${student.extraParameters.fastCounting}"></td>
+            <td class="firstTd" th:text="${student.extraParameters.fastCounting}"/>
         </tr>
         <tr class="firstTr">
             <td class="firstTd">Umiejętność szybkiego czytania</td>

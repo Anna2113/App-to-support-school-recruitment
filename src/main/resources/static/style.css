@@ -154,6 +154,25 @@ h1{
     font-size: 1.2rem;
 }
 
+.tabelka1{
+    display: block;
+    margin: auto;
+    max-width: 1400px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.tabelka2{
+    display: block;
+    margin: auto;
+    max-width: 400px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+
 table {
     border-collapse: collapse;
 }
@@ -165,6 +184,10 @@ table {
 .firstTd{
     /*background-color: #708090;*/
     background-color: white;
+}
+.td{
+    background-color: white;
+    width: 300px;
 }
 
 .containerButtons{

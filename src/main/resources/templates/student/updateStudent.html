@@ -28,12 +28,17 @@
     <div class="row">
         <div class="row" style="display: block;margin: auto; margin-top: 25px">
             <div>
-                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#dateOfStudent" role="button">Informacje o
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#dateOfStudent" role="button">Informacje
+                    o
                     uczniu</a>
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#result" role="button">Egzaminy</a>
-                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#grades" role="button">Oceny</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#grades"
+                   role="button">Oceny</a>
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#olympiad" role="button">Olimpiady</a>
-                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#other" role="button">Dodatkowe parametry</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#other" role="button">Dodatkowe
+                    parametry</a>
+                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#class"
+                   role="button">Klasa</a>
                 <form th:action="@{/changeStudent}" method="post">
                     <input name="_method" type="hidden" value="PUT"/>
                     <input type="hidden" name="id" th:value="${student.id}"/>
@@ -483,284 +488,303 @@
                         </div>
                     </div>
 
-                    <div class="collapse" id="other">
-                        <h3 style="text-align: center; margin-top: 20px">Dodatkowe parametry</h3>
+                    <!--                    <div class="collapse" id="other">-->
+                    <!--                        <h3 style="text-align: center; margin-top: 20px">Dodatkowe parametry</h3>-->
+                    <!--                        <div class="card card-body">-->
+                    <!--                            <table class="table">-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętność szybkiego liczenia</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="fastCounting" th:field="${student.extraParameters.fastCounting}"-->
+                    <!--                                                required>-->
+                    <!--                                            <option value="">Wybierz</option>-->
+                    <!--                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                    th:selected="${student.extraParameters.fastCounting}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętność szybkiego czytania</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="fastReading" th:field="${student.extraParameters.fastReading}"-->
+                    <!--                                                required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.fastReading}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętność rozwiązywania problemów</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="troubleshooting"-->
+                    <!--                                                th:field="${student.extraParameters.troubleshooting}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.troubleshooting}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętność szybkiego zapamiętywania</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="quickMemorization"-->
+                    <!--                                                th:field="${student.extraParameters.quickMemorization}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.quickMemorization}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętności aktorskie</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="actingSkills" th:field="${student.extraParameters.actingSkills}"-->
+                    <!--                                                required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.actingSkills}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętności wokalne</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="vocalSkills" th:field="${student.extraParameters.vocalSkills}"-->
+                    <!--                                                required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.vocalSkills}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętności taneczne</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="danceSkills" th:field="${student.extraParameters.danceSkills}"-->
+                    <!--                                                required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.danceSkills}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętności pisarskie</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="writingSkills" th:field="${student.extraParameters.writingSkills}"-->
+                    <!--                                                required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.writingSkills}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętności fotograficzne</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="photographicSkills"-->
+                    <!--                                                th:field="${student.extraParameters.photographicSkills}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.photographicSkills}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Zdolności lingwistyczne</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="linguisticSkills"-->
+                    <!--                                                th:field="${student.extraParameters.linguisticSkills}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.linguisticSkills}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Posiadanie certyfikatu językowego</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="languageCertificate"-->
+                    <!--                                                th:field="${student.extraParameters.languageCertificate}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.languageCertificate}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Zainteresowanie polityką</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="interestInPolitics"-->
+                    <!--                                                th:field="${student.extraParameters.interestInPolitics}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.interestInPolitics}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętności komunikacyjne</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="communicationSkills"-->
+                    <!--                                                th:field="${student.extraParameters.communicationSkills}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.communicationSkills}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętności sportowe/predyspozycje sportowe</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="sportSkills" th:field="${student.extraParameters.sportSkills}"-->
+                    <!--                                                required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.sportSkills}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Wyczynowe uprawianie sportu</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="extremeSport" th:field="${student.extraParameters.extremeSport}"-->
+                    <!--                                                required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.extremeSport}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Sprawność fizyczna</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="physicalFitness"-->
+                    <!--                                                th:field="${student.extraParameters.physicalFitness}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.physicalFitness}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Wytrzymałość fizyczna</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="physicalEndurance"-->
+                    <!--                                                th:field="${student.extraParameters.physicalEndurance}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.physicalEndurance}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętność pracy na otwartym terenie</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="workInTheOpenGround"-->
+                    <!--                                                th:field="${student.extraParameters.workInTheOpenGround}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.workInTheOpenGround}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Umiejętność posługiwania się mapą</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="abilityToUseAMap"-->
+                    <!--                                                th:field="${student.extraParameters.abilityToUseAMap}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.abilityToUseAMap}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Dobra znajomość tablicy Mendelejewa</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="periodicTable"-->
+                    <!--                                                th:field="${student.extraParameters.periodicTable}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.periodicTable}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Tworzenie własnych doświadczeń chemicznych</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="chemicalExperiments"-->
+                    <!--                                                th:field="${student.extraParameters.chemicalExperiments}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.chemicalExperiments}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Zainteresowania biologiczno-przyrodnicze</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="biologicalAndNaturalInterests"-->
+                    <!--                                                th:field="${student.extraParameters.biologicalAndNaturalInterests}"-->
+                    <!--                                                required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.biologicalAndNaturalInterests}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Zainteresowanie technologią</th>-->
+                    <!--                                    <td>-->
+                    <!--                                        <select name="interestInTechnology"-->
+                    <!--                                                th:field="${student.extraParameters.interestInTechnology}" required/>-->
+                    <!--                                        <option value="">Wybierz</option>-->
+                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
+                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
+                    <!--                                                th:selected="${student.extraParameters.interestInTechnology}"></option>-->
+                    <!--                                        </select>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                            </table>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <div class="collapse" id="class">
+                        <h3 style="text-align: center; margin-top: 25px">Zakwalifikuj ucznia do innej klasy</h3>
                         <div class="card card-body">
                             <table class="table">
                                 <tr>
-                                    <th>Umiejętność szybkiego liczenia</th>
+                                    <td>Nazwa klasy</td>
                                     <td>
-                                        <select name="fastCounting" th:field="${student.extraParameters.fastCounting}"
-                                                required>
+                                        <select name="classForStudent" th:field="${student.classForStudent}" required>
                                             <option value="">Wybierz</option>
-                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                    th:selected="${student.extraParameters.fastCounting}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętność szybkiego czytania</th>
-                                    <td>
-                                        <select name="fastReading" th:field="${student.extraParameters.fastReading}"
-                                                required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.fastReading}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętność rozwiązywania problemów</th>
-                                    <td>
-                                        <select name="troubleshooting"
-                                                th:field="${student.extraParameters.troubleshooting}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.troubleshooting}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętność szybkiego zapamiętywania</th>
-                                    <td>
-                                        <select name="quickMemorization"
-                                                th:field="${student.extraParameters.quickMemorization}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.quickMemorization}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętności aktorskie</th>
-                                    <td>
-                                        <select name="actingSkills" th:field="${student.extraParameters.actingSkills}"
-                                                required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.actingSkills}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętności wokalne</th>
-                                    <td>
-                                        <select name="vocalSkills" th:field="${student.extraParameters.vocalSkills}"
-                                                required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.vocalSkills}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętności taneczne</th>
-                                    <td>
-                                        <select name="danceSkills" th:field="${student.extraParameters.danceSkills}"
-                                                required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.danceSkills}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętności pisarskie</th>
-                                    <td>
-                                        <select name="writingSkills" th:field="${student.extraParameters.writingSkills}"
-                                                required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.writingSkills}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętności fotograficzne</th>
-                                    <td>
-                                        <select name="photographicSkills"
-                                                th:field="${student.extraParameters.photographicSkills}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.photographicSkills}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Zdolności lingwistyczne</th>
-                                    <td>
-                                        <select name="linguisticSkills"
-                                                th:field="${student.extraParameters.linguisticSkills}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.linguisticSkills}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Posiadanie certyfikatu językowego</th>
-                                    <td>
-                                        <select name="languageCertificate"
-                                                th:field="${student.extraParameters.languageCertificate}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.languageCertificate}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Zainteresowanie polityką</th>
-                                    <td>
-                                        <select name="interestInPolitics"
-                                                th:field="${student.extraParameters.interestInPolitics}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.interestInPolitics}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętności komunikacyjne</th>
-                                    <td>
-                                        <select name="communicationSkills"
-                                                th:field="${student.extraParameters.communicationSkills}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.communicationSkills}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętności sportowe/predyspozycje sportowe</th>
-                                    <td>
-                                        <select name="sportSkills" th:field="${student.extraParameters.sportSkills}"
-                                                required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.sportSkills}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Wyczynowe uprawianie sportu</th>
-                                    <td>
-                                        <select name="extremeSport" th:field="${student.extraParameters.extremeSport}"
-                                                required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.extremeSport}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Sprawność fizyczna</th>
-                                    <td>
-                                        <select name="physicalFitness"
-                                                th:field="${student.extraParameters.physicalFitness}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.physicalFitness}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Wytrzymałość fizyczna</th>
-                                    <td>
-                                        <select name="physicalEndurance"
-                                                th:field="${student.extraParameters.physicalEndurance}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.physicalEndurance}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętność pracy na otwartym terenie</th>
-                                    <td>
-                                        <select name="workInTheOpenGround"
-                                                th:field="${student.extraParameters.workInTheOpenGround}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.workInTheOpenGround}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Umiejętność posługiwania się mapą</th>
-                                    <td>
-                                        <select name="abilityToUseAMap"
-                                                th:field="${student.extraParameters.abilityToUseAMap}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.abilityToUseAMap}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Dobra znajomość tablicy Mendelejewa</th>
-                                    <td>
-                                        <select name="periodicTable"
-                                                th:field="${student.extraParameters.periodicTable}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.periodicTable}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Tworzenie własnych doświadczeń chemicznych</th>
-                                    <td>
-                                        <select name="chemicalExperiments"
-                                                th:field="${student.extraParameters.chemicalExperiments}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.chemicalExperiments}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Zainteresowania biologiczno-przyrodnicze</th>
-                                    <td>
-                                        <select name="biologicalAndNaturalInterests"
-                                                th:field="${student.extraParameters.biologicalAndNaturalInterests}"
-                                                required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.biologicalAndNaturalInterests}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Zainteresowanie technologią</th>
-                                    <td>
-                                        <select name="interestInTechnology"
-                                                th:field="${student.extraParameters.interestInTechnology}" required/>
-                                        <option value="">Wybierz</option>
-                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
-                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"
-                                                th:selected="${student.extraParameters.interestInTechnology}"></option>
+                                            <option th:each="nameOpt : ${T(com.example.aplikacja.student.enums.NameOfClass).values()}"
+                                                    th:text="${nameOpt.label}" th:value="${nameOpt}"
+                                                    th:selected="${student.classForStudent}"></option>
                                         </select>
                                     </td>
                                 </tr>
@@ -779,6 +803,9 @@
 
                 <button class="btnSt" type="button" style="margin-top: 30px">
                     <a th:href="@{'/showStudents'}" style="color: black">Lista uczniów</a></button>
+                <button class="btnSt" type="button" style="margin-top: 30px">
+                    <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wróć do obecnego ucznia</a>
+                </button>
             </div>
         </div>
     </div>

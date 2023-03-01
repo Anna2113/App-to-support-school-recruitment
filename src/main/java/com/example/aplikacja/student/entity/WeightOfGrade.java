@@ -6,7 +6,7 @@ import com.example.aplikacja.student.enums.Subject;
 import lombok.*;
 
 import javax.persistence.*;
-
+@ToString
 @Getter
 @Setter
 @EqualsAndHashCode

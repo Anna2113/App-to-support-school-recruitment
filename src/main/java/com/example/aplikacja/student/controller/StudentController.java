@@ -3,6 +3,8 @@ package com.example.aplikacja.student.controller;
 import com.example.aplikacja.appuser.AppUserService;
 import com.example.aplikacja.student.dto.*;
 import com.example.aplikacja.student.entity.*;
+import com.example.aplikacja.student.enums.NameOfClass;
+import com.example.aplikacja.student.service.ClassificationService;
 import com.example.aplikacja.student.service.KlassService;
 import com.example.aplikacja.student.service.StudentService;
 import org.springframework.stereotype.Controller;
@@ -10,18 +12,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class StudentController {
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, KlassService klassService,
+                             ClassificationService classificationService) {
         this.studentService = studentService;
+        this.klassService = klassService;
+        this.classificationService = classificationService;
     }
 
     private StudentService studentService;
     private AppUserService appUserService;
     private KlassService klassService;
+    private ClassificationService classificationService;
 
     @GetMapping("/studentForm") //przycisk "Dodaj ucznia na podstronie hello"
     public String addStudent(Model model) {
@@ -125,18 +130,16 @@ public class StudentController {
             return "userIsLogout";
         } else {
             Student student = studentService.findUserById(id).orElse(null);
-            Klasa klasa = studentService.findClassById(id).orElse(null);
-                studentService.addPointsMatGeoInf(student, klasa);
-                studentService.addPointsHuman(student, klasa);
-                studentService.addPointsBiolChem(student, klasa);
-                studentService.addPointsMatAngNiem(student, klasa);
-                studentService.addPointsActor(student, klasa);
-                studentService.addPointsMusic(student, klasa);
-                studentService.addPointsSport(student, klasa);
-                model.addAttribute("student", student);
-                model.addAttribute("klasa", klasa);
+            studentService.addPointsMatGeoInf(student);
+            studentService.addPointsHuman(student);
+            studentService.addPointsBiolChem(student);
+            studentService.addPointsMatAngNiem(student);
+            studentService.addPointsActor(student);
+            studentService.addPointsMusic(student);
+            studentService.addPointsSport(student);
+            model.addAttribute("student", student);
 
-                return "/student/changeClass";
+            return "/student/changeClass";
         }
     }
 
@@ -183,6 +186,47 @@ public class StudentController {
         Student newStudent = studentService.updateStudent(student, exam, grade, olymp, extraparam);
         model.addAttribute("student", newStudent);
         return "/student/updateStudent";
+    }
+
+    @GetMapping("/classificationStudent/{id}")
+    private String classification(@PathVariable("id") Long id, Model model, Principal principal) {
+        Student student = classificationService.findUserById(id).orElse(null);
+        if (student.getClassForStudent() != null) {
+            model.addAttribute("classExist", "Uczeń został już sklasyfikowany");
+            model.addAttribute("student", student);
+            return "/student/moreAboutStudent";
+        } else {
+            classificationService.classification(student);
+            model.addAttribute("student", student);
+            return "/student/classification";
+        }
+
+    }
+
+    @GetMapping("changeClassForStudent/{id}")
+    private String changeClass(@PathVariable("id") Long id, Model model, Principal principal) {
+        Student student = studentService.findUserById(id).orElse(null);
+        model.addAttribute("student", student);
+        return "student/setClassForStudent";
+    }
+
+    @GetMapping("/updateClassForStudent/{id}")
+    public String updateClassForStudent(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "userIsLogout";
+        } else {
+            Student student = studentService.findUserById(id).orElse(null);
+            model.addAttribute("student", student);
+            model.addAttribute(new StudentDTO());
+            return "/student/setClassForStudent";
+        }
+    }
+
+    @PutMapping("/changedClassForStudent")
+    private String changedClassStudent(StudentDTO studentDTO, Model model) {
+        Student student = studentService.findUserByEmail(studentDTO.getEmail()).orElse(null);
+        model.addAttribute("student", studentService.updateStudentClass(student, studentDTO.getClassForStudent()));
+        return "student/classification";
     }
 
     @GetMapping("/confirmDelete/{id}")

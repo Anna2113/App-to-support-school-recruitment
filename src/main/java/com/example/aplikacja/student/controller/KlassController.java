@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class KlassController {
@@ -52,6 +53,22 @@ public class KlassController {
         model.addAttribute("allClass", klassService.getAllKlass());
         return "/listOfClass";
     }
+
+    @GetMapping("/reserveList")
+    public String showReserveLis(Model model){
+        return "/class/reserveList";
+    }
+
+
+    @GetMapping("/listOfStudentForClass")
+    public String showListOfStduentForClass(Model model, Principal principal){
+//        Student student = studentService.findUserByEmail(principal.getName()).orElse(null);
+//        List<Student> allStudents = klassService.getAllStudents(student.getId());
+//        model.addAttribute(student);
+        model.addAttribute("allStudents", klassService.getAllStudents());
+        return "/class/listOfStudentsForClass";
+    }
+
 
     @GetMapping("/listOfClassForStudents/{id}")
     public String showListForStudent(@PathVariable("id") Long id, Model model, Principal principal) {
@@ -200,6 +217,5 @@ public class KlassController {
             return "/class/parametersOfClass";
         }
     }
-
 
 }

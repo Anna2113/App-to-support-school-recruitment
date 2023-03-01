@@ -2,8 +2,7 @@ package com.example.aplikacja.student.service;
 
 import com.example.aplikacja.student.dto.*;
 import com.example.aplikacja.student.entity.*;
-import com.example.aplikacja.student.enums.NameOfClass;
-import com.example.aplikacja.student.enums.Subject;
+import com.example.aplikacja.student.enums.*;
 import com.example.aplikacja.student.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,10 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
@@ -72,10 +69,10 @@ public class StudentService implements UserDetailsService {
         return klassRepository.findBySymbol(symbol);
     }
 
-    public Student addPointsMatGeoInf(Student student, Klasa klasa) {
+
+    public Student addPointsMatGeoInf(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-        Klasa kl = findClassBySymbol(klasa.getSymbol()).orElse(null);
 
         Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
                 k.getNameOfClass().equals(NameOfClass.MatGeoInf)).findFirst().get();
@@ -96,7 +93,7 @@ public class StudentService implements UserDetailsService {
 
         double punktyMatGeoInf = wagaMath * Double.parseDouble(mathGrade)
                 + wagaGeo * Double.parseDouble(geoGrade)
-                + wagaInf *  Double.parseDouble(itGrade);
+                + wagaInf * Double.parseDouble(itGrade);
 
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
@@ -107,8 +104,8 @@ public class StudentService implements UserDetailsService {
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
         double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
-        + Double.parseDouble(polExam) *  Double.parseDouble(wagaPolExam)
-        + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
+                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
+                + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
         double punkty = punktyMatGeoInf + pointsFromExams;
 
@@ -118,10 +115,9 @@ public class StudentService implements UserDetailsService {
         return studentRepository.save(studentToUpdate);
     }
 
-    public Student addPointsHuman(Student student, Klasa klasa) {
+    public Student addPointsHuman(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-        Klasa kl = findClassBySymbol(klasa.getSymbol()).orElse(null);
 
         Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
                 k.getNameOfClass().equals(NameOfClass.Humanistyczna)).findFirst().get();
@@ -142,7 +138,7 @@ public class StudentService implements UserDetailsService {
 
         double punktyHuman = wagaPol * Double.parseDouble(polGrade)
                 + wagaHis * Double.parseDouble(hisGrade)
-                + wagaWos *  Double.parseDouble(wosGrade);
+                + wagaWos * Double.parseDouble(wosGrade);
 
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
@@ -153,7 +149,7 @@ public class StudentService implements UserDetailsService {
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
         double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
-                + Double.parseDouble(polExam) *  Double.parseDouble(wagaPolExam)
+                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
         double punkty = punktyHuman + pointsFromExams;
@@ -164,10 +160,9 @@ public class StudentService implements UserDetailsService {
         return studentRepository.save(studentToUpdate);
     }
 
-    public Student addPointsBiolChem(Student student, Klasa klasa) {
+    public Student addPointsBiolChem(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-        Klasa kl = findClassBySymbol(klasa.getSymbol()).orElse(null);
 
         Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
                 k.getNameOfClass().equals(NameOfClass.BiolChem)).findFirst().get();
@@ -188,7 +183,7 @@ public class StudentService implements UserDetailsService {
 
         double punktyBiolChemAng = wagaBio * Double.parseDouble(bioGrade)
                 + wagaChem * Double.parseDouble(chemGrade)
-                + wagaAng *  Double.parseDouble(angGrade);
+                + wagaAng * Double.parseDouble(angGrade);
 
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
@@ -199,7 +194,7 @@ public class StudentService implements UserDetailsService {
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
         double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
-                + Double.parseDouble(polExam) *  Double.parseDouble(wagaPolExam)
+                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
         double punkty = punktyBiolChemAng + pointsFromExams;
@@ -210,10 +205,9 @@ public class StudentService implements UserDetailsService {
         return studentRepository.save(studentToUpdate);
     }
 
-    public Student addPointsMatAngNiem(Student student, Klasa klasa) {
+    public Student addPointsMatAngNiem(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-        Klasa kl = findClassBySymbol(klasa.getSymbol()).orElse(null);
 
         Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
                 k.getNameOfClass().equals(NameOfClass.MatAngNiem)).findFirst().get();
@@ -234,7 +228,7 @@ public class StudentService implements UserDetailsService {
 
         double punktyMatAngNiem = wagaMat * Double.parseDouble(matGrade)
                 + wagaAng * Double.parseDouble(angGrade)
-                + wagaNiem *  Double.parseDouble(niemGrade);
+                + wagaNiem * Double.parseDouble(niemGrade);
 
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
@@ -245,21 +239,20 @@ public class StudentService implements UserDetailsService {
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
         double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
-                + Double.parseDouble(polExam) *  Double.parseDouble(wagaPolExam)
+                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
         double punkty = punktyMatAngNiem + pointsFromExams;
 
-        studentToUpdate.setPointsMatAngNiem(punkty);
+        studentToUpdate.setPointsMAN(punkty);
 
 
         return studentRepository.save(studentToUpdate);
     }
 
-    public Student addPointsMusic(Student student, Klasa klasa) {
+    public Student addPointsMusic(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-        Klasa kl = findClassBySymbol(klasa.getSymbol()).orElse(null);
 
         Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
                 k.getNameOfClass().equals(NameOfClass.Muzyczna)).findFirst().get();
@@ -280,7 +273,7 @@ public class StudentService implements UserDetailsService {
 
         double punktyMusic = wagaMat * Double.parseDouble(matGrade)
                 + wagaAng * Double.parseDouble(angGrade)
-                + wagaMuz *  Double.parseDouble(muzGrade);
+                + wagaMuz * Double.parseDouble(muzGrade);
 
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
@@ -291,21 +284,20 @@ public class StudentService implements UserDetailsService {
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
         double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
-                + Double.parseDouble(polExam) *  Double.parseDouble(wagaPolExam)
+                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
         double punkty = punktyMusic + pointsFromExams;
 
-        studentToUpdate.setPointsMuzyczna(punkty);
+        studentToUpdate.setPointsM(punkty);
 
 
         return studentRepository.save(studentToUpdate);
     }
 
-    public Student addPointsActor(Student student, Klasa klasa) {
+    public Student addPointsActor(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-        Klasa kl = findClassBySymbol(klasa.getSymbol()).orElse(null);
 
         Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
                 k.getNameOfClass().equals(NameOfClass.Aktorska)).findFirst().get();
@@ -326,7 +318,7 @@ public class StudentService implements UserDetailsService {
 
         double punktyActor = wagaMat * Double.parseDouble(matGrade)
                 + wagaAng * Double.parseDouble(angGrade)
-                + wagaPla *  Double.parseDouble(plaGrade);
+                + wagaPla * Double.parseDouble(plaGrade);
 
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
@@ -337,21 +329,20 @@ public class StudentService implements UserDetailsService {
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
         double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
-                + Double.parseDouble(polExam) *  Double.parseDouble(wagaPolExam)
+                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
         double punkty = punktyActor + pointsFromExams;
 
-        studentToUpdate.setPointsAktorska(punkty);
+        studentToUpdate.setPointsA(punkty);
 
 
         return studentRepository.save(studentToUpdate);
     }
 
-    public Student addPointsSport(Student student, Klasa klasa) {
+    public Student addPointsSport(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-        Klasa kl = findClassBySymbol(klasa.getSymbol()).orElse(null);
 
         Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
                 k.getNameOfClass().equals(NameOfClass.Sportowa)).findFirst().get();
@@ -372,7 +363,7 @@ public class StudentService implements UserDetailsService {
 
         double punktySport = wagaMat * Double.parseDouble(matGrade)
                 + wagaBio * Double.parseDouble(bioGrade)
-                + wagaWF *  Double.parseDouble(wfGrade);
+                + wagaWF * Double.parseDouble(wfGrade);
 
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
@@ -383,15 +374,214 @@ public class StudentService implements UserDetailsService {
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
         double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
-                + Double.parseDouble(polExam) *  Double.parseDouble(wagaPolExam)
+                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
         double punkty = punktySport + pointsFromExams;
 
-        studentToUpdate.setPointsSportowa(punkty);
+        studentToUpdate.setPointsS(punkty);
 
 
         return studentRepository.save(studentToUpdate);
+    }
+
+
+//    public Student classification(Student studentToUpdate) {
+//
+//
+//        Klasa klasaMatGeoInf = klassRepository.findAll().stream().filter(k ->
+//                k.getNameOfClass() == NameOfClass.MatGeoInf).findFirst().get();
+//
+//        Klasa klasaPol = klassRepository.findAll().stream().filter(k ->
+//                k.getNameOfClass().equals(NameOfClass.Humanistyczna)).findFirst().get();
+//
+//        Klasa klasaMatAngNiem = klassRepository.findAll().stream().filter(k ->
+//                k.getNameOfClass().equals(NameOfClass.MatAngNiem)).findFirst().get();
+//
+//        Klasa klasaBiolChem = klassRepository.findAll().stream().filter(k ->
+//                k.getNameOfClass().equals(NameOfClass.BiolChem)).findFirst().get();
+//
+//        Klasa klasaSportowa = klassRepository.findAll().stream().filter(k ->
+//                k.getNameOfClass().equals(NameOfClass.Sportowa)).findFirst().get();
+//
+//        Klasa klasaMuzyczna = klassRepository.findAll().stream().filter(k ->
+//                k.getNameOfClass().equals(NameOfClass.Muzyczna)).findFirst().get();
+//
+//        Klasa klasaAktorska = klassRepository.findAll().stream().filter(k ->
+//                k.getNameOfClass().equals(NameOfClass.Aktorska)).findFirst().get();
+//
+//
+//        LaureateOrFinalist lauMat = studentToUpdate.getOlympiads().getMathOlympiad();
+//        LaureateOrFinalist lauGeo = studentToUpdate.getOlympiads().getGeographyOlympiad();
+//        LaureateOrFinalist lauInf = studentToUpdate.getOlympiads().getITOlympiad();
+//        LaureateOrFinalist lauAng = studentToUpdate.getOlympiads().getEnglishOlympiad();
+//        LaureateOrFinalist lauNiem = studentToUpdate.getOlympiads().getGermanOlympiad();
+//        String lauPol = studentToUpdate.getOlympiads().getPolishOlympiad().getLabel();
+//        String lauHist = studentToUpdate.getOlympiads().getHistoryOlympiad().getLabel();
+//        String lauWOS = studentToUpdate.getOlympiads().getCivicsOlympiad().getLabel();
+//        String lauBio = studentToUpdate.getOlympiads().getBiologyOlympiad().getLabel();
+//        String lauChem = studentToUpdate.getOlympiads().getChemistryOlympiad().getLabel();
+//        String lauMuzHist = studentToUpdate.getOlympiads().getHistoryOfMusicOlympiad().getLabel();
+//        String lauItal = studentToUpdate.getOlympiads().getItalianOlympiad().getLabel();
+//
+//        String grMath = studentToUpdate.getGrades().getMathGrade();
+//        String grGeo = studentToUpdate.getGrades().getGeographyGrade();
+//        String grInf = studentToUpdate.getGrades().getITGrade();
+//        String grAng = studentToUpdate.getGrades().getEnglishGrade();
+//        String grNiem = studentToUpdate.getGrades().getOtherLanguageGrade();
+//        String grWf = studentToUpdate.getGrades().getPhysicalEducationGrade();
+//        String grBio = studentToUpdate.getGrades().getBiologyGrade();
+//
+////        String umSzLicz = String.valueOf(studentToUpdate.getExtraParameters().getFastCounting().equals("TAK"));
+////        String umRozProb = String.valueOf(studentToUpdate.getExtraParameters().getTroubleshooting().equals("TAK"));
+////        String umPrOtwTer = String.valueOf(studentToUpdate.getExtraParameters().getWorkInTheOpenGround().equals("TAK"));
+////        String zaiTech = String.valueOf(studentToUpdate.getExtraParameters().getInterestInTechnology().equals("TAK"));
+//
+////        List<Olympiad> getOlimpiad = olympiadRepository.findAll();
+//
+//        if (lauMat == LaureateOrFinalist.Laureat) {
+//            if (lauGeo == LaureateOrFinalist.Laureat || lauInf == LaureateOrFinalist.Laureat) {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//            } else if (lauAng == LaureateOrFinalist.Laureat || lauNiem == LaureateOrFinalist.Laureat) {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+//            } else if (lauGeo == LaureateOrFinalist.Finalista || lauInf == LaureateOrFinalist.Finalista) {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//            } else if (lauAng == LaureateOrFinalist.Finalista || lauNiem == LaureateOrFinalist.Finalista) {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+//            } else //(jest tylko laureatem z matematyki lub jest laureatem z więcej niż dwóch kierunkowych
+//            //przedmiotów dla tej klasy )
+//            {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//            }
+//        } else if (lauMat == LaureateOrFinalist.Finalista) {
+//            if (lauGeo == LaureateOrFinalist.Laureat || lauInf == LaureateOrFinalist.Laureat) {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//            } else if (lauAng == LaureateOrFinalist.Laureat || lauNiem == LaureateOrFinalist.Laureat) {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+//            } else if (lauGeo == LaureateOrFinalist.Finalista || lauInf == LaureateOrFinalist.Finalista) {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//            } else if (lauAng == LaureateOrFinalist.Finalista || lauNiem == LaureateOrFinalist.Finalista) {
+//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+//            } else //(Jest tylko finalistą) {
+//                if (studentToUpdate.getPointsMatGeoInf() >= klasaMatGeoInf.getMinAmountOfPointsFromExams()) {
+//                    if (grGeo.equals("1.0") || grInf.equals("1.0")) {
+//                        if (studentToUpdate.getExtraParameters().getFastCounting() == Ability.TAK
+//                                || studentToUpdate.getExtraParameters().getTroubleshooting() == Ability.TAK
+//                                || studentToUpdate.getExtraParameters().getWorkInTheOpenGround() == Ability.TAK
+//                                || studentToUpdate.getExtraParameters().getInterestInTechnology() == Ability.TAK) {
+//                            studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//                        } else {
+//                            //Student nie klasyfikuje się do tej klasy lub trafia na listę rezerwową.
+//                            if (studentToUpdate.getPointsMAN() >= klasaMatAngNiem.getMinAmountOfPointsFromExams()) {
+//                                if (grAng.equals("1.0") || grNiem.equals("1.0")) {
+//                                    if (studentToUpdate.getExtraParameters().getLinguisticSkills() == Ability.TAK
+//                                            || studentToUpdate.getExtraParameters().getLanguageCertificate() == Ability.TAK
+//                                            || studentToUpdate.getExtraParameters().getQuickMemorization() == Ability.TAK
+//                                            || studentToUpdate.getExtraParameters().getTroubleshooting() == Ability.TAK) {
+//                                        studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+//                                    } else {
+//                                        if (studentToUpdate.getPointsS() >= klasaSportowa.getMinAmountOfPointsFromExams()) {
+//                                            if (grWf.equals("1.0") || grBio.equals("1.0")) {
+//                                                if (studentToUpdate.getExtraParameters().getSportSkills() == Ability.TAK
+//                                                        || studentToUpdate.getExtraParameters().getExtremeSport() == Ability.TAK
+//                                                        || studentToUpdate.getExtraParameters().getFastCounting() == Ability.TAK
+//                                                        || studentToUpdate.getExtraParameters().getBiologicalAndNaturalInterests() == Ability.TAK) {
+//                                                    studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
+//                                                }
+//                                            } else if (!grWf.equals("1.0") || !grBio.equals("1.0")) {
+//                                                studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
+//                                            }
+//                                        } else if (studentToUpdate.getPointsS() < klasaSportowa.getMinAmountOfPointsFromExams()) {
+//                                            if (grWf.equals("5.0") && grBio.equals("5.0")) {
+//                                                studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
+//                                            } else if (grWf.equals("1.0") || grBio.equals("1.0")) {
+//                                                studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
+//                                            } else if (studentToUpdate.getExtraParameters().getSportSkills() == Ability.TAK
+//                                                    || studentToUpdate.getExtraParameters().getExtremeSport() == Ability.TAK
+//                                                    || studentToUpdate.getExtraParameters().getFastCounting() == Ability.TAK
+//                                                    || studentToUpdate.getExtraParameters().getBiologicalAndNaturalInterests() == Ability.TAK) {
+//                                                studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
+//                                            } else {
+//                                                studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
+//                                            }
+//                                        }
+//                                    }
+//                                } else if (!grAng.equals("1.0") && !grNiem.equals("1.0")) {
+//                                    studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+//                                }
+//                            } else if (studentToUpdate.getPointsMAN() < klasaMatAngNiem.getMinAmountOfPointsFromExams()) {
+//                                if (grAng.equals("5.0") && grNiem.equals("5.0")) {
+//                                    studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+//                                } else if (grAng.equals("1.0") || grNiem.equals("1.0")) {
+//                                    studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
+//                                } else if (studentToUpdate.getExtraParameters().getLinguisticSkills() == Ability.TAK
+//                                        || studentToUpdate.getExtraParameters().getLanguageCertificate() == Ability.TAK
+//                                        || studentToUpdate.getExtraParameters().getQuickMemorization() == Ability.TAK
+//                                        || studentToUpdate.getExtraParameters().getTroubleshooting() == Ability.TAK) {
+//                                    studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+//                                } else {
+//                                    studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
+//                                }
+//                            }
+//                        }
+//                    } else if (!grGeo.equals("1.0") && grInf.equals("1.0")) {
+//                        studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//                    }
+//                } else if (studentToUpdate.getPointsMatGeoInf() < klasaMatGeoInf.getMinAmountOfPointsFromExams()) {
+//                    if (grGeo.equals("5.0") && grInf.equals("5.0")) {
+//                        studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//                    } else if (grGeo.equals("1.0") || grInf.equals("1.0")) {
+//                        studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
+//                    } else {
+//                        //Można zrobić, tak aby uczeń na tym poziomie musiał mieć wszystkie wymagane umiejętności
+//                        //Czyli alternatywę zamienimy na koniunkcję.
+//                        if (studentToUpdate.getExtraParameters().getFastCounting() == Ability.TAK
+//                                || studentToUpdate.getExtraParameters().getTroubleshooting() == Ability.TAK
+//                                || studentToUpdate.getExtraParameters().getWorkInTheOpenGround() == Ability.TAK
+//                                || studentToUpdate.getExtraParameters().getInterestInTechnology() == Ability.TAK) {
+//                            studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+//                        } else {
+//                            studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
+//                        }
+//                    }
+//                }
+//        }
+//
+//        //Zakładam, że jeżeli uczeń będzie miał tylko olimpiadę matematyczną lub będzie miał olimpiadę
+//        //matematyczną i inną niż wyróżnione lub będzie innym finalistą poza wyróżnionymi
+//        //to przydzieli go domyślnie do klasy matGeoInf.
+//
+//        // TODO: 18.02.2023 Co zrobić w wypadku kiedy w dwóch klasach jest ten sam przedmiot jako kierunkowy ?
+//
+////        if (lauMat.equals("Laureat") || lauGeo.equals("Laureat") || lauInf.equals("Laureat")) {
+////            studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
+////        } else if (lauPol.equals("Laureat") || lauHist.equals("Laureat") || lauWOS.equals("Laureat")) {
+////            studentToUpdate.setClassForStudent(String.valueOf(klasaPol.getNameOfClass()));
+////        } else if (lauMat.equals("Laureat") || lauAng.equals("Laureat") || lauNiem.equals("Laureat")) {
+////            studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+////        } else if (lauAng.equals("Laureat") || lauBio.equals("Laureat") || lauChem.equals("Laureat")) {
+////            studentToUpdate.setClassForStudent(String.valueOf(klasaBiolChem.getNameOfClass()));
+////        } else if (lauMat.equals("Laureat") || lauBio.equals("Laureat")) {
+////            studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
+////        } else if (lauMat.equals("Laureat") || lauNiem.equals("Laureat") || lauMuzHist.equals("Laureat")) {
+////            studentToUpdate.setClassForStudent(String.valueOf(klasaMuzyczna.getNameOfClass()));
+////        } else if (lauAng.equals("Laureat") || lauItal.equals("Laureat") || lauMuzHist.equals("Laureat")) {
+////            studentToUpdate.setClassForStudent(String.valueOf(klasaAktorska.getNameOfClass()));
+////        }
+//
+//        return studentRepository.save(studentToUpdate);
+//    }
+
+    public Student updateStudentClass(Student student, NameOfClass name) {
+        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
+        if (studentToUpdate != null) {
+            studentToUpdate.setClassForStudent(String.valueOf(name));
+            return studentRepository.save(studentToUpdate);
+
+            //TODO: Można spróbować dodać tutaj klasę i ustawić id studenta
+        } else {
+            return studentToUpdate;
+        }
     }
 
 
@@ -946,7 +1136,6 @@ public class StudentService implements UserDetailsService {
 //        return studentToUpdate;
 //    }
 
-
     public Student addStudent(StudentDTO student, ExamDTO exam
             , GradeDTO grade, OlympiadDTO olymp
             , ExtraParametersDTO extparam
@@ -983,6 +1172,7 @@ public class StudentService implements UserDetailsService {
         exam.setForeignLanguage(dto.getForeignLanguage());
         student.setExams(exam);
     }
+
     private void mapGrade(GradeDTO dto, Student student) {
         Grade grade = new Grade(student);
         grade.setAverageOfGrades(dto.getAverageOfGrades());
@@ -1076,6 +1266,7 @@ public class StudentService implements UserDetailsService {
             studentToUpdate.setAlign(student.getAlign());
             studentToUpdate.setLanguagePolish(student.getLanguagePolish());
             studentToUpdate.setEmail(student.getEmail());
+            studentToUpdate.setClassForStudent(String.valueOf(student.getClassForStudent()));
 
             updateExam(exam, studentToUpdate);
             updateGrade(grade, studentToUpdate);
@@ -1116,6 +1307,7 @@ public class StudentService implements UserDetailsService {
         grade.setArt(dto.getArt());
         student.setGrades(grade);
     }
+
     private void updateOlympiad(OlympiadDTO dto, Student student) {
         Olympiad olympiad = new Olympiad(student);
         olympiad.setPolishOlympiad(dto.getPolishOlympiad());

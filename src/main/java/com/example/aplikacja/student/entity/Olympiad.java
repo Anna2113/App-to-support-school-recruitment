@@ -4,7 +4,7 @@ import com.example.aplikacja.student.enums.LaureateOrFinalist;
 import lombok.*;
 
 import javax.persistence.*;
-
+@ToString
 @Getter
 @Setter
 @EqualsAndHashCode

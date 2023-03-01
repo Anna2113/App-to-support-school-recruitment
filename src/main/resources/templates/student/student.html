@@ -296,7 +296,7 @@
                                     <td>
                                         <input type="radio" name="polishOlympiad" id="polishRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}" >
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="polishOlympiad" id="polishRadioF">-->
@@ -310,7 +310,7 @@
                                     <td>
                                         <input type="radio" name="mathOlympiad" id="mathRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="mathOlympiad" id="mathRadioF">-->
@@ -324,7 +324,7 @@
                                     <td>
                                         <input type="radio" name="englishOlympiad" id="englishRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="englishOlympiad" id="englishRadioF">-->
@@ -338,7 +338,7 @@
                                     <td>
                                         <input type="radio" name="germanOlympiad" id="deutschRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="germanOlympiad" id="deutschRadioF">-->
@@ -352,7 +352,7 @@
                                     <td>
                                         <input type="radio" name="frenchOlympiad" id="frenchRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="frenchOlympiad" id="frenchRadioF">-->
@@ -366,7 +366,7 @@
                                     <td>
                                         <input type="radio" name="spanishOlympiad" id="spanishRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="spanishOlympiad" id="spanishRadioF">-->
@@ -380,7 +380,7 @@
                                     <td>
                                         <input type="radio" name="italianOlympiad" id="italianRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="italianOlympiad" id="italianRadioF">-->
@@ -394,7 +394,7 @@
                                     <td>
                                         <input type="radio" name="historyOlympiad" id="historyRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="historyOlympiad" id="historyRadioF">-->
@@ -408,7 +408,7 @@
                                     <td>
                                         <input type="radio" name="civicsOlympiad" id="wosRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="civicsOlympiad" id="wosRadioF">-->
@@ -422,7 +422,7 @@
                                     <td>
                                         <input type="radio" name="biologyOlympiad" id="biologyRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="biologyOlympiad" id="biologyRadioF">-->
@@ -436,7 +436,7 @@
                                     <td>
                                         <input type="radio" name="chemistryOlympiad" id="chemistryRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="chemistryOlympiad" id=chemistryRadioF>-->
@@ -450,7 +450,7 @@
                                     <td>
                                         <input type="radio" name="physicsOlympiad" id="physicsRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="physicsOlympiad" id=physicsRadioF>-->
@@ -464,7 +464,7 @@
                                     <td>
                                         <input type="radio" name="geographyOlympiad" id="geographyRadioL" class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="geographyOlympiad" id=geographyRadioF>-->
@@ -479,7 +479,7 @@
                                         <input type="radio" name="historyOfMusicOlympiad" id="historyOfMusicRadioL"
                                                class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="historyOfMusicOlympiad" id=historyOfMusicRadioF>-->
@@ -495,7 +495,7 @@
                                         <input type="radio" name="historyOfArtOlympiad" id="historyOfArtRadioL"
                                                class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="historyOfArtOlympiad" id=historyOfArtRadioF>-->
@@ -511,7 +511,7 @@
                                         <input type="radio" name="ITOlympiad" id="ITOlympiadL"
                                                class="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}" th:value="${olympOpt}">
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}" th:checked="${olympOpt.label}">
                                     </td>
                                     <!--                                    <td>-->
                                     <!--                                        <input type="radio" name="historyOfArtOlympiad" id=historyOfArtRadioF>-->

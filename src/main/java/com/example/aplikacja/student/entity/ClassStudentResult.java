@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.concurrent.atomic.AtomicReference;
-
+@ToString
 @Getter
 @Setter
 @EqualsAndHashCode

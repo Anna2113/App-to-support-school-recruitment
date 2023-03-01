@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-
+@ToString
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -49,6 +49,8 @@ public class Klasa {
     private Double minAmountOfPointsFromExams;
     @OneToMany(mappedBy = "klasa", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<WeightOfGrade> weightOfGrade;
+//    @OneToMany(mappedBy = "klasa", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+//    private List<Student> listOfStudent;
     @Enumerated
     @ElementCollection(targetClass = Skills.class)
     private List<Skills> umiejetnosci;
@@ -70,7 +72,7 @@ public class Klasa {
                  Boolean enabled, Double minAvgGrade, Double numberOfPointsForOlimp,
                  Double numberOfPointsForFinalist, Double minAmountOfPointsFromExams,
                  List<WeightOfGrade> weightOfGrade, List<Skills> umiejetnosci, List<Subject> przedmioty,
-                 Student student, String first, String second, String third, String weightExamMath,
+                 List<Student> listOfStudent, Student student, String first, String second, String third, String weightExamMath,
                  String weightExamPolish, String weightExamEnglish) {
         this.nameOfClass = nameOfClass;
         this.symbol = symbol;
@@ -85,6 +87,7 @@ public class Klasa {
         this.weightOfGrade = weightOfGrade;
         this.umiejetnosci = umiejetnosci;
         this.przedmioty = przedmioty;
+//        this.listOfStudent = listOfStudent;
         this.student = student;
         this.first = first;
         this.second = second;

@@ -1,7 +1,9 @@
 package com.example.aplikacja.student.enums;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public enum NameOfClass {
     MatGeoInf("MatGeoInf"),

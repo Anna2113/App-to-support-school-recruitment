@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
@@ -43,6 +42,12 @@ public class KlassService {
     public Optional<Student> findStudentById(Long id){return studentRepository.findById(id);}
 
     public Optional<KlasaDTO> findClassDTOById(Long id){return klassRepository.findKDById(id);}
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+//    public List<Student> showAllStudents(Long id){return klassRepository.allStudentsForChooseClass(id);}
 
 
     public Klasa addClass(KlasaDTO cl) {

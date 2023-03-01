@@ -2,17 +2,14 @@ package com.example.aplikacja.student.entity;
 
 import com.example.aplikacja.appuser.AppUserRole;
 import com.example.aplikacja.student.dto.WeightOfGradeDTO;
-import com.example.aplikacja.student.enums.Align;
-import com.example.aplikacja.student.enums.LanguagePolish;
-import com.example.aplikacja.student.enums.Sex;
-import com.example.aplikacja.student.enums.Skills;
+import com.example.aplikacja.student.enums.*;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-
+@ToString
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -55,30 +52,34 @@ public class Student {
     private Double pointsMatGeoInf;
     private Double pointsHuman;
     private Double pointsBiolChemAng;
-    private Double pointsMatAngNiem;
-    private Double pointsMuzyczna;
-    private Double pointsAktorska;
-    private Double pointsSportowa;
-
-//    @Enumerated
-//    @ElementCollection(targetClass = Klasa.class)
-//    private List<Klasa> listaKlas;
-    //    private String className;
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Double pointsMAN;
+    private Double pointsM;
+    private Double pointsA;
+    private Double pointsS;
+    private String classForStudent;
+//    @ManyToOne
+//    @JoinColumn(name = "klasa")
+//    private Klasa newKlasa;
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Exam exams;
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Grade grades;
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Olympiad olympiads;
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private ExtraParameters extraParameters;
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Klasa klasa;
     @OneToMany(mappedBy = "student")
     private List<ClassStudentResult> listaPom;
 
 
-    public Student(String firstName, String lastName, String email, List<AppUserRole> appUserRole, LocalDate dateOfBirth, Sex sex, Align align, LanguagePolish languagePolish, Boolean locked, Boolean enabled, Double pointsMatGeoInf, Double pointsHuman, Exam exams, Grade grades, Olympiad olympiads, ExtraParameters extraParameters, Klasa klasa, List<ClassStudentResult> listaPom) {
+    public Student(String firstName, String lastName, String email,
+                   List<AppUserRole> appUserRole, LocalDate dateOfBirth, Sex sex,
+                   Align align, LanguagePolish languagePolish, Boolean locked,
+                   Boolean enabled, Double pointsMatGeoInf, Double pointsHuman,
+                   Exam exams, Grade grades, Olympiad olympiads, ExtraParameters extraParameters,
+                   Klasa klasa, List<ClassStudentResult> listaPom, Klasa newKlasa) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -97,6 +98,7 @@ public class Student {
         this.extraParameters = extraParameters;
         this.klasa = klasa;
         this.listaPom = listaPom;
+//        this.newKlasa = newKlasa;
     }
 
     @Override

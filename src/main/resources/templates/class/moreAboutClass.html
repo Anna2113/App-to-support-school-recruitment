@@ -31,7 +31,7 @@
     <button class="btnSt" type="button"><a th:href="@{'/listOfClass'}" style="color: black">
         Lista klas</a></button>
 
-    <button class="btnSt" type="button"><a th:href="@{'/listOfStudentForClass'}" style="color: black">
+    <button class="btnSt" type="button"><a th:href="@{'/listOfStudentForClass/' + ${klasa.id}}" style="color: black">
         Lista zakwalifikowanych uczniów</a> </button>
 </div>
 

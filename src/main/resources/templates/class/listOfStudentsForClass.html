@@ -21,8 +21,8 @@
 </head>
 <body>
 
-<p class="akapit">Lista zakwalifikowanych uczniów</p>
-<!--Klasa <p class="akapit" th:text="${klasa.nameOfClass}"></p>-->
+<p class="akapit">Lista zakwalifikowanych uczniów do klasy</p>
+<p style="text-align: center; font-weight: bold; font-size: 1.7rem" th:text="${klasa.nameOfClass}"></p>
 
 <div class="containerButtons">
     <button class="btnSt" type="button" style="margin-left: -97px">
@@ -34,14 +34,14 @@
         <tr>
             <th class="firstTh">Imie</th>
             <th class="firstTh">Nazwisko</th>
-            <th class="firstTh">Rocznik</th>
+            <th class="firstTh">Punkty</th>
             <th class="firstTh">Profil klasy</th>
         </tr>
 
         <tr th:each="student: ${allStudents}" class="firstTr">
             <td class="firstTd" th:text="${student.firstName}"/>
             <td class="firstTd" th:text="${student.lastName}"/>
-            <td class="firstTd" th:text="${student.dateOfBirth}"/>
+            <td class="firstTd" th:text="${student.classificationPoints}"/>
             <td class="td" th:text="${student.classForStudent}"/>
 
 

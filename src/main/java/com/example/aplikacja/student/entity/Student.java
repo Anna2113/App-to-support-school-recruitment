@@ -1,7 +1,6 @@
 package com.example.aplikacja.student.entity;
 
 import com.example.aplikacja.appuser.AppUserRole;
-import com.example.aplikacja.student.dto.WeightOfGradeDTO;
 import com.example.aplikacja.student.enums.*;
 import lombok.*;
 
@@ -51,12 +50,25 @@ public class Student {
     private Boolean enabled = true;
     private Double pointsMatGeoInf;
     private Double pointsHuman;
-    private Double pointsBiolChemAng;
+    private Double pointsBiolChem;
     private Double pointsMAN;
-    private Double pointsM;
-    private Double pointsA;
+    private Double pointsArt;
     private Double pointsS;
+    private Double pointsFIZ;
     private String classForStudent;
+    private String firstClassification;
+    private Double punktyOlimpijskieMatGeoInf;
+    private Double punktyOlimpijskieHuman;
+    private Double punktyOlimpijskieBiolChem;
+    private Double punktyOlimpijskieMatAngNiem;
+    private Double punktyOlimpijskieSportowa;
+    private Double punktyOlimpijskieArtystyczna;
+    private Double punktyOlimpijskieFizChemFranc;
+    @Enumerated(EnumType.STRING)
+    private StudentStatus status;
+    private Double classificationPoints;
+
+
 //    @ManyToOne
 //    @JoinColumn(name = "klasa")
 //    private Klasa newKlasa;

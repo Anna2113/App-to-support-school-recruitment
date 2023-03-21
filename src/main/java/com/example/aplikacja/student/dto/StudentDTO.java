@@ -21,9 +21,11 @@ public class StudentDTO {
     private Double pointsMatGeoInf;
     private Double pointsHuman;
     private Double pointsBiolChemAng;
-    private Double pointsMatAngNiem;
-    private Double pointsMuzyczna;
-    private Double pointsAktorska;
-    private Double pointsSportowa;
+    private Double pointsMAN;
+    private Double pointsArt;
+    private Double pointsS;
+    private Double pointsFIZ;
     private NameOfClass classForStudent;
+    private Double classificationPoints;
+    private String firstClassification;
 }

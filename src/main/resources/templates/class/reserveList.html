@@ -16,7 +16,27 @@
 </head>
 <body>
 <h1>Lista rezerwowa</h1>
-<h2 style="text-align: center">Tu może powstanie lista rezerwowa.</h2>
+<div class="tabelka1">
+    <table class="table">
+        <tr>
+            <th class="firstTh">Imie</th>
+            <th class="firstTh">Nazwisko</th>
+            <th class="firstTh">Email</th>
+            <th class="firstTh">Status</th>
+        </tr>
+
+        <tr th:each="student: ${allStudents}" class="firstTr">
+            <td class="firstTd" th:text="${student.firstName}"/>
+            <td class="firstTd" th:text="${student.lastName}"/>
+            <td class="firstTd" th:text="${student.email}"/>
+            <td class="td" th:text="${student.status}"/>
+
+
+        </tr>
+    </table>
+</div>
+
+
 <button class="btnSt" type="button" style="display: block; margin: auto">
     <a th:href="@{'/listOfClass'}" style="color: black">Lista klas</a>
 </button>

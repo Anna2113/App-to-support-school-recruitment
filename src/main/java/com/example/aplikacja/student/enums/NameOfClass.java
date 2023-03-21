@@ -1,18 +1,21 @@
 package com.example.aplikacja.student.enums;
 
+import com.example.aplikacja.student.entity.Klasa;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @NoArgsConstructor
 @Getter
-public enum NameOfClass {
+public enum NameOfClass{
     MatGeoInf("MatGeoInf"),
     Humanistyczna("Humanistyczna"),
     MatAngNiem("MatAngNiem"),
     Sportowa("Sportowa"),
     BiolChem("BiolChem"),
-    Muzyczna("Muzyczna"),
-    Aktorska("Aktorska");
+    Artystyczna("Artystyczna"),
+    FizChemFranc("FizChemFranc");
+
 
     private String label;
 

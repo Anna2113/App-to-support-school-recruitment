@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -20,8 +22,9 @@ public class KlassController {
     private KlassService klassService;
     private StudentService studentService;
 
-    public KlassController(KlassService klassService) {
+    public KlassController(KlassService klassService, StudentService studentService) {
         this.klassService = klassService;
+        this.studentService = studentService;
     }
 
     @GetMapping("/addClass")
@@ -55,17 +58,19 @@ public class KlassController {
     }
 
     @GetMapping("/reserveList")
-    public String showReserveLis(Model model){
+    public String showReserveLis(Model model) {
+        List<Student> students = studentService.listaRezerwowa();
+        Collections.reverse(students);
+        model.addAttribute("allStudents", students);
         return "/class/reserveList";
     }
 
 
-    @GetMapping("/listOfStudentForClass")
-    public String showListOfStduentForClass(Model model, Principal principal){
-//        Student student = studentService.findUserByEmail(principal.getName()).orElse(null);
-//        List<Student> allStudents = klassService.getAllStudents(student.getId());
-//        model.addAttribute(student);
-        model.addAttribute("allStudents", klassService.getAllStudents());
+    @GetMapping("/listOfStudentForClass/{id}")
+    public String showListOfStduentForClass(@PathVariable("id") Long id, Model model, Principal principal) {
+        Klasa klasa = klassService.findClassById(id).orElse(null);
+        model.addAttribute("allStudents", studentService.listaStWKl(klasa.getNameOfClass().getLabel()));
+        model.addAttribute("klasa", klasa);
         return "/class/listOfStudentsForClass";
     }
 
@@ -77,7 +82,7 @@ public class KlassController {
         model.addAttribute("allClass", klassService.getAllKlass());
         model.addAttribute("klasa", klasa);
         model.addAttribute("student", student);
-        return "/student/changeClass";
+        return "/student/points";
     }
 
 //    @GetMapping("/moreAboutClass")
@@ -93,7 +98,7 @@ public class KlassController {
         Student student = klassService.findUserByEmail(principal.getName()).orElse(new Student());
         model.addAttribute("student", student);
 
-        return "/student/changeClass";
+        return "/student/points";
     }
 
     @GetMapping("/aboutClass/{id}")

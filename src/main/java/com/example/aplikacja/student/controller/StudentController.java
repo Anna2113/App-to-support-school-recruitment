@@ -62,45 +62,11 @@ public class StudentController {
         }
     }
 
-//    @PostMapping("/class/addClass")
-//    public String add(KlasaDTO klasa, Model model, Principal principal) {
-//        if (principal == null) {
-//            return "userIsLogout";
-//        } else {
-//            Klasa classWithSymbol = studentService.findClassBySymbol(klasa.getSymbol()).orElse(null);
-//            if (classWithSymbol == null) {
-//                studentService.addClass(klasa);
-//                model.addAttribute("addedClass",
-//                        "Klasa została dodana!");
-//                return "/class/addClass";
-//            } else {
-//                model.addAttribute("emailExist", "Taka klasa już istnieje");
-//                return "/class/addClass";
-//            }
-//        }
-//    }
-
-
     @GetMapping("/showStudents")
     public String back(Model model) {
         model.addAttribute("allStudents", studentService.getAllStudents());
         return "/thanksForSignIn";
     }
-
-//    @GetMapping("/listOfClass")
-//    public String showList(Model model) {
-//        model.addAttribute("allClass", studentService.getAllKlass());
-//        return "/student/changeClass";
-//    }
-
-
-//    @GetMapping("/changeClass")
-//    private String changeClass(Model model, Principal principal) {
-//        Student student = studentService.findUserByEmail(principal.getName()).orElse(new Student());
-//        model.addAttribute("student", student);
-//
-//        return "/student/changeClass";
-//    }
 
     @GetMapping("/aboutStudent/{id}")
     public String showMoreAboutStudent(@PathVariable("id") Long id, Model model, Principal principal) {
@@ -113,6 +79,7 @@ public class StudentController {
             Olympiad olympiad = studentService.findOlympiadById(id).orElse(null);
             ExtraParameters extrParam = studentService.findExParamById(id).orElse(null);
             Klasa klasa = studentService.findClassById(id).orElse(null);
+            model.addAttribute("allClass", klassService.getAllKlass());
             model.addAttribute("student", student);
             model.addAttribute("exam", exam);
             model.addAttribute("grade", grade);
@@ -132,14 +99,14 @@ public class StudentController {
             Student student = studentService.findUserById(id).orElse(null);
             studentService.addPointsMatGeoInf(student);
             studentService.addPointsHuman(student);
-            studentService.addPointsBiolChem(student);
+            studentService.addPointsBiolChemAng(student);
             studentService.addPointsMatAngNiem(student);
-            studentService.addPointsActor(student);
-            studentService.addPointsMusic(student);
+            studentService.addPointsArt(student);
             studentService.addPointsSport(student);
+            studentService.addPointsFizChemFran(student);
             model.addAttribute("student", student);
 
-            return "/student/changeClass";
+            return "/student/points";
         }
     }
 
@@ -184,10 +151,18 @@ public class StudentController {
     public String makeUpdate(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olymp,
                              ExtraParametersDTO extraparam, Model model) {
         Student newStudent = studentService.updateStudent(student, exam, grade, olymp, extraparam);
-        model.addAttribute("student", newStudent);
-        return "/student/updateStudent";
+        if(student != null){
+            model.addAttribute("student", newStudent);
+            model.addAttribute("updateStudent", "Nastąpiła aktualizacja!");
+            return "/student/updateStudent";
+        }else{
+            model.addAttribute("errorStudent", "Wystąpił błąd podczas aktualizacji");
+            return "/student/updateStudent";
+        }
     }
 
+//    student.getClassForStudent() != null ||
+    //!student.getClassForStudent().isEmpty() ||
     @GetMapping("/classificationStudent/{id}")
     private String classification(@PathVariable("id") Long id, Model model, Principal principal) {
         Student student = classificationService.findUserById(id).orElse(null);

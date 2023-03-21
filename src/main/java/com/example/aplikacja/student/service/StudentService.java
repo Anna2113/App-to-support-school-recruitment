@@ -70,6 +70,23 @@ public class StudentService implements UserDetailsService {
     }
 
 
+    public Optional<Student> findUserByEmail(String email) {
+        return studentRepository.findByEmail(email);
+    }
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    public List<Student> listaStWKl(String nazwaKlasy) {
+        return studentRepository.studenciWKlasie(nazwaKlasy);
+    }
+
+    public List<Student> listaRezerwowa() {
+        return studentRepository.reserveList();
+    }
+
+
     public Student addPointsMatGeoInf(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
@@ -91,10 +108,6 @@ public class StudentService implements UserDetailsService {
         String geoGrade = studentToUpdate.getGrades().getGeographyGrade();
         String itGrade = studentToUpdate.getGrades().getITGrade();
 
-        double punktyMatGeoInf = wagaMath * Double.parseDouble(mathGrade)
-                + wagaGeo * Double.parseDouble(geoGrade)
-                + wagaInf * Double.parseDouble(itGrade);
-
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
         String wagaEngExam = klasa1.getWeightExamEnglish();
@@ -103,14 +116,54 @@ public class StudentService implements UserDetailsService {
         String polExam = studentToUpdate.getExams().getLanguagePolishResult();
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
-        double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
+        LaureateOrFinalist finMat = studentToUpdate.getOlympiads().getMathOlympiad();
+        LaureateOrFinalist finGeo = studentToUpdate.getOlympiads().getGeographyOlympiad();
+        LaureateOrFinalist finInf = studentToUpdate.getOlympiads().getITOlympiad();
+
+        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
+        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
+        double punkty_fin = 0.0;
+        double punktyMatGeoInf = 0.0;
+        double pointsFromExams = 0.0;
+        double punkty = 0.0;
+
+
+        punktyMatGeoInf = wagaMath * Double.parseDouble(mathGrade)
+                + wagaGeo * Double.parseDouble(geoGrade)
+                + wagaInf * Double.parseDouble(itGrade);
+
+        pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
                 + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
-        double punkty = punktyMatGeoInf + pointsFromExams;
+        if (finMat == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finGeo == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finInf == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaMath;
+        } else if (finGeo == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaGeo;
+        } else if (finInf == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaInf;
+        } else if (finMat == LaureateOrFinalist.Finalista && finGeo == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMath + wagaGeo);
+        } else if (finMat == LaureateOrFinalist.Finalista && finInf == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMath + wagaInf);
+        } else if (finGeo == LaureateOrFinalist.Finalista && finInf == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaGeo + wagaInf);
+        } else if (finMat == LaureateOrFinalist.Finalista && finGeo == LaureateOrFinalist.Finalista
+                && finInf == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMath + wagaGeo + wagaInf);
+        } else {
+            punkty_fin = 0.0;
+        }
 
+        punkty = punktyMatGeoInf + pointsFromExams + punkty_fin;
         studentToUpdate.setPointsMatGeoInf(punkty);
-
+        studentToUpdate.setPunktyOlimpijskieMatGeoInf(punkty_fin);
 
         return studentRepository.save(studentToUpdate);
     }
@@ -136,10 +189,6 @@ public class StudentService implements UserDetailsService {
         String hisGrade = studentToUpdate.getGrades().getHistoryGrade();
         String wosGrade = studentToUpdate.getGrades().getCivicsGrade();
 
-        double punktyHuman = wagaPol * Double.parseDouble(polGrade)
-                + wagaHis * Double.parseDouble(hisGrade)
-                + wagaWos * Double.parseDouble(wosGrade);
-
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
         String wagaEngExam = klasa1.getWeightExamEnglish();
@@ -148,19 +197,58 @@ public class StudentService implements UserDetailsService {
         String polExam = studentToUpdate.getExams().getLanguagePolishResult();
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
-        double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
+        LaureateOrFinalist finPol = studentToUpdate.getOlympiads().getPolishOlympiad();
+        LaureateOrFinalist finHis = studentToUpdate.getOlympiads().getHistoryOlympiad();
+        LaureateOrFinalist finWos = studentToUpdate.getOlympiads().getCivicsOlympiad();
+
+        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
+        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
+        double punkty_fin = 0.0;
+        double punktyHuman = 0.0;
+        double pointsFromExams = 0.0;
+        double punkty = 0.0;
+
+        punktyHuman = wagaPol * Double.parseDouble(polGrade)
+                + wagaHis * Double.parseDouble(hisGrade)
+                + wagaWos * Double.parseDouble(wosGrade);
+
+        pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
                 + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
-        double punkty = punktyHuman + pointsFromExams;
+        if (finPol == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finHis == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finWos == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaPol;
+        } else if (finHis == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaHis;
+        } else if (finWos == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaWos;
+        } else if (finPol == LaureateOrFinalist.Finalista && finHis == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaHis);
+        } else if (finPol == LaureateOrFinalist.Finalista && finWos == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaWos);
+        } else if (finHis == LaureateOrFinalist.Finalista && finWos == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaHis + wagaWos);
+        } else if (finPol == LaureateOrFinalist.Finalista && finHis == LaureateOrFinalist.Finalista
+                && finWos == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaHis + wagaWos);
+        } else {
+            punkty_fin = 0.0;
+        }
 
+        punkty = punktyHuman + pointsFromExams + punkty_fin;
         studentToUpdate.setPointsHuman(punkty);
-
+        studentToUpdate.setPunktyOlimpijskieHuman(punkty_fin);
 
         return studentRepository.save(studentToUpdate);
     }
 
-    public Student addPointsBiolChem(Student student) {
+    public Student addPointsBiolChemAng(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
 
@@ -181,10 +269,6 @@ public class StudentService implements UserDetailsService {
         String chemGrade = studentToUpdate.getGrades().getChemistryGrade();
         String angGrade = studentToUpdate.getGrades().getEnglishGrade();
 
-        double punktyBiolChemAng = wagaBio * Double.parseDouble(bioGrade)
-                + wagaChem * Double.parseDouble(chemGrade)
-                + wagaAng * Double.parseDouble(angGrade);
-
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
         String wagaEngExam = klasa1.getWeightExamEnglish();
@@ -193,14 +277,53 @@ public class StudentService implements UserDetailsService {
         String polExam = studentToUpdate.getExams().getLanguagePolishResult();
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
-        double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
+        LaureateOrFinalist finBio = studentToUpdate.getOlympiads().getBiologyOlympiad();
+        LaureateOrFinalist finChem = studentToUpdate.getOlympiads().getChemistryOlympiad();
+        LaureateOrFinalist finAng = studentToUpdate.getOlympiads().getEnglishOlympiad();
+
+        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
+        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
+        double punkty_fin = 0.0;
+        double punktyBiolChemAng = 0.0;
+        double pointsFromExams = 0.0;
+        double punkty = 0.0;
+
+        punktyBiolChemAng = wagaBio * Double.parseDouble(bioGrade)
+                + wagaChem * Double.parseDouble(chemGrade)
+                + wagaAng * Double.parseDouble(angGrade);
+
+        pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
                 + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
-        double punkty = punktyBiolChemAng + pointsFromExams;
+        if (finBio == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finChem == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finAng == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finBio == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaBio;
+        } else if (finChem == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaChem;
+        } else if (finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaAng;
+        } else if (finBio == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaBio + wagaChem);
+        } else if (finBio == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaBio + wagaAng);
+        } else if (finChem == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaChem + wagaAng);
+        } else if (finBio == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista
+                && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaBio + wagaChem + wagaAng);
+        } else {
+            punkty_fin = 0.0;
+        }
 
-        studentToUpdate.setPointsBiolChemAng(punkty);
-
+        punkty = punktyBiolChemAng + pointsFromExams + punkty_fin;
+        studentToUpdate.setPointsBiolChem(punkty);
+        studentToUpdate.setPunktyOlimpijskieBiolChem(punkty_fin);
 
         return studentRepository.save(studentToUpdate);
     }
@@ -226,10 +349,6 @@ public class StudentService implements UserDetailsService {
         String angGrade = studentToUpdate.getGrades().getEnglishGrade();
         String niemGrade = studentToUpdate.getGrades().getOtherLanguageGrade();
 
-        double punktyMatAngNiem = wagaMat * Double.parseDouble(matGrade)
-                + wagaAng * Double.parseDouble(angGrade)
-                + wagaNiem * Double.parseDouble(niemGrade);
-
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
         String wagaEngExam = klasa1.getWeightExamEnglish();
@@ -238,27 +357,67 @@ public class StudentService implements UserDetailsService {
         String polExam = studentToUpdate.getExams().getLanguagePolishResult();
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
-        double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
+        LaureateOrFinalist finMat = studentToUpdate.getOlympiads().getMathOlympiad();
+        LaureateOrFinalist finAng = studentToUpdate.getOlympiads().getEnglishOlympiad();
+        LaureateOrFinalist finNiem = studentToUpdate.getOlympiads().getGermanOlympiad();
+
+        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
+        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
+        double punkty_fin = 0.0;
+        double punktyMatAngNiem = 0.0;
+        double pointsFromExams = 0.0;
+        double punkty = 0.0;
+
+        punktyMatAngNiem = wagaMat * Double.parseDouble(matGrade)
+                + wagaAng * Double.parseDouble(angGrade)
+                + wagaNiem * Double.parseDouble(niemGrade);
+
+        pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
                 + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
-        double punkty = punktyMatAngNiem + pointsFromExams;
+        if (finMat == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finAng == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finNiem == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaMat;
+        } else if (finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaAng;
+        } else if (finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaNiem;
+        } else if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng);
+        } else if (finMat == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaNiem);
+        } else if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaNiem);
+        } else if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaNiem);
+        } else {
+            punkty_fin = 0.0;
+        }
 
+        punkty = punktyMatAngNiem + pointsFromExams + punkty_fin;
         studentToUpdate.setPointsMAN(punkty);
+        studentToUpdate.setPunktyOlimpijskieMatAngNiem(punkty_fin);
 
 
         return studentRepository.save(studentToUpdate);
     }
 
-    public Student addPointsMusic(Student student) {
+    public Student addPointsArt(Student student) {
 
         Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
 
         Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
-                k.getNameOfClass().equals(NameOfClass.Muzyczna)).findFirst().get();
+                k.getNameOfClass().equals(NameOfClass.Artystyczna)).findFirst().get();
 
-        double wagaMat = klasa1.getWeightOfGrade().stream().filter(w ->
-                        w.getSubject().equals(Subject.Matematyka)).findFirst()
+        double wagaPol = klasa1.getWeightOfGrade().stream().filter(w ->
+                        w.getSubject().equals(Subject.Polski)).findFirst()
                 .get().getWartosc();
         double wagaAng = klasa1.getWeightOfGrade().stream().filter(w ->
                         w.getSubject().equals(Subject.Angielski)).findFirst()
@@ -267,74 +426,65 @@ public class StudentService implements UserDetailsService {
                         w.getSubject().equals(Subject.Muzyka)).findFirst()
                 .get().getWartosc();
 
-        String matGrade = studentToUpdate.getGrades().getMathGrade();
+        String polGrade = studentToUpdate.getGrades().getPolishGrade();
         String angGrade = studentToUpdate.getGrades().getEnglishGrade();
         String muzGrade = studentToUpdate.getGrades().getMusic();
 
-        double punktyMusic = wagaMat * Double.parseDouble(matGrade)
+        String wagaMathExam = klasa1.getWeightExamMath();
+        String wagaPolExam = klasa1.getWeightExamPolish();
+        String wagaEngExam = klasa1.getWeightExamEnglish();
+
+        String mathExam = studentToUpdate.getExams().getMath();
+        String polExam = studentToUpdate.getExams().getLanguagePolishResult();
+        String engExam = studentToUpdate.getExams().getForeignLanguage();
+
+        LaureateOrFinalist finPol = studentToUpdate.getOlympiads().getPolishOlympiad();
+        LaureateOrFinalist finAng = studentToUpdate.getOlympiads().getEnglishOlympiad();
+        LaureateOrFinalist finMus = studentToUpdate.getOlympiads().getHistoryOfMusicOlympiad();
+
+        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
+        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
+        double punkty_fin = 0.0;
+        double punktyMusic = 0.0;
+        double pointsFromExams = 0.0;
+        double punkty = 0.0;
+
+        punktyMusic = wagaPol * Double.parseDouble(polGrade)
                 + wagaAng * Double.parseDouble(angGrade)
                 + wagaMuz * Double.parseDouble(muzGrade);
 
-        String wagaMathExam = klasa1.getWeightExamMath();
-        String wagaPolExam = klasa1.getWeightExamPolish();
-        String wagaEngExam = klasa1.getWeightExamEnglish();
-
-        String mathExam = studentToUpdate.getExams().getMath();
-        String polExam = studentToUpdate.getExams().getLanguagePolishResult();
-        String engExam = studentToUpdate.getExams().getForeignLanguage();
-
-        double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
+        pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
                 + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
-        double punkty = punktyMusic + pointsFromExams;
+        if (finPol == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finAng == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finMus == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaPol;
+        } else if (finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaAng;
+        } else if (finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaMuz;
+        } else if (finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaAng);
+        } else if (finPol == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaMuz);
+        } else if (finAng == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaMuz);
+        } else if (finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaAng + wagaMuz);
+        } else {
+            punkty_fin = 0.0;
+        }
 
-        studentToUpdate.setPointsM(punkty);
-
-
-        return studentRepository.save(studentToUpdate);
-    }
-
-    public Student addPointsActor(Student student) {
-
-        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
-
-        Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
-                k.getNameOfClass().equals(NameOfClass.Aktorska)).findFirst().get();
-
-        double wagaMat = klasa1.getWeightOfGrade().stream().filter(w ->
-                        w.getSubject().equals(Subject.Matematyka)).findFirst()
-                .get().getWartosc();
-        double wagaAng = klasa1.getWeightOfGrade().stream().filter(w ->
-                        w.getSubject().equals(Subject.Angielski)).findFirst()
-                .get().getWartosc();
-        double wagaPla = klasa1.getWeightOfGrade().stream().filter(w ->
-                        w.getSubject().equals(Subject.Plastyka)).findFirst()
-                .get().getWartosc();
-
-        String matGrade = studentToUpdate.getGrades().getMathGrade();
-        String angGrade = studentToUpdate.getGrades().getEnglishGrade();
-        String plaGrade = studentToUpdate.getGrades().getArt();
-
-        double punktyActor = wagaMat * Double.parseDouble(matGrade)
-                + wagaAng * Double.parseDouble(angGrade)
-                + wagaPla * Double.parseDouble(plaGrade);
-
-        String wagaMathExam = klasa1.getWeightExamMath();
-        String wagaPolExam = klasa1.getWeightExamPolish();
-        String wagaEngExam = klasa1.getWeightExamEnglish();
-
-        String mathExam = studentToUpdate.getExams().getMath();
-        String polExam = studentToUpdate.getExams().getLanguagePolishResult();
-        String engExam = studentToUpdate.getExams().getForeignLanguage();
-
-        double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
-                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
-                + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
-
-        double punkty = punktyActor + pointsFromExams;
-
-        studentToUpdate.setPointsA(punkty);
+        punkty = punktyMusic + pointsFromExams + punkty_fin;
+        studentToUpdate.setPointsArt(punkty);
+        studentToUpdate.setPunktyOlimpijskieArtystyczna(punkty_fin);
 
 
         return studentRepository.save(studentToUpdate);
@@ -361,9 +511,73 @@ public class StudentService implements UserDetailsService {
         String bioGrade = studentToUpdate.getGrades().getBiologyGrade();
         String wfGrade = studentToUpdate.getGrades().getPhysicalEducationGrade();
 
-        double punktySport = wagaMat * Double.parseDouble(matGrade)
+        String wagaMathExam = klasa1.getWeightExamMath();
+        String wagaPolExam = klasa1.getWeightExamPolish();
+        String wagaEngExam = klasa1.getWeightExamEnglish();
+
+        String mathExam = studentToUpdate.getExams().getMath();
+        String polExam = studentToUpdate.getExams().getLanguagePolishResult();
+        String engExam = studentToUpdate.getExams().getForeignLanguage();
+
+        LaureateOrFinalist finMat = studentToUpdate.getOlympiads().getMathOlympiad();
+        LaureateOrFinalist finBio = studentToUpdate.getOlympiads().getEnglishOlympiad();
+
+        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
+        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
+        double punkty_fin = 0.0;
+        double punktySport = 0.0;
+        double pointsFromExams = 0.0;
+        double punkty = 0.0;
+
+        punktySport = wagaMat * Double.parseDouble(matGrade)
                 + wagaBio * Double.parseDouble(bioGrade)
                 + wagaWF * Double.parseDouble(wfGrade);
+
+        pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
+                + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
+                + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
+
+        if (finMat == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finBio == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaMat;
+        } else if (finBio == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaBio;
+        } else if (finMat == LaureateOrFinalist.Finalista && finBio == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaBio);
+        } else {
+            punkty_fin = 0.0;
+        }
+
+        punkty = punktySport + pointsFromExams + punkty_fin;
+        studentToUpdate.setPointsS(punkty);
+        studentToUpdate.setPunktyOlimpijskieSportowa(punkty_fin);
+
+
+        return studentRepository.save(studentToUpdate);
+    }
+
+    public Student addPointsFizChemFran(Student student) {
+
+        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
+
+        Klasa klasa1 = klassRepository.findAll().stream().filter(k ->
+                k.getNameOfClass().equals(NameOfClass.FizChemFranc)).findFirst().get();
+
+        double wagaFiz = klasa1.getWeightOfGrade().stream().filter(w ->
+                        w.getSubject().equals(Subject.Fizyka)).findFirst()
+                .get().getWartosc();
+        double wagaChem = klasa1.getWeightOfGrade().stream().filter(w ->
+                        w.getSubject().equals(Subject.Chemia)).findFirst()
+                .get().getWartosc();
+        double wagaFrac = klasa1.getWeightOfGrade().stream().filter(w ->
+                w.getSubject().equals(Subject.Francuski)).findFirst().get().getWartosc();
+
+
+        String fizGrade = studentToUpdate.getGrades().getPhysicsGrade();
+        String chemGrade = studentToUpdate.getGrades().getChemistryGrade();
 
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
@@ -373,18 +587,57 @@ public class StudentService implements UserDetailsService {
         String polExam = studentToUpdate.getExams().getLanguagePolishResult();
         String engExam = studentToUpdate.getExams().getForeignLanguage();
 
-        double pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
+        LaureateOrFinalist finFiz = studentToUpdate.getOlympiads().getPhysicsOlympiad();
+        LaureateOrFinalist finChem = studentToUpdate.getOlympiads().getChemistryOlympiad();
+        LaureateOrFinalist finFranc = studentToUpdate.getOlympiads().getFrenchOlympiad();
+
+        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
+        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
+        double punkty_fin = 0.0;
+        double punktyFizChemFran = 0.0;
+        double pointsFromExams = 0.0;
+        double punkty = 0.0;
+
+
+        punktyFizChemFran = wagaFiz * Double.parseDouble(fizGrade)
+                + wagaChem * Double.parseDouble(chemGrade)
+                + wagaFrac * (Double.parseDouble(fizGrade) + Double.parseDouble(chemGrade));
+
+        pointsFromExams = Double.parseDouble(mathExam) * Double.parseDouble(wagaMathExam)
                 + Double.parseDouble(polExam) * Double.parseDouble(wagaPolExam)
                 + Double.parseDouble(engExam) * Double.parseDouble(wagaEngExam);
 
-        double punkty = punktySport + pointsFromExams;
+        if (finFiz == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finChem == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finFranc == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        } else if (finFiz == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaFiz;
+        } else if (finChem == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaChem;
+        } else if (finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaFrac;
+        } else if (finFiz == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaFiz + wagaChem);
+        } else if (finFiz == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaFiz + wagaFrac);
+        } else if (finChem == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaChem + wagaFrac);
+        } else if (finFiz == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaFiz + wagaChem + wagaFrac);
+        } else {
+            punkty_fin = 0.0;
+        }
 
-        studentToUpdate.setPointsS(punkty);
-
+        punkty = punktyFizChemFran + pointsFromExams + punkty_fin;
+        studentToUpdate.setPointsFIZ(punkty);
+        studentToUpdate.setPunktyOlimpijskieFizChemFranc(punkty_fin);
 
         return studentRepository.save(studentToUpdate);
     }
-
 
 //    public Student classification(Student studentToUpdate) {
 //
@@ -1242,15 +1495,6 @@ public class StudentService implements UserDetailsService {
         extpar.setBiologicalAndNaturalInterests(dto.getBiologicalAndNaturalInterests());
         extpar.setInterestInTechnology(dto.getInterestInTechnology());
         student.setExtraParameters(extpar);
-    }
-
-
-    public Optional<Student> findUserByEmail(String email) {
-        return studentRepository.findByEmail(email);
-    }
-
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
     }
 
     public Student updateStudent(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olymp,

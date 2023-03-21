@@ -31,5 +31,13 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT a FROM Student a WHERE a.lastName = ?1")
     List<Student> getStudentBySurname(String surname);
 
+    //pierwszy parametr z metody ?1
+    @Query("SELECT s FROM Student s WHERE s.classForStudent = ?1")
+    List<Student> studenciWKlasie(String nazwaKlasy);
+
+    @Query("SELECT s FROM Student s WHERE s.status <> 'sklasyfikowany'")
+    List<Student> reserveList();
+
+
 
 }

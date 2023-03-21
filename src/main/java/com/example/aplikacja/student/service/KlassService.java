@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -119,16 +120,8 @@ public class KlassService {
     public Klasa minSrKier(Klasa klasa, List<WeightOfGrade> lista){
         Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
         if (klasaToUpdate != null) {
-            double minimum = lista.stream().mapToDouble(w -> w.getWartosc() * 6 + w.getWartosc() * 2).sum();
-
-            //            double miniSre;
-//            minimum = 6 * weight.getWartosc1() + 2 * weight.getWartosc1() +
-//                    6 * weight.getWartosc2() + 2 * weight.getWartosc2() +
-//                    6 * weight.getWartosc3() + 2 * weight.getWartosc3();
-
-//            miniSre = minimum.get() / 2*(weight.getWartosc1() + weight.getWartosc2() + weight.getWartosc3());
-
-//            Minimalna średnia kierunkowa = (ocena.math * 0.4 + ocena.inf * 0.3 + ocena.geo * 0.2)/ 0.9.
+            double minimum = lista.stream().mapToDouble(w -> ((w.getWartosc() * 6
+                    + w.getWartosc() * 2)*0.70)/10.00).sum();
 
             klasaToUpdate.setMinAvgGrade(minimum);
             klassRepository.save(klasaToUpdate);
@@ -209,5 +202,4 @@ public class KlassService {
         }
         return klasaToUpdate;
     }
-
 }

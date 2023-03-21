@@ -29,9 +29,11 @@
     <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}" style="color: black">Usuń
         ucznia</a></button>
 
-    <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}" style="color: black">Punkty</a></button>
+    <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}" style="color: black">Punkty</a>
+    </button>
 
-    <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}" style="color: black">Klasyfikuj ucznia</a></button>
+    <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}" style="color: black">Klasyfikuj
+        ucznia</a></button>
 
 </div>
 <div class="tabelka">
@@ -324,7 +326,6 @@
         </tr>
     </table>
 </div>
-
 <div>
     <button class="btnSt" type="button" style="display: block; margin: auto; margin-bottom: 20px">
         <a th:href="@{'/showStudents'}" style="color: black">

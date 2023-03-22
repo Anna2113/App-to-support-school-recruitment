@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -107,7 +108,9 @@ public class KlassService {
 
            minLiczEgz = 100 * f + 50 * s + 25 * t;
 
-            klasaToUpdate.setMinAmountOfPointsFromExams((double) Math.round(minLiczEgz));
+           double zaokraglenie = round(minLiczEgz);
+
+            klasaToUpdate.setMinAmountOfPointsFromExams(zaokraglenie);
             klassRepository.save(klasaToUpdate);
 
             return klasaToUpdate;
@@ -123,7 +126,9 @@ public class KlassService {
             double minimum = lista.stream().mapToDouble(w -> ((w.getWartosc() * 6
                     + w.getWartosc() * 2)*0.70)/10.00).sum();
 
-            klasaToUpdate.setMinAvgGrade(minimum);
+            double minimum2 = round(minimum);
+
+            klasaToUpdate.setMinAvgGrade(minimum2);
             klassRepository.save(klasaToUpdate);
 
             return klasaToUpdate;
@@ -201,5 +206,12 @@ public class KlassService {
             return klassRepository.save(klasaToUpdate);
         }
         return klasaToUpdate;
+    }
+
+    public double round(double value){
+        int precision = 2;
+        BigDecimal bigDecimal = new BigDecimal(value);
+        bigDecimal = bigDecimal.setScale(precision, RoundingMode.HALF_UP);
+        return bigDecimal.doubleValue();
     }
 }

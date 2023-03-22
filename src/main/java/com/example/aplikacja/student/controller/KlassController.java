@@ -67,9 +67,12 @@ public class KlassController {
 
 
     @GetMapping("/listOfStudentForClass/{id}")
-    public String showListOfStduentForClass(@PathVariable("id") Long id, Model model, Principal principal) {
+    public String showListOfStudentForClass(@PathVariable("id") Long id, Model model, Principal principal) {
         Klasa klasa = klassService.findClassById(id).orElse(null);
-        model.addAttribute("allStudents", studentService.listaStWKl(klasa.getNameOfClass().getLabel()));
+
+        List<Student> profileClass = studentService.listaStWKl(klasa.getNameOfClass().getLabel());
+        Collections.reverse(profileClass);
+        model.addAttribute("allStudents", profileClass);
         model.addAttribute("klasa", klasa);
         return "/class/listOfStudentsForClass";
     }

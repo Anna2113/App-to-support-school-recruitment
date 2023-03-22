@@ -447,6 +447,7 @@ public class ClassificationService {
                 studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                 studentToUpdate.setClassForStudent(String.valueOf(name.get()));
                 studentToUpdate.setClassificationPoints(max);
+                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
             } else {
                 if (szbLicz == Ability.TAK && szbCzyt == Ability.TAK && szbZapam == Ability.TAK &&
                         aktorstwo == Ability.TAK && rozProb == Ability.TAK &&
@@ -479,6 +480,7 @@ public class ClassificationService {
                     }
                     studentToUpdate.setClassForStudent(String.valueOf(losowaKl));
                     studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+                    studentToUpdate.setFirstClassification(String.valueOf(name.get()));
 
                 } else if (szbLicz == Ability.NIE && szbCzyt == Ability.NIE && szbZapam == Ability.NIE &&
                         aktorstwo == Ability.NIE && rozProb == Ability.NIE &&
@@ -494,52 +496,61 @@ public class ClassificationService {
                     //TODO: Jeżeli się uda wyświetlić punkty
                     studentToUpdate.setStatus(StudentStatus.rezerwowy);
                     studentToUpdate.setClassForStudent("Uczeń trafił na listę rezerwową");
+                    studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                 } else {
                     if (szbLicz == Ability.TAK && rozProb == Ability.TAK
                             && tech == Ability.TAK && otwTer == Ability.TAK) {
                         studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
                         studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                         studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMatGeoInf());
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                     } else {
                         if (szbCzyt == Ability.TAK && pisanie == Ability.TAK
                                 && polit == Ability.TAK && komuni == Ability.TAK) {
                             studentToUpdate.setClassForStudent(String.valueOf(klasaPol.getNameOfClass()));
                             studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                             studentToUpdate.setClassificationPoints(studentToUpdate.getPointsHuman());
+                            studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                         } else {
                             if (jezyk == Ability.TAK && szbZapam == Ability.TAK
                                     && certyf == Ability.TAK && rozProb == Ability.TAK) {
                                 studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
                                 studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                                 studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMAN());
+                                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                             } else {
                                 if (bioPrzyr == Ability.TAK && tabMend == Ability.TAK
                                         && chemia == Ability.TAK && jezyk == Ability.TAK) {
                                     studentToUpdate.setClassForStudent(String.valueOf(klasaBiolChemAng.getNameOfClass()));
                                     studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                                     studentToUpdate.setClassificationPoints(studentToUpdate.getPointsBiolChem());
+                                    studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                                 } else {
                                     if (sport == Ability.TAK && wyczSpo == Ability.TAK
                                             && szbLicz == Ability.TAK && bioPrzyr == Ability.TAK) {
                                         studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
                                         studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                                         studentToUpdate.setClassificationPoints(studentToUpdate.getPointsS());
+                                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                                     } else {
                                         if (aktorstwo == Ability.TAK && spiew == Ability.TAK
                                                 && taniec == Ability.TAK && pisanie == Ability.TAK) {
                                             studentToUpdate.setClassForStudent(String.valueOf(klasaArtystyczna.getNameOfClass()));
                                             studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                                             studentToUpdate.setClassificationPoints(studentToUpdate.getPointsArt());
+                                            studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                                         } else {
                                             if (szbLicz == Ability.TAK && tabMend == Ability.TAK && chemia == Ability.TAK
                                                     && bioPrzyr == Ability.TAK) {
                                                 studentToUpdate.setClassForStudent(String.valueOf(klasaFizChemFranc.getNameOfClass()));
                                                 studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                                                 studentToUpdate.setClassificationPoints(studentToUpdate.getPointsFIZ());
+                                                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                                             } else {
                                                 //TODO: Jeżeli się uda wyświetlić punkty
                                                 studentToUpdate.setClassForStudent("Uczeń trafił na listę rezerwową");
                                                 studentToUpdate.setStatus(StudentStatus.rezerwowy);
+                                                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                                             }
                                         }
                                     }

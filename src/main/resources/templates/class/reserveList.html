@@ -23,13 +23,15 @@
             <th class="firstTh">Nazwisko</th>
             <th class="firstTh">Email</th>
             <th class="firstTh">Status</th>
+            <th class="firstTh">Punkty</th>
         </tr>
 
         <tr th:each="student: ${allStudents}" class="firstTr">
             <td class="firstTd" th:text="${student.firstName}"/>
             <td class="firstTd" th:text="${student.lastName}"/>
             <td class="firstTd" th:text="${student.email}"/>
-            <td class="td" th:text="${student.status}"/>
+            <td class="firstTd" th:text="${student.status}"/>
+            <td class="firstTd" th:text="${student.classificationPoints}"/>
 
 
         </tr>

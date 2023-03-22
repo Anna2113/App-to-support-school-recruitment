@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -162,8 +164,8 @@ public class StudentService implements UserDetailsService {
         }
 
         punkty = punktyMatGeoInf + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsMatGeoInf(punkty);
-        studentToUpdate.setPunktyOlimpijskieMatGeoInf(punkty_fin);
+        studentToUpdate.setPointsMatGeoInf(round(punkty));
+        studentToUpdate.setPunktyOlimpijskieMatGeoInf(round(punkty_fin));
 
         return studentRepository.save(studentToUpdate);
     }
@@ -242,8 +244,8 @@ public class StudentService implements UserDetailsService {
         }
 
         punkty = punktyHuman + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsHuman(punkty);
-        studentToUpdate.setPunktyOlimpijskieHuman(punkty_fin);
+        studentToUpdate.setPointsHuman(round(punkty));
+        studentToUpdate.setPunktyOlimpijskieHuman(round(punkty_fin));
 
         return studentRepository.save(studentToUpdate);
     }
@@ -322,8 +324,8 @@ public class StudentService implements UserDetailsService {
         }
 
         punkty = punktyBiolChemAng + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsBiolChem(punkty);
-        studentToUpdate.setPunktyOlimpijskieBiolChem(punkty_fin);
+        studentToUpdate.setPointsBiolChem(round(punkty));
+        studentToUpdate.setPunktyOlimpijskieBiolChem(round(punkty_fin));
 
         return studentRepository.save(studentToUpdate);
     }
@@ -402,8 +404,8 @@ public class StudentService implements UserDetailsService {
         }
 
         punkty = punktyMatAngNiem + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsMAN(punkty);
-        studentToUpdate.setPunktyOlimpijskieMatAngNiem(punkty_fin);
+        studentToUpdate.setPointsMAN(round(punkty));
+        studentToUpdate.setPunktyOlimpijskieMatAngNiem(round(punkty_fin));
 
 
         return studentRepository.save(studentToUpdate);
@@ -483,8 +485,8 @@ public class StudentService implements UserDetailsService {
         }
 
         punkty = punktyMusic + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsArt(punkty);
-        studentToUpdate.setPunktyOlimpijskieArtystyczna(punkty_fin);
+        studentToUpdate.setPointsArt(round(punkty));
+        studentToUpdate.setPunktyOlimpijskieArtystyczna(round(punkty_fin));
 
 
         return studentRepository.save(studentToUpdate);
@@ -552,8 +554,8 @@ public class StudentService implements UserDetailsService {
         }
 
         punkty = punktySport + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsS(punkty);
-        studentToUpdate.setPunktyOlimpijskieSportowa(punkty_fin);
+        studentToUpdate.setPointsS(round(punkty));
+        studentToUpdate.setPunktyOlimpijskieSportowa(round(punkty_fin));
 
 
         return studentRepository.save(studentToUpdate);
@@ -633,8 +635,8 @@ public class StudentService implements UserDetailsService {
         }
 
         punkty = punktyFizChemFran + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsFIZ(punkty);
-        studentToUpdate.setPunktyOlimpijskieFizChemFranc(punkty_fin);
+        studentToUpdate.setPointsFIZ(round(punkty));
+        studentToUpdate.setPunktyOlimpijskieFizChemFranc(round(punkty_fin));
 
         return studentRepository.save(studentToUpdate);
     }
@@ -1624,6 +1626,13 @@ public class StudentService implements UserDetailsService {
 //        return studentRepository.getStudentBySurname(surname);
 //    }
 
+
+    public double round(double value){
+        int precision = 2;
+        BigDecimal bigDecimal = new BigDecimal(value);
+        bigDecimal = bigDecimal.setScale(precision, RoundingMode.HALF_UP);
+        return bigDecimal.doubleValue();
+    }
 
 }
 

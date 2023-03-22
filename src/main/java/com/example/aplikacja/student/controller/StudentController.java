@@ -166,7 +166,7 @@ public class StudentController {
     @GetMapping("/classificationStudent/{id}")
     private String classification(@PathVariable("id") Long id, Model model, Principal principal) {
         Student student = classificationService.findUserById(id).orElse(null);
-        if (student.getClassForStudent() != null) {
+        if (!student.getClassForStudent().isEmpty()) {
             model.addAttribute("classExist", "Uczeń został już sklasyfikowany");
             model.addAttribute("student", student);
             return "/student/moreAboutStudent";

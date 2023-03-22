@@ -327,160 +327,160 @@
                                 <tr>
                                     <th>Język polski</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="polishOlympiad"
                                                th:type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.polishOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Matematyka</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="mathOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.mathOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Język angielski</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="englishOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.englishOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Język niemiecki</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="germanOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.germanOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Język francuski</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="frenchOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.frenchOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Język hiszpański</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="spanishOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.spanishOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Język włoski</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="italianOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.italianOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Historia</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="historyOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.historyOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Wiedza o społeczeństwie</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="civicsOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.civicsOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Biologia</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="biologyOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.biologyOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Chemia</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="chemistryOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.chemistryOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Fizyka</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="physicsOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.physicsOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Geografia</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="geographyOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.geographyOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Historia muzyki</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="historyOfMusicOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.historyOfMusicOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Historia sztuki</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="historyOfArtOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.historyOfArtOlympiad)}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Informatyka</th>
                                     <td>
-                                        <input class="radio"
+                                        <input class="radio" name="ITOlympiad"
                                                type="radio"
                                                th:each="olympOpt : ${T(com.example.aplikacja.student.enums.LaureateOrFinalist).values()}"
-                                               th:text="${olympOpt.label}"
+                                               th:text="${olympOpt.label}" th:value="${olympOpt}"
                                                th:checked="${olympOpt.equals(student.olympiads.ITOlympiad)}"/>
                                     </td>
                                 </tr>
@@ -488,290 +488,243 @@
                         </div>
                     </div>
 
-                    <!--                    <div class="collapse" id="other">-->
-                    <!--                        <h3 style="text-align: center; margin-top: 20px">Dodatkowe parametry</h3>-->
-                    <!--                        <div class="card card-body">-->
-                    <!--                            <table class="table">-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętność szybkiego liczenia</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="fastCounting" th:field="${student.extraParameters.fastCounting}"-->
-                    <!--                                                required>-->
-                    <!--                                            <option value="">Wybierz</option>-->
-                    <!--                                            <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                    th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                    th:selected="${student.extraParameters.fastCounting}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętność szybkiego czytania</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="fastReading" th:field="${student.extraParameters.fastReading}"-->
-                    <!--                                                required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.fastReading}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętność rozwiązywania problemów</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="troubleshooting"-->
-                    <!--                                                th:field="${student.extraParameters.troubleshooting}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.troubleshooting}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętność szybkiego zapamiętywania</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="quickMemorization"-->
-                    <!--                                                th:field="${student.extraParameters.quickMemorization}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.quickMemorization}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętności aktorskie</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="actingSkills" th:field="${student.extraParameters.actingSkills}"-->
-                    <!--                                                required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.actingSkills}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętności wokalne</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="vocalSkills" th:field="${student.extraParameters.vocalSkills}"-->
-                    <!--                                                required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.vocalSkills}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętności taneczne</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="danceSkills" th:field="${student.extraParameters.danceSkills}"-->
-                    <!--                                                required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.danceSkills}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętności pisarskie</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="writingSkills" th:field="${student.extraParameters.writingSkills}"-->
-                    <!--                                                required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.writingSkills}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętności fotograficzne</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="photographicSkills"-->
-                    <!--                                                th:field="${student.extraParameters.photographicSkills}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.photographicSkills}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Zdolności lingwistyczne</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="linguisticSkills"-->
-                    <!--                                                th:field="${student.extraParameters.linguisticSkills}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.linguisticSkills}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Posiadanie certyfikatu językowego</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="languageCertificate"-->
-                    <!--                                                th:field="${student.extraParameters.languageCertificate}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.languageCertificate}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Zainteresowanie polityką</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="interestInPolitics"-->
-                    <!--                                                th:field="${student.extraParameters.interestInPolitics}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.interestInPolitics}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętności komunikacyjne</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="communicationSkills"-->
-                    <!--                                                th:field="${student.extraParameters.communicationSkills}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.communicationSkills}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętności sportowe/predyspozycje sportowe</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="sportSkills" th:field="${student.extraParameters.sportSkills}"-->
-                    <!--                                                required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.sportSkills}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Wyczynowe uprawianie sportu</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="extremeSport" th:field="${student.extraParameters.extremeSport}"-->
-                    <!--                                                required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.extremeSport}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Sprawność fizyczna</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="physicalFitness"-->
-                    <!--                                                th:field="${student.extraParameters.physicalFitness}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.physicalFitness}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Wytrzymałość fizyczna</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="physicalEndurance"-->
-                    <!--                                                th:field="${student.extraParameters.physicalEndurance}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.physicalEndurance}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętność pracy na otwartym terenie</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="workInTheOpenGround"-->
-                    <!--                                                th:field="${student.extraParameters.workInTheOpenGround}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.workInTheOpenGround}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Umiejętność posługiwania się mapą</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="abilityToUseAMap"-->
-                    <!--                                                th:field="${student.extraParameters.abilityToUseAMap}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.abilityToUseAMap}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Dobra znajomość tablicy Mendelejewa</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="periodicTable"-->
-                    <!--                                                th:field="${student.extraParameters.periodicTable}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.periodicTable}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Tworzenie własnych doświadczeń chemicznych</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="chemicalExperiments"-->
-                    <!--                                                th:field="${student.extraParameters.chemicalExperiments}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.chemicalExperiments}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Zainteresowania biologiczno-przyrodnicze</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="biologicalAndNaturalInterests"-->
-                    <!--                                                th:field="${student.extraParameters.biologicalAndNaturalInterests}"-->
-                    <!--                                                required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.biologicalAndNaturalInterests}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                                <tr>-->
-                    <!--                                    <th>Zainteresowanie technologią</th>-->
-                    <!--                                    <td>-->
-                    <!--                                        <select name="interestInTechnology"-->
-                    <!--                                                th:field="${student.extraParameters.interestInTechnology}" required/>-->
-                    <!--                                        <option value="">Wybierz</option>-->
-                    <!--                                        <option th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"-->
-                    <!--                                                th:text="${abilityOpt.label}" th:value="${abilityOpt}"-->
-                    <!--                                                th:selected="${student.extraParameters.interestInTechnology}"></option>-->
-                    <!--                                        </select>-->
-                    <!--                                    </td>-->
-                    <!--                                </tr>-->
-                    <!--                            </table>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
+                    <div class="collapse" id="other">
+                        <h3 style="text-align: center; margin-top: 20px">Dodatkowe parametry</h3>
+                        <div class="card card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Umiejętność szybkiego liczenia</th>
+                                    <td>
+                                        <input class="radio" name="fastCounting"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.fastCounting)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność szybkiego czytania</th>
+                                    <td>
+                                        <input class="radio" name="fastReading"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.fastReading)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność rozwiązywania problemów</th>
+                                    <td>
+                                        <input class="radio" name="troubleshooting"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.troubleshooting)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność szybkiego zapamiętywania</th>
+                                    <td>
+                                        <input class="radio" name="quickMemorization"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.quickMemorization)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności aktorskie</th>
+                                    <td>
+                                        <input class="radio" name="actingSkills"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.actingSkills)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności wokalne</th>
+                                    <td>
+                                        <input class="radio" name="vocalSkills"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.vocalSkills)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności taneczne</th>
+                                    <td>
+                                        <input class="radio" name="danceSkills"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.danceSkills)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności pisarskie</th>
+                                    <td>
+                                        <input class="radio" name="writingSkills"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.writingSkills)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności fotograficzne</th>
+                                    <td>
+                                        <input class="radio" name="photographicSkills"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.photographicSkills)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zdolności lingwistyczne</th>
+                                    <td>
+                                        <input class="radio" name="linguisticSkills"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.linguisticSkills)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Posiadanie certyfikatu językowego</th>
+                                    <td>
+                                        <input class="radio" name="languageCertificate"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.languageCertificate)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowanie polityką</th>
+                                    <td>
+                                        <input class="radio" name="interestInPolitics"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.interestInPolitics)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności komunikacyjne</th>
+                                    <td>
+                                        <input class="radio" name="communicationSkills"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.communicationSkills)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętności sportowe/predyspozycje sportowe</th>
+                                    <td>
+                                        <input class="radio" name="sportSkills"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.sportSkills)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wyczynowe uprawianie sportu</th>
+                                    <td>
+                                        <input class="radio" name="extremeSport"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.extremeSport)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Sprawność fizyczna</th>
+                                    <td>
+                                        <input class="radio" name="physicalFitness"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.physicalFitness)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Wytrzymałość fizyczna</th>
+                                    <td>
+                                        <input class="radio" name="physicalEndurance"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.physicalEndurance)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność pracy na otwartym terenie</th>
+                                    <td>
+                                        <input class="radio" name="workInTheOpenGround"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.workInTheOpenGround)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Umiejętność posługiwania się mapą</th>
+                                    <td>
+                                        <input class="radio" name="abilityToUseAMap"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.abilityToUseAMap)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Dobra znajomość tablicy Mendelejewa</th>
+                                    <td>
+                                        <input class="radio" name="periodicTable"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.periodicTable)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tworzenie własnych doświadczeń chemicznych</th>
+                                    <td>
+                                        <input class="radio" name="chemicalExperiments"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.chemicalExperiments)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowania biologiczno-przyrodnicze</th>
+                                    <td>
+                                        <input class="radio" name="biologicalAndNaturalInterests"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.biologicalAndNaturalInterests)}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Zainteresowanie technologią</th>
+                                    <td>
+                                        <input class="radio" name="interestInTechnology"
+                                               type="radio"
+                                               th:each="abilityOpt : ${T(com.example.aplikacja.student.enums.Ability).values()}"
+                                               th:text="${abilityOpt.label}" th:value="${abilityOpt}"
+                                               th:checked="${abilityOpt.equals(student.extraParameters.interestInTechnology)}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
 
                     <div class="collapse" id="class">
                         <h3 style="text-align: center; margin-top: 25px">Zakwalifikuj ucznia do innej klasy</h3>
@@ -780,7 +733,7 @@
                                 <tr>
                                     <td>Nazwa klasy</td>
                                     <td>
-                                        <select name="classForStudent" th:field="${student.classForStudent}" required>
+                                        <select name="classForStudent" th:field="${student.classForStudent}">
                                             <option value="">Wybierz</option>
                                             <option th:each="nameOpt : ${T(com.example.aplikacja.student.enums.NameOfClass).values()}"
                                                     th:text="${nameOpt.label}" th:value="${nameOpt}"

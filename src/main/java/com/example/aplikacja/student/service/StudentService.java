@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -140,26 +141,56 @@ public class StudentService implements UserDetailsService {
 
         if (finMat == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finGeo == LaureateOrFinalist.Laureat) {
+        }
+        if (finGeo == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finInf == LaureateOrFinalist.Laureat) {
+        }
+        if (finInf == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finMat == LaureateOrFinalist.Finalista) {
+        }
+        if (finMat == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaMath;
-        } else if (finGeo == LaureateOrFinalist.Finalista) {
+        }
+        if (finGeo == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaGeo;
-        } else if (finInf == LaureateOrFinalist.Finalista) {
+        }
+        if (finInf == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaInf;
-        } else if (finMat == LaureateOrFinalist.Finalista && finGeo == LaureateOrFinalist.Finalista) {
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finGeo == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaMath + wagaGeo);
-        } else if (finMat == LaureateOrFinalist.Finalista && finInf == LaureateOrFinalist.Finalista) {
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finInf == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaMath + wagaInf);
-        } else if (finGeo == LaureateOrFinalist.Finalista && finInf == LaureateOrFinalist.Finalista) {
+        }
+        if (finGeo == LaureateOrFinalist.Finalista && finInf == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaGeo + wagaInf);
-        } else if (finMat == LaureateOrFinalist.Finalista && finGeo == LaureateOrFinalist.Finalista
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finGeo == LaureateOrFinalist.Finalista
                 && finInf == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaMath + wagaGeo + wagaInf);
-        } else {
+        }
+
+
+        if (finMat == LaureateOrFinalist.Laureat && finGeo == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaGeo;
+        }
+        if (finMat == LaureateOrFinalist.Laureat && finInf == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaInf;
+        }
+        if (finGeo == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMath;
+        }
+        if (finGeo == LaureateOrFinalist.Laureat && finInf == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaInf;
+        }
+        if (finInf == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMath;
+        }
+        if (finInf == LaureateOrFinalist.Laureat && finGeo == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaGeo;
+        }
+        if (finInf == LaureateOrFinalist.Brak && finMat == LaureateOrFinalist.Brak && finGeo == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
 
@@ -220,32 +251,66 @@ public class StudentService implements UserDetailsService {
 
         if (finPol == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finHis == LaureateOrFinalist.Laureat) {
+        }
+        if (finHis == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finWos == LaureateOrFinalist.Laureat) {
+        }
+        if (finWos == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finPol == LaureateOrFinalist.Finalista) {
+        }
+        if (finPol == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaPol;
-        } else if (finHis == LaureateOrFinalist.Finalista) {
+        }
+        if (finHis == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaHis;
-        } else if (finWos == LaureateOrFinalist.Finalista) {
+        }
+        if (finWos == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaWos;
-        } else if (finPol == LaureateOrFinalist.Finalista && finHis == LaureateOrFinalist.Finalista) {
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finHis == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaPol + wagaHis);
-        } else if (finPol == LaureateOrFinalist.Finalista && finWos == LaureateOrFinalist.Finalista) {
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finWos == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaPol + wagaWos);
-        } else if (finHis == LaureateOrFinalist.Finalista && finWos == LaureateOrFinalist.Finalista) {
+        }
+        if (finHis == LaureateOrFinalist.Finalista && finWos == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaHis + wagaWos);
-        } else if (finPol == LaureateOrFinalist.Finalista && finHis == LaureateOrFinalist.Finalista
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finHis == LaureateOrFinalist.Finalista
                 && finWos == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaPol + wagaHis + wagaWos);
-        } else {
+        }
+
+
+        if (finPol == LaureateOrFinalist.Laureat && finHis == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaHis;
+        }
+        if (finPol == LaureateOrFinalist.Laureat && finWos == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaWos;
+        }
+        if (finHis == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaPol;
+        }
+        if (finHis == LaureateOrFinalist.Laureat && finWos == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaWos;
+        }
+        if (finWos == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaPol;
+        }
+        if (finWos == LaureateOrFinalist.Laureat && finHis == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaHis;
+        }
+        if (finPol == LaureateOrFinalist.Brak && finHis == LaureateOrFinalist.Brak && finWos == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
 
         punkty = punktyHuman + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsHuman(round(punkty));
-        studentToUpdate.setPunktyOlimpijskieHuman(round(punkty_fin));
+        studentToUpdate.setPointsHuman(
+
+                round(punkty));
+        studentToUpdate.setPunktyOlimpijskieHuman(
+
+                round(punkty_fin));
 
         return studentRepository.save(studentToUpdate);
     }
@@ -300,26 +365,56 @@ public class StudentService implements UserDetailsService {
 
         if (finBio == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finChem == LaureateOrFinalist.Laureat) {
+        }
+        if (finChem == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finAng == LaureateOrFinalist.Laureat) {
+        }
+        if (finAng == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finBio == LaureateOrFinalist.Finalista) {
+        }
+        if (finBio == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaBio;
-        } else if (finChem == LaureateOrFinalist.Finalista) {
+        }
+        if (finChem == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaChem;
-        } else if (finAng == LaureateOrFinalist.Finalista) {
+        }
+        if (finAng == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaAng;
-        } else if (finBio == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista) {
+        }
+        if (finBio == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaBio + wagaChem);
-        } else if (finBio == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+        }
+        if (finBio == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaBio + wagaAng);
-        } else if (finChem == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+        }
+        if (finChem == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaChem + wagaAng);
-        } else if (finBio == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista
+        }
+        if (finBio == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista
                 && finAng == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaBio + wagaChem + wagaAng);
-        } else {
+        }
+
+
+        if (finBio == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaChem;
+        }
+        if (finBio == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finChem == LaureateOrFinalist.Laureat && finBio == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaBio;
+        }
+        if (finChem == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finBio == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaBio;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaChem;
+        }
+        if (finBio == LaureateOrFinalist.Brak && finChem == LaureateOrFinalist.Brak && finAng == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
 
@@ -346,6 +441,15 @@ public class StudentService implements UserDetailsService {
         double wagaNiem = klasa1.getWeightOfGrade().stream().filter(w ->
                         w.getSubject().equals(Subject.Niemiecki)).findFirst()
                 .get().getWartosc();
+        double wagaItal = klasa1.getWeightOfGrade().stream().filter(w ->
+                        w.getSubject().equals(Subject.Niemiecki)).findFirst()
+                .get().getWartosc();
+        double wagaSpain = klasa1.getWeightOfGrade().stream().filter(w ->
+                        w.getSubject().equals(Subject.Niemiecki)).findFirst()
+                .get().getWartosc();
+        double wagaFranc = klasa1.getWeightOfGrade().stream().filter(w ->
+                        w.getSubject().equals(Subject.Niemiecki)).findFirst()
+                .get().getWartosc();
 
         String matGrade = studentToUpdate.getGrades().getMathGrade();
         String angGrade = studentToUpdate.getGrades().getEnglishGrade();
@@ -362,6 +466,9 @@ public class StudentService implements UserDetailsService {
         LaureateOrFinalist finMat = studentToUpdate.getOlympiads().getMathOlympiad();
         LaureateOrFinalist finAng = studentToUpdate.getOlympiads().getEnglishOlympiad();
         LaureateOrFinalist finNiem = studentToUpdate.getOlympiads().getGermanOlympiad();
+        LaureateOrFinalist finItal = studentToUpdate.getOlympiads().getItalianOlympiad();
+        LaureateOrFinalist finSpain = studentToUpdate.getOlympiads().getSpanishOlympiad();
+        LaureateOrFinalist finFranc = student.getOlympiads().getFrenchOlympiad();
 
         Double waga_fin = klasa1.getNumberOfPointsForFinalist();
         Double waga_lau = klasa1.getNumberOfPointsForOlimp();
@@ -380,26 +487,311 @@ public class StudentService implements UserDetailsService {
 
         if (finMat == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finAng == LaureateOrFinalist.Laureat) {
+        }
+        if (finAng == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finNiem == LaureateOrFinalist.Laureat) {
+        }
+        if (finNiem == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finMat == LaureateOrFinalist.Finalista) {
+        }
+        if (finItal == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        }
+        if (finSpain == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        }
+        if (finFranc == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        }
+        if (finMat == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaMat;
-        } else if (finAng == LaureateOrFinalist.Finalista) {
+        }
+        if (finAng == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaAng;
-        } else if (finNiem == LaureateOrFinalist.Finalista) {
+        }
+        if (finNiem == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaNiem;
-        } else if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+        }
+        if (finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaItal;
+        }
+        if (finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaSpain;
+        }
+        if (finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaFranc;
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaMat + wagaAng);
-        } else if (finMat == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista) {
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaMat + wagaNiem);
-        } else if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista) {
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaItal);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaSpain);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaFranc);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaAng + wagaNiem);
-        } else if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaItal);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaSpain);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaFranc);
+        }
+        if (finNiem == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaNiem + wagaItal);
+        }
+        if (finNiem == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaNiem + wagaSpain);
+        }
+        if (finNiem == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaNiem + wagaFranc);
+        }
+        if (finItal == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaItal + wagaSpain);
+        }
+        if (finItal == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaItal + wagaFranc);
+        }
+        if (finSpain == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaSpain + wagaFranc);
+        }
+
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
                 && finNiem == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaNiem);
-        } else {
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaItal);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaSpain);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaFranc);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaNiem + wagaItal);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaNiem + wagaSpain);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaNiem + wagaFranc);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista
+                && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaItal + wagaSpain);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaItal + wagaFranc);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaSpain + wagaFranc);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaNiem + wagaItal);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaNiem + wagaSpain);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaNiem + wagaFranc);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista
+                && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaItal + wagaSpain);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaItal + wagaFranc);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaSpain + wagaFranc);
+        }
+        if (finNiem == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista
+                && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaNiem + wagaItal + wagaSpain);
+        }
+        if (finNiem == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaNiem + wagaItal + wagaFranc);
+        }
+        if (finNiem == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaNiem + wagaSpain + wagaFranc);
+        }
+        if (finItal == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista
+                && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaItal + wagaSpain + wagaFranc);
+        }
+
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finNiem == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaNiem + wagaItal);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finNiem == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaNiem + wagaSpain);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finNiem == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaNiem + wagaFranc);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaItal + wagaSpain);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaItal + wagaFranc);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaNiem + wagaItal + wagaFranc);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaNiem + wagaItal + wagaSpain);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaNiem + wagaItal + wagaSpain);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finItal == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaNiem + wagaItal + wagaFranc);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finNiem == LaureateOrFinalist.Finalista
+                && finSpain == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaNiem + wagaSpain + wagaFranc);
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finNiem == LaureateOrFinalist.Finalista && finItal == LaureateOrFinalist.Finalista
+                && finSpain == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMat + wagaAng + wagaNiem + wagaItal + wagaSpain + wagaFranc);
+        }
+
+
+        if (finMat == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finMat == LaureateOrFinalist.Laureat && finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaNiem;
+        }
+        if (finMat == LaureateOrFinalist.Laureat && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaItal;
+        }
+        if (finMat == LaureateOrFinalist.Laureat && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaSpain;
+        }
+        if (finMat == LaureateOrFinalist.Laureat && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFranc;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMat;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaNiem;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaItal;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaSpain;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFranc;
+        }
+        if (finNiem == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMat;
+        }
+        if (finNiem == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finNiem == LaureateOrFinalist.Laureat && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaItal;
+        }
+        if (finNiem == LaureateOrFinalist.Laureat && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaSpain;
+        }
+        if (finNiem == LaureateOrFinalist.Laureat && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFranc;
+        }
+
+        if (finItal == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMat;
+        }
+        if (finItal == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finItal == LaureateOrFinalist.Laureat && finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaNiem;
+        }
+        if (finItal == LaureateOrFinalist.Laureat && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaSpain;
+        }
+        if (finItal == LaureateOrFinalist.Laureat && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFranc;
+        }
+
+        if (finSpain == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMat;
+        }
+        if (finSpain == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finSpain == LaureateOrFinalist.Laureat && finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaItal;
+        }
+        if (finSpain == LaureateOrFinalist.Laureat && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaItal;
+        }
+        if (finSpain == LaureateOrFinalist.Laureat && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFranc;
+        }
+
+        if (finFranc == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMat;
+        }
+        if (finFranc == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finFranc == LaureateOrFinalist.Laureat && finNiem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaItal;
+        }
+        if (finFranc == LaureateOrFinalist.Laureat && finItal == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaItal;
+        }
+        if (finFranc == LaureateOrFinalist.Laureat && finSpain == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaSpain;
+        }
+
+        if (finMat == LaureateOrFinalist.Brak && finAng == LaureateOrFinalist.Brak
+                && finNiem == LaureateOrFinalist.Brak && finItal == LaureateOrFinalist.Brak
+        && finSpain == LaureateOrFinalist.Brak && finFranc == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
 
@@ -427,6 +819,9 @@ public class StudentService implements UserDetailsService {
         double wagaMuz = klasa1.getWeightOfGrade().stream().filter(w ->
                         w.getSubject().equals(Subject.Muzyka)).findFirst()
                 .get().getWartosc();
+        double wagaSzt = klasa1.getWeightOfGrade().stream().filter(w ->
+                        w.getSubject().equals(Subject.Muzyka)).findFirst()
+                .get().getWartosc();
 
         String polGrade = studentToUpdate.getGrades().getPolishGrade();
         String angGrade = studentToUpdate.getGrades().getEnglishGrade();
@@ -443,6 +838,7 @@ public class StudentService implements UserDetailsService {
         LaureateOrFinalist finPol = studentToUpdate.getOlympiads().getPolishOlympiad();
         LaureateOrFinalist finAng = studentToUpdate.getOlympiads().getEnglishOlympiad();
         LaureateOrFinalist finMus = studentToUpdate.getOlympiads().getHistoryOfMusicOlympiad();
+        LaureateOrFinalist finSzt = studentToUpdate.getOlympiads().getHistoryOfArtOlympiad();
 
         Double waga_fin = klasa1.getNumberOfPointsForFinalist();
         Double waga_lau = klasa1.getNumberOfPointsForOlimp();
@@ -461,26 +857,105 @@ public class StudentService implements UserDetailsService {
 
         if (finPol == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finAng == LaureateOrFinalist.Laureat) {
+        }
+        if (finAng == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finMus == LaureateOrFinalist.Laureat) {
+        }
+        if (finMus == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finPol == LaureateOrFinalist.Finalista) {
+        }
+        if (finSzt == LaureateOrFinalist.Laureat) {
+            punkty_fin = waga_lau * 1000;
+        }
+        if (finPol == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaPol;
-        } else if (finAng == LaureateOrFinalist.Finalista) {
+        }
+        if (finAng == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaAng;
-        } else if (finMus == LaureateOrFinalist.Finalista) {
+        }
+        if (finMus == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaMuz;
-        } else if (finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+        }
+        if (finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * wagaSzt;
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaPol + wagaAng);
-        } else if (finPol == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista) {
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaPol + wagaMuz);
-        } else if (finAng == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista) {
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaSzt);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaAng + wagaMuz);
-        } else if (finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaSzt);
+        }
+        if (finMus == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaMuz + wagaSzt);
+        }
+
+        if (finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
                 && finMus == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaPol + wagaAng + wagaMuz);
-        } else {
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaAng + wagaSzt);
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista
+                && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaMuz + wagaSzt);
+        }
+        if (finAng == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista
+                && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaAng + wagaMuz + wagaSzt);
+        }
+        if (finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista
+                && finMus == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = 6 * waga_fin * (wagaPol + wagaAng + wagaSzt);
+        }
+        if (finPol == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finPol == LaureateOrFinalist.Laureat && finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMuz;
+        }
+        if (finPol == LaureateOrFinalist.Laureat && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaSzt;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaPol;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMuz;
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaSzt;
+        }
+        if (finMus == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaPol;
+        }
+        if (finMus == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finMus == LaureateOrFinalist.Laureat && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaSzt;
+        }
+        if (finSzt == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaPol;
+        }
+        if (finSzt == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaAng;
+        }
+        if (finSzt == LaureateOrFinalist.Laureat && finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMuz;
+        }
+        if (finPol == LaureateOrFinalist.Brak && finAng == LaureateOrFinalist.Brak
+                && finMus == LaureateOrFinalist.Brak && finSzt == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
 
@@ -541,15 +1016,28 @@ public class StudentService implements UserDetailsService {
 
         if (finMat == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finBio == LaureateOrFinalist.Laureat) {
+        }
+        if (finBio == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finMat == LaureateOrFinalist.Finalista) {
+        }
+        if (finMat == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaMat;
-        } else if (finBio == LaureateOrFinalist.Finalista) {
+        }
+        if (finBio == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaBio;
-        } else if (finMat == LaureateOrFinalist.Finalista && finBio == LaureateOrFinalist.Finalista) {
+        }
+        if (finMat == LaureateOrFinalist.Finalista && finBio == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaMat + wagaBio);
-        } else {
+        }
+
+
+        if (finMat == LaureateOrFinalist.Laureat && finBio == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaBio;
+        }
+        if (finBio == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMat;
+        }
+        if (finMat == LaureateOrFinalist.Brak && finBio == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
 
@@ -611,26 +1099,55 @@ public class StudentService implements UserDetailsService {
 
         if (finFiz == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finChem == LaureateOrFinalist.Laureat) {
+        }
+        if (finChem == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finFranc == LaureateOrFinalist.Laureat) {
+        }
+        if (finFranc == LaureateOrFinalist.Laureat) {
             punkty_fin = waga_lau * 1000;
-        } else if (finFiz == LaureateOrFinalist.Finalista) {
+        }
+        if (finFiz == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaFiz;
-        } else if (finChem == LaureateOrFinalist.Finalista) {
+        }
+        if (finChem == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaChem;
-        } else if (finFranc == LaureateOrFinalist.Finalista) {
+        }
+        if (finFranc == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * wagaFrac;
-        } else if (finFiz == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista) {
+        }
+        if (finFiz == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaFiz + wagaChem);
-        } else if (finFiz == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+        }
+        if (finFiz == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaFiz + wagaFrac);
-        } else if (finChem == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+        }
+        if (finChem == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaChem + wagaFrac);
-        } else if (finFiz == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista
+        }
+        if (finFiz == LaureateOrFinalist.Finalista && finChem == LaureateOrFinalist.Finalista
                 && finFranc == LaureateOrFinalist.Finalista) {
             punkty_fin = 6 * waga_fin * (wagaFiz + wagaChem + wagaFrac);
-        } else {
+        }
+
+        if (finFiz == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaChem;
+        }
+        if (finFiz == LaureateOrFinalist.Laureat && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFrac;
+        }
+        if (finChem == LaureateOrFinalist.Laureat && finFiz == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFiz;
+        }
+        if (finChem == LaureateOrFinalist.Laureat && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFrac;
+        }
+        if (finFranc == LaureateOrFinalist.Laureat && finFiz == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaFiz;
+        }
+        if (finFranc == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaChem;
+        }
+        if (finFiz == LaureateOrFinalist.Brak && finChem == LaureateOrFinalist.Brak && finFranc == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
 
@@ -1516,8 +2033,8 @@ public class StudentService implements UserDetailsService {
 
             updateExam(exam, studentToUpdate);
             updateGrade(grade, studentToUpdate);
-//            updateOlympiad(olymp, studentToUpdate);
-//            updateExtraParam(extrparam, studentToUpdate);
+            updateOlympiad(olymp, studentToUpdate);
+            updateExtraParam(extrparam, studentToUpdate);
 
             return studentRepository.save(studentToUpdate);
         } else {
@@ -1627,7 +2144,7 @@ public class StudentService implements UserDetailsService {
 //    }
 
 
-    public double round(double value){
+    public double round(double value) {
         int precision = 2;
         BigDecimal bigDecimal = new BigDecimal(value);
         bigDecimal = bigDecimal.setScale(precision, RoundingMode.HALF_UP);

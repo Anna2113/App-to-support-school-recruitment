@@ -19,22 +19,48 @@
 <body>
 <h1>Informacje o uczniu</h1>
 <h2 style="text-align: center">Podstawowe dane</h2>
-<div class="containerButtons">
+<!--<div class="containerButtons">-->
 
+<!--    <p th:text="${classExist}" class="emailError"/><br>-->
+
+<!--    <button class="btnSt" type="button"><a th:href="@{'/updateStudent/' + ${student.id}}" style="color: black">-->
+<!--        Edytuj dane ucznia</a></button>-->
+
+<!--    <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}" style="color: black">Usuń-->
+<!--        ucznia</a></button>-->
+
+<!--    <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}" style="color: black">Punkty</a>-->
+<!--    </button>-->
+
+<!--    <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}" style="color: black">Klasyfikuj-->
+<!--        ucznia</a></button>-->
+
+<!--</div>-->
     <p th:text="${classExist}" class="emailError"/><br>
-
-    <button class="btnSt" type="button"><a th:href="@{'/updateStudent/' + ${student.id}}" style="color: black">
-        Edytuj dane ucznia</a></button>
-
-    <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}" style="color: black">Usuń
-        ucznia</a></button>
-
-    <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}" style="color: black">Punkty</a>
-    </button>
-
-    <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}" style="color: black">Klasyfikuj
-        ucznia</a></button>
-
+<div class="tabelka">
+    <table>
+        <tr>
+            <td>
+                <button class="btnSt" type="button"><a th:href="@{'/updateStudent/' + ${student.id}}"
+                                                       style="color: black">
+                    Edytuj dane ucznia</a></button>
+            </td>
+            <td>
+                <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}"
+                                                       style="color: black">Usuń
+                    ucznia</a></button>
+            </td>
+            <td>
+                <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}"
+                                                       style="color: black">Punkty</a>
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}" style="color: black">Klasyfikuj
+                    ucznia</a></button>
+            </td>
+        </tr>
+    </table>
 </div>
 <div class="tabelka">
     <table class="table">

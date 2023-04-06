@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nowy student</title>
+    <title>Nowy uczeń</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -39,7 +39,7 @@
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#olympiad" role="button">Olimpiady</a>
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#other" role="button">Dodatkowe
                     parametry</a>
-                <form th:action="@{/student/student}" method="post">
+                <form th:action="@{/student/student}" method="post" class="myForm">
                     <input name="_method" type="hidden" value="post"/>
                     <input type="hidden" name="id">
                     <div class="collapse show" id="dateOfStudent">
@@ -151,7 +151,7 @@
                                     <th>Kontakt:</th>
                                     <td>
                                         <input type="email"
-                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email"
+                                               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$" name="email"
                                                required
 
                                                oninvalid="InvalidEmail(this);"
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                     <div class="collapse" id="result">
-                        <h3 style="text-align: center; margin-top: 20px">Wyniki z egzmainów</h3>
+                        <h3 style="text-align: center; margin-top: 20px">Wyniki z egzaminów</h3>
                         <div class="card card-body">
                             <table class="table">
                                 <tr>
@@ -797,13 +797,13 @@
                     <span th:text="${emailExist}" class="emailError"/><br>
                     <span th:text="${addedStudent}" class="confirmationOfAdding"/><br>
 
-                    <input class="commit btnSt" type="reset" value="Wyczyść formularz">
+                    <input class="commit btnSt mediaCommit" type="reset" value="Wyczyść formularz">
 
-                    <input class="commit btnSt" type="submit" value="Zapisz" style="margin-left: 450px;">
+                    <input class="commit btnSt mediaCommit mediaCommitSave" type="submit" value="Zapisz">
 
                 </form>
                 <!--                <button type="button" class="btnSt"><a href="/previousPage" style="color: black">Lista uczniów</a></button>-->
-                <button class="btnSt" type="button">
+                <button class="btnSt mediaCommit" type="button">
                     <a th:href="@{'/showStudents'}" style="color: black">Lista uczniów</a></button>
 
                 <!--                <button type="button" class="commit"><a href="/thanksForSignIn">Powrót</a></button>-->

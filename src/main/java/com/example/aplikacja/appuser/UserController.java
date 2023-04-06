@@ -56,4 +56,8 @@ public class UserController {
         }
     }
 
+    @GetMapping("/logoutMyself")
+    public String logout(){
+        return "userIsLogout";
+    }
 }

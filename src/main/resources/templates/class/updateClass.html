@@ -19,7 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <title>Aktualizacja klasy</title>
+    <title>Edycja danych klasy</title>
 
     <!--    <script type="text/javascript">-->
     <!--        function getRoleDialog() {-->
@@ -55,7 +55,7 @@
                 <!--                   role="button">Przedmioty</a>-->
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#parametersOfClass"
                    role="button">Parametry</a>
-                <form th:action="@{/changeClass}" method="post">
+                <form th:action="@{/changeClass}" method="post" class="myFormSkills">
                     <input name="_method" type="hidden" value="PUT"/>
                     <input type="hidden" name="id" th:value="${klasa.id}">
                     <div class="collapse show" id="dataOfClass">
@@ -76,7 +76,7 @@
                                 <tr>
                                     <td>Symbol klasy</td>
                                     <td>
-                                        <input type="text" name="symbol" th:value="${klasa.symbol}" required>
+                                        <input type="text" name="symbol" th:value="${klasa.symbol}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -85,48 +85,48 @@
                                         <input type="text" name="liczba" th:value="${klasa.liczba}" required>
                                     </td>
                                 </tr>
-<!--                                <tr>-->
-<!--                                    <td>Rocznik</td>-->
-<!--                                    <td>-->
-<!--                                        <input id="year" type="date" name="year"-->
-<!--                                               pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"-->
-<!--                                               min='1899-01-01'-->
-<!--                                               max='2000-13-13'-->
-<!--                                               th:value="${klasa.year}"-->
-<!--                                               required-->
+                                <!--                                <tr>-->
+                                <!--                                    <td>Rocznik</td>-->
+                                <!--                                    <td>-->
+                                <!--                                        <input id="year" type="date" name="year"-->
+                                <!--                                               pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"-->
+                                <!--                                               min='1899-01-01'-->
+                                <!--                                               max='2000-13-13'-->
+                                <!--                                               th:value="${klasa.year}"-->
+                                <!--                                               required-->
 
-<!--                                               oninvalid="InvalidDate(this);"-->
-<!--                                               oninput="InvalidDate(this);"/>-->
-<!--                                        <script>-->
-<!--                                            let today = new Date();-->
-<!--                                            let dd = today.getDate();-->
-<!--                                            let mm = today.getMonth() + 1; //January is 0!-->
-<!--                                            let yyyy = today.getFullYear();-->
+                                <!--                                               oninvalid="InvalidDate(this);"-->
+                                <!--                                               oninput="InvalidDate(this);"/>-->
+                                <!--                                        <script>-->
+                                <!--                                            let today = new Date();-->
+                                <!--                                            let dd = today.getDate();-->
+                                <!--                                            let mm = today.getMonth() + 1; //January is 0!-->
+                                <!--                                            let yyyy = today.getFullYear();-->
 
-<!--                                            if (dd < 10) {-->
-<!--                                                dd = '0' + dd;-->
-<!--                                            }-->
+                                <!--                                            if (dd < 10) {-->
+                                <!--                                                dd = '0' + dd;-->
+                                <!--                                            }-->
 
-<!--                                            if (mm < 10) {-->
-<!--                                                mm = '0' + mm;-->
-<!--                                            }-->
+                                <!--                                            if (mm < 10) {-->
+                                <!--                                                mm = '0' + mm;-->
+                                <!--                                            }-->
 
-<!--                                            today = yyyy + '-' + mm + '-' + dd;-->
-<!--                                            document.getElementById("year").setAttribute("max", today);-->
-<!--                                        </script>-->
+                                <!--                                            today = yyyy + '-' + mm + '-' + dd;-->
+                                <!--                                            document.getElementById("year").setAttribute("max", today);-->
+                                <!--                                        </script>-->
 
-<!--                                        <script> function InvalidDate(numberbox) {-->
-<!--                                            if (numberbox.validity.patternMismatch) {-->
-<!--                                                numberbox.setCustomValidity('Enter valid date');-->
-<!--                                            } else if (numberbox.validity.valueMissing) {-->
-<!--                                                numberbox.setCustomValidity('This field cannot be empty ');-->
-<!--                                            } else {-->
-<!--                                                numberbox.setCustomValidity('');-->
-<!--                                            }-->
-<!--                                            return true;-->
-<!--                                        }</script>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
+                                <!--                                        <script> function InvalidDate(numberbox) {-->
+                                <!--                                            if (numberbox.validity.patternMismatch) {-->
+                                <!--                                                numberbox.setCustomValidity('Enter valid date');-->
+                                <!--                                            } else if (numberbox.validity.valueMissing) {-->
+                                <!--                                                numberbox.setCustomValidity('This field cannot be empty ');-->
+                                <!--                                            } else {-->
+                                <!--                                                numberbox.setCustomValidity('');-->
+                                <!--                                            }-->
+                                <!--                                            return true;-->
+                                <!--                                        }</script>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
                             </table>
                         </div>
                     </div>
@@ -158,12 +158,40 @@
                             definiujące klasę</h3>
                         <div class="card card-body" style="display: block; margin: auto; width: 100%">
                             <div>
-                                <input type="checkbox" name="skills"
+                                <input type="checkbox" name="skills" id="event"
                                        style="margin-left: 300px; display: block; margin: auto"
                                        th:each="skill: ${T(com.example.aplikacja.student.enums.Skills).values()}"
                                        th:text="${skill}"
                                        th:value="${skill}"
-                                       th:field="${klasa.umiejetnosci}"/>
+                                       th:field="${klasa.umiejetnosci}"
+                                       oninvalid="czyJestZaznaczony(this);"
+                                       oninput="czyJestZaznaczony(this);"/>
+<!--                                <script>-->
+<!--                                    function sprawdz(){-->
+<!--                                        if(czyJestZaznaczony("event")){-->
+<!--                                            alert('Zaznaczono 4 umiejętności.');-->
+<!--                                            off();-->
+<!--                                        }else{-->
+<!--                                            alert('Zaznacz tylko 4 umiejętności!')-->
+<!--                                        }-->
+<!--                                    }-->
+
+<!--                                    function czyJestZaznaczony(id) {-->
+<!--                                        var checked = $("input[id^='" + id + "']:checked").length;-->
+<!--                                        if (checked != 4) {-->
+<!--                                            return false;-->
+<!--                                            alert("Zaznacz tylko 4 umiejętności")-->
+<!--                                        } else {-->
+<!--                                            return true;-->
+<!--                                            alert("Zaznaczono 4 umiejętności.")-->
+<!--                                            off(id);-->
+<!--                                        }-->
+<!--                                    }-->
+
+<!--                                    function off(h) {-->
+<!--                                        h.skills.disabled = true;-->
+<!--                                    }-->
+<!--                                </script>-->
                             </div>
                         </div>
                     </div>
@@ -241,7 +269,7 @@
                             <hr>
 
                             <h6>Wpisz trzy wartości ułamkowe, które posłużą do wyliczenia minimalnej
-                                liczby punktów z egzaminów.</h6>
+                                liczby punktów jaką trzeba zdobyć do tej klasy.</h6>
                             <label>1 wartość</label>
                             <td>
                                 <input type="text" name="first" th:value="${klasa.first}"
@@ -263,11 +291,14 @@
                     <span th:text="${updateClass}" class="confirmationOfAdding"/><br>
                     <!--                    <input class="commit btnSt" type="reset" value="Wyczyść formularz">-->
 
-                    <button class="btnSt" type="button" style="margin-left: 80px">
+                    <input class="commit btnSt mediaCommit mediaCommitSaveForClass" type="submit"
+                           value="Zapisz">
+
+                    <button class="btnSt mediaCommit mediaCommitListForClass" type="button">
                         <a th:href="@{'/listOfClass'}" style="color: black">Lista klas</a>
                     </button>
 
-                    <button class="btnSt">
+                    <button class="btnSt mediaCommit">
                         <a th:href="@{'/aboutClass/' + ${klasa.id}}" style="color: black">Wróć do obecnej klasy</a>
                     </button>
 
@@ -275,8 +306,6 @@
                     <!--                        <a th:href="@{'/moreAboutClass'}" style="color: black">Klasa</a>-->
                     <!--                    </button>-->
 
-                    <input class="commit btnSt" style="margin-left: 250px; margin-right: 100px" type="submit"
-                           value="Zapisz">
                 </form>
             </div>
             <script>

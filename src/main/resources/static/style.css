@@ -1,50 +1,74 @@
-body{
-    background-color: pink;
+body {
+    background-color: #33c042;
+    /*background-color: #30af40;*/
 }
 
-h1{
+h1 {
     text-align: center;
     font-family: Calibri;
     font-size: 4rem;
 }
 
-.btn{
+.btn {
     display: block;
     margin: auto;
     border-radius: 10px;
     text-align: center;
-    padding:10px;
+    padding: 10px;
     font-size: 2rem;
     font-family: Calibri;
-    background: linear-gradient(to right, #cac531, #f3f9a7);
+    /*background: linear-gradient(to bottom right, red, yellow);*/
+    /*background: linear-gradient(to right, #cac531, #f3f9a7);*/
+    background: linear-gradient(to bottom right, #efc009, #ead062);
 }
-.btn-mybutton{
+
+.btn:hover {
+    font-weight: bold;
+}
+
+.btn-mybutton {
     margin: auto;
     text-align: center;
     border-radius: 5px;
-    padding:10px;
+    padding: 10px;
     font-size: 1.2rem;
     color: black;
-    background: linear-gradient(to right, #cac531, #f3f9a7);
+    /*background: linear-gradient(to bottom right, red, yellow);*/
+    /*background: linear-gradient(to right, #cac531, #f3f9a7);*/
+    background: linear-gradient(to bottom right, #efc009, #ead062);
 }
 
-.btnRegister{
+.btn-mybutton:hover {
+    font-weight: bold;
+}
+
+.btnRegister {
     display: block;
     margin: auto;
     margin-top: 10px;
     border-radius: 10px;
     text-align: center;
-    padding:10px;
+    padding: 10px;
     font-size: 1.5rem;
     font-family: Calibri;
-    background: linear-gradient(to right, #cac531, #f3f9a7);
+    /*background: linear-gradient(to bottom right, red, yellow);*/
+    /*background: linear-gradient(to right, #cac531, #f3f9a7);*/
+    background: linear-gradient(to bottom right, #efc009, #ead062);
 }
 
-.btnSt{
-    background: linear-gradient(to right, #cac531, #f3f9a7);
+.btnRegister:hover {
+    font-weight: bold;
+}
+
+
+.btnSt {
+    /*background: linear-gradient(to bottom right, red, yellow);*/
+    /*background: linear-gradient(to right, #cac531, #f3f9a7);*/
+    background: linear-gradient(to bottom right, #efc009, #ead062);
+    /*border: 1px solid black;*/
     border-radius: 10px;
     text-align: center;
-    padding:6px;
+    padding: 6px;
     font-size: 1.2rem;
     color: black;
     font-family: Calibri;
@@ -52,7 +76,11 @@ h1{
     /*margin: auto;*/
 }
 
-.btnConfirm{
+.btnSt:hover {
+    font-weight: bold;
+}
+
+.btnConfirm {
     display: block;
     margin: auto;
     width: 10%;
@@ -60,20 +88,52 @@ h1{
     margin-top: 50px;
 }
 
-.btnCancle{
+.btnConfirm:hover {
+    font-weight: bold;
+}
+
+.btnCancle {
     display: block;
     margin: auto;
     width: 10%;
     margin-bottom: 50px
 }
 
-.commit{
+.btnCancle:hover {
+    font-weight: bold;
+}
+
+.buttons {
+    /*display: block;*/
+    /*margin: auto; !important;*/
+    margin-top: 60px;
+}
+
+.commit {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.mediaCommitSave{
+    margin-left: 450px;
+}
+.mediaListOfStudentsButton{
+    margin-top: 30px;
+}
+
+.mediaCurrentStudent{
+    margin-top: 30px;
+}
+
+.mediaCommitSaveForClass{
+    margin-left: 250px;
+    margin-right: 100px;
+}
+.mediaCommitListForClass{
+    margin-left: 80px;
+}
 
 
-.akapit{
+.akapit {
     text-align: center;
     font-size: 1.7rem;
     font-weight: bold;
@@ -89,38 +149,92 @@ h1{
     margin-bottom: 30px;
 }
 
-.data{
+@media screen and (max-width: 1200px){
+    .btn-mybutton{
+        font-size: 0.8rem;
+        display: block;
+        margin-top: 5px;
+        width: 60%;
+    }
+    .myForm{
+        width:90%;
+        display: block;
+        margin: auto;
+    }
+
+    .myFormSkills{
+        width:95%;
+        display: block;
+        margin: auto;
+        font-size: 0.8rem;
+    }
+
+    .mediaCommit{
+        display: block;
+        margin: auto;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .mediaCommitSave{
+        display: block;
+        margin: auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .mediaTable{
+        display: block;
+        margin: auto;
+    }
+    .mediaCommitListForStudent{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .mediaCommitListForClass{
+        display: block;
+        margin: auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .mediaCommitSaveForClass{
+        display: block;
+        margin: auto;
+    }
+}
+
+.data {
     margin: auto;
     display: block;
     padding: 25px;
 }
 
-.examResult{
+.examResult {
     margin-top: 20px;
 }
 
-.examResultLabel, gradesLabel{
+.examResultLabel, gradesLabel {
     font-weight: bold;
 }
 
-.grades{
+.grades {
     margin-top: 20px;
 }
 
-.percent{
+.percent {
     font-weight: bold;
 }
 
-.field{
+.field {
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background: linear-gradient(to right, #cac531, #f3f9a7);
+    /*background: linear-gradient(to right, #cac531, #f3f9a7);*/
+    background: linear-gradient(to bottom right, #efc009, #ead062);
+    /*background: linear-gradient(to bottom right, red, yellow);*/
     color: black;
 
 }
 
-.registerContainer{
+.registerContainer {
     background: white;
     width: 400px;
     height: 400px;
@@ -131,21 +245,21 @@ h1{
     padding: 20px;
 }
 
-.emailError{
+.emailError {
     font-size: 1.5rem;
     color: red;
     margin: auto;
     display: block;
 }
 
-.confirmationOfAdding{
+.confirmationOfAdding {
     font-size: 1.5rem;
     color: red;
     margin: auto;
     display: block;
 }
 
-.tabelka{
+.tabelka {
     display: block;
     margin: auto;
     max-width: 1200px;
@@ -154,7 +268,7 @@ h1{
     font-size: 1.2rem;
 }
 
-.tabelka1{
+.tabelka1 {
     display: block;
     margin: auto;
     max-width: 1400px;
@@ -163,7 +277,7 @@ h1{
     font-size: 1.2rem;
 }
 
-.tabelka2{
+.tabelka2 {
     display: block;
     margin: auto;
     max-width: 400px;
@@ -177,65 +291,41 @@ table {
     border-collapse: collapse;
 }
 
-.firstTh{
-    width:400px;
-    background: linear-gradient(to right, #cac531, #f3f9a7);
+.firstTh {
+    width: 400px;
+    /*background: linear-gradient(to bottom right, red, yellow);*/
+    background: linear-gradient(to bottom right, #efc009, #ead062);
+    /*background-color: #cac531;*/
 }
-.firstTd{
+
+.firstTd {
     /*background-color: #708090;*/
     background-color: white;
 }
-.td{
+
+.td {
     background-color: white;
     width: 300px;
 }
 
-.containerButtons{
-    margin-left: 250px;
+.containerButtons {
+    display: block;
+    margin: auto;
 }
 
 /*.newContainer{*/
 /*    background-color: blue;*/
 /*}*/
 
-.radio{
+.radio {
     margin-left: 12px;
     margin-right: 12px;
 }
 
-.table2{
+.table2 {
     background-color: lightseagreen;
     margin-top: 5px;
 }
-
-/*.subjects, .skills{*/
-/*    display: block;*/
-/*    margin: auto;*/
-/*    background-color: white;*/
-/*    width: 71%;*/
-/*    border-radius: 10px;*/
-/*    margin-bottom: 40px;!important;*/
-/*}*/
-
-/*.subjects h3{*/
-/*    text-align: center;*/
-/*}*/
-
-/*.skills h3{*/
-/*    text-align: center;*/
-/*}*/
-
-/*.subjects p{*/
-/*    font-size: 1.4rem;*/
-/*    font-family: Calibri;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.skills p{*/
-/*    font-size: 1.4rem;*/
-/*    font-family: Calibri;*/
-/*    text-align: center;*/
-/*}*/
 
 .slidecontainer {
     width: 100%;
@@ -261,13 +351,17 @@ table {
     appearance: none;
     width: 18px;
     height: 18px;
-    background: linear-gradient(to right, #cac531, #f3f9a7);
+    /*background: linear-gradient(to bottom right, red, yellow);*/
+    /*background: linear-gradient(to right, #cac531, #f3f9a7);*/
+    background: linear-gradient(to bottom right, #efc009, #ead062);
     cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
-    background: linear-gradient(to right, #cac531, #f3f9a7);
+    /*background: linear-gradient(to bottom right, red, yellow);*/
+    /*background: linear-gradient(to right, #cac531, #f3f9a7);*/
+    background: linear-gradient(to bottom right, #efc009, #ead062);
     cursor: pointer;
 }

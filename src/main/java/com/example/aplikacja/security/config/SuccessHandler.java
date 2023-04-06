@@ -32,12 +32,6 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                 case "USER":
                     redirectUrl = "/hello";
                     break;
-                case "ADMIN":
-                    redirectUrl = "/adminPanel";
-                    break;
-                case "DOCTOR":
-                    redirectUrl = "/doctorPanel";
-                    break;
             }
             if (redirectUrl == null) {
                 throw new IllegalStateException();

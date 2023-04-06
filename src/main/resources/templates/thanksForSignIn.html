@@ -5,7 +5,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/style.css}"/>
-    <title>Thanks for sign in</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <title>Pomyślne logowanie</title>
+
+    <!--    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"/>-->
+    <!--    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"/>-->
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -18,81 +22,64 @@
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <!--    <script th:inline="javascript">-->
-    <!--        let real_data = /*[[${doctors}]]*/'noValue';-->
-    <!--        $(document).ready(function () {-->
-    <!--            $("#surnameInput").autocomplete({-->
-    <!--                minLength: 1,-->
-    <!--                source: real_data-->
-    <!--            })-->
-    <!--        });-->
-    <!--    </script>-->
-
 </head>
 <body>
+
+<!--<div class="containerButtons">-->
+
+<!--    <button type="button" class="btnSt"><a href="/studentForm" style="color: black">Dodaj ucznia</a></button>-->
+<!--    <button type="button" class="btnSt"><a href="/listOfClass" style="color: black">Wyświetl listę klas</a></button>-->
+<!--    <button type="button" class="btnSt" style="margin-left: 800px"><a href="/logoutMyself" style="color: black">Wyloguj się</a></button>-->
+
+<!--</div>-->
+
+<!--<header>-->
+<!--    <nav class="navbar bg-menuNav navbar-dark navbar-expand-md">-->
+<!--        <div class="collapse navbar-collapse" id="mainMenu">-->
+<!--            <ul class="nav navbar-nav">-->
+<!--                <li class="nav-item" style="margin-right: 5px">-->
+<!--                    <button type="button" class="btnSt"><a href="/studentForm" style="color: black">Dodaj ucznia</a></button>-->
+<!--                </li>-->
+<!--                <li class="nav-item" style="margin-right: 5px">-->
+<!--                    <button type="button" class="btnSt"><a href="/listOfClass" style="color: black">Wyświetl listę klas</a></button>-->
+<!--                </li>-->
+<!--                <li class="nav-item" style="margin-right: 5px">-->
+<!--                    <button type="button" class="btnSt"><a href="/logoutMyself" style="color: black">Wyloguj się</a></button>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</header>-->
 <h1>Pomyślne logowanie</h1>
 <p class="akapit">Lista uczniów</p>
-
-<div class="containerButtons">
-
-    <button type="button" class="btnSt"><a href="/studentForm" style="color: black">Dodaj ucznia</a></button>
-    <!--    <button type="button" class="btnSt"><a href="#" style="color: black">Edytuj dane ucznia</a></button>-->
-    <button type="button" class="btnSt"><a href="/listOfClass" style="color: black">Wyświetl listę klas</a></button>
-    <!--W liście klas dodać możliwość dodawania klasy o konkretnym profilu i liczbie miejsc.-->
-    <!--    <button type="button" class="btnSt"><a href="#" style="color: black">Usuń ucznia</a></button>-->
-</div>
-
 <div class="tabelka">
-    <table class="table">
-<!--        <thead>-->
+    <table class="mediaTable">
         <tr>
-            <th class="firstTh">Imie</th>
-            <th class="firstTh">Nazwisko</th>
-            <th class="firstTh">Rocznik</th>
-            <th class="firstTh">Płeć</th>
-            <th class="firstTh">Pochodzenie</th>
-            <th class="firstTh">Język polski</th>
-            <th class="firstTh">Więcje</th>
+            <td>
+                <button type="button" class="btnSt"><a href="/studentForm" style="color: black">Dodaj ucznia</a></button>
+            </td>
+            <td>
+                <button type="button" class="btnSt"><a href="/listOfClass" style="color: black">Wyświetl listę klas</a></button>
+            </td>
+            <td>
+                <button type="button" class="btnSt"><a href="/logoutMyself" style="color: black">Wyloguj się</a></button>
+            </td>
         </tr>
-<!--        <tr>-->
-<!--            <th class="firstTh"></th>-->
-<!--            <th class="firstTh"></th>-->
-<!--            <th class="firstTh">-->
-<!--                <select class="field-filter" data-field-index="0">-->
-<!--                    <option value="">Wszystkie</option>-->
-<!--                    <option value="2007">2006</option>-->
-<!--                    <option value="2008">2007</option>-->
-<!--                    <option value="2009">2008</option>-->
-<!--                </select>-->
-<!--            </th>-->
-<!--            <th class="firstTh">-->
-<!--                <select class="field-filter" data-field-index="0" name="sex">-->
-<!--                    <option value="">Wszystkie</option>-->
-<!--&lt;!&ndash;                    <option value="woman">Kobieta</option>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <option value="man">Mężczyzna</option>&ndash;&gt;-->
-<!--                    <option th:each="sexOpt : ${T(com.example.aplikacja.student.enums.Sex).values()}"-->
-<!--                            th:text="${sexOpt.label}"-->
-<!--                            th:value="${sexOpt}"></option>-->
-<!--                </select>-->
-<!--            </th>-->
-<!--            <th class="firstTh">-->
-<!--                <select class="field-filter" data-field-index="0">-->
-<!--                    <option value="">Wszystkie</option>-->
-<!--                    <option value="polak">Polak</option>-->
-<!--                    <option value="obcokrajowiec">Obcokrajowiec</option>-->
-<!--                </select>-->
-<!--            </th>-->
-<!--            <th class="firstTh">-->
-<!--                <select class="field-filter" data-field-index="0">-->
-<!--                    <option value="">Wszystkie</option>-->
-<!--                    <option value="yes">TAK</option>-->
-<!--                    <option value="no">NIE</option>-->
-<!--                </select>-->
-<!--            </th>-->
-<!--            <th class="firstTh"></th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
+    </table>
+</div>
+<div class="tabelka">
+    <table class="table" id="tabelka">
+        <thead class="firstTh">
+        <tr>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Rocznik</th>
+            <th>Płeć</th>
+            <th>Pochodzenie</th>
+            <th>Język polski</th>
+            <th>Więcej</th>
+        </thead>
+        <tbody>
         <tr th:each="student: ${allStudents}" class="firstTr">
             <td class="firstTd" th:text="${student.firstName}"/>
             <td class="firstTd" th:text="${student.lastName}"/>
@@ -104,51 +91,32 @@
                 <button class="btnSt">
                     <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>
                 </button>
-                <!--                <button class="btnSt">-->
-                <!--                    <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>-->
-                <!--                </button>-->
             </td>
         </tr>
-<!--        </tbody>-->
+        </tbody>
     </table>
     <script>
-        (function () {
-            var tabFilter = [];
-            var table = document.querySelector("table");
-
-            document.querySelectorAll("table thead .field-filter")
-                .forEach(function (item) {
-                    item.addEventListener("input", function (e) {
-                        createFilter(e.target);
-                    });
-                });
-
-            function createFilter(el) {
-                tabFilter[el.dataset.fieldIndex] = el.value.toUpperCase();
-                execFilter();
-            }
-
-            function execFilter() {
-                let filterLength = tabFilter.length;
-
-                table.querySelectorAll("tbody tr")
-                    .forEach(function (item) {
-                        for (var i = 0; i < filterLength; i++) {
-                            if (!item.getElementsByTagName("td")[i].textContent.toUpperCase().includes(tabFilter[i])) {
-                                item.style.display = "none";
-                            } else {
-                                item.style.removeProperty("display");
-                            }
-                        }
-                    })
-            }
-        })();
+        $(document).ready(function () {
+            $('#tabelka').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Polish.json"
+                }
+            });
+        });
     </script>
 </div>
 <p>Dorobić walidację checkboxów</p>
 <p>Poprawić nieścisłości językowe.</p>
-<p>Dodać wyszukiwanie ucznia po nazwisku i filtracje po roczniku</p>
+<p>Zmienić ewentualnie wygląd delemntów do filtrowania</p>
 <p>Poprawić wyświetlanie nazwy klasy, bo wstawia null</p>
 <p>Poprawić wyświetlanie punktów</p>
+<p>Poprawić responsywność strony</p>
+<p>Dla każdego "admina" wyświetla się to samo ???</p>
+<p>Wyświetlenie komunikatu o niemożliwości klasyfikacji w momencie braku wyliczonych punktów.</p>
+
+<footer>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+</footer>
 </body>
 </html>

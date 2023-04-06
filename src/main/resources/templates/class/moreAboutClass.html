@@ -16,26 +16,79 @@
     <title>Klasa</title>
 </head>
 <body>
-
 <h2 style="text-align: center;margin-top: 60px; margin-bottom: 20px">Więcje informacji o klasie</h2>
+<!--<header style="width: 80%; display: block; margin: auto">-->
+<!--    <nav class="navbar bg-menuNav navbar-dark navbar-expand-md">-->
+<!--        <div class="collapse navbar-collapse" id="mainMenu">-->
+<!--            <ul class="nav navbar-nav">-->
+<!--                <li class="nav-item">-->
+<!--                    <button class="btnSt" type="button"><a th:href="@{'/updateClass/' + ${klasa.id}}"-->
+<!--                                                           style="color: black">-->
+<!--                        Edytuj dane klasy</a></button>-->
+<!--                </li>-->
+<!--                <li class="nav-item ">-->
+<!--                    <button type="button" class="btnSt"><a th:href="@{'/confirmDeleteClass/' + ${klasa.id}}"-->
+<!--                        style="color: black">Usuń-->
+<!--                        klasę</a></button>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <button class="btnSt" type="button"><a th:href="@{'/listOfClass'}" style="color: black">-->
+<!--                        Lista klas</a></button>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <button class="btnSt" type="button"><a th:href="@{'/listOfStudentForClass/' + ${klasa.id}}"-->
+<!--                        style="color: black">-->
+<!--                        Lista zakwalifikowanych uczniów</a></button>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</header>-->
 
-<div class="containerButtons">
+<!--<h2 style="text-align: center;margin-top: 60px; margin-bottom: 20px">Więcje informacji o klasie</h2>-->
+<!--<div class="row">-->
+<!--    <div class="col">-->
+<!--        <div class="containerButtons">-->
+<!--            <button class="btnSt" type="button"><a th:href="@{'/updateClass/' + ${klasa.id}}" style="color: black">-->
+<!--                Edytuj dane klasy</a></button>-->
 
-    <button class="btnSt" type="button"><a th:href="@{'/updateClass/' + ${klasa.id}}" style="color: black">
-        Edytuj dane klasy</a></button>
-    <!--    <button class="btnSt" type="button"><a th:href="@{'/enterParameters/' + ${klasa.id}}" style="color: black">-->
-    <!--        Parametry</a></button>-->
+<!--            <button type="button" class="btnSt"><a th:href="@{'/confirmDeleteClass/' + ${klasa.id}}"-->
+<!--                                                   style="color: black">Usuń-->
+<!--                klasę</a></button>-->
 
-    <button type="button" class="btnSt"><a th:href="@{'/confirmDeleteClass/' + ${klasa.id}}" style="color: black">Usuń
-        klasę</a></button>
-    <button class="btnSt" type="button"><a th:href="@{'/listOfClass'}" style="color: black">
-        Lista klas</a></button>
+<!--            <button class="btnSt" type="button"><a th:href="@{'/listOfClass'}" style="color: black">-->
+<!--                Lista klas</a></button>-->
 
-    <button class="btnSt" type="button"><a th:href="@{'/listOfStudentForClass/' + ${klasa.id}}" style="color: black">
-        Lista zakwalifikowanych uczniów</a> </button>
+<!--            <button class="btnSt" type="button"><a th:href="@{'/listOfStudentForClass/' + ${klasa.id}}"-->
+<!--                                                   style="color: black">-->
+<!--                Lista zakwalifikowanych uczniów</a></button>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<div class="tabelka">
+    <table>
+        <tr>
+            <td>
+                <button class="btnSt" type="button"><a th:href="@{'/updateClass/' + ${klasa.id}}" style="color: black">
+                    Edytuj dane klasy</a></button>
+            </td>
+            <td>
+                <button type="button" class="btnSt"><a th:href="@{'/confirmDeleteClass/' + ${klasa.id}}"
+                    style="color: black">Usuń klasę</a></button>
+            </td>
+            <td>
+                <button class="btnSt" type="button"><a th:href="@{'/listOfClass'}" style="color: black">
+                    Lista klas</a></button>
+            </td>
+            <td>
+                <button class="btnSt" type="button"><a th:href="@{'/listOfStudentForClass/' + ${klasa.id}}"
+                    style="color: black">
+                    Lista zakwalifikowanych uczniów</a></button>
+            </td>
+        </tr>
+    </table>
 </div>
-
-
 <div class="tabelka">
     <table class="table">
         <th class="firstTh">Nazwa</th>
@@ -105,9 +158,9 @@
         </tr>
 
         <tr>
-            <td class="firstTd">Minimalna liczba punktów za egzamin</td>
+            <td class="firstTd">Minimalna liczba punktów do zakwalifikowania się do tej klasy</td>
             <td colspan="2" class="firstTd" th:text="${klasa.minAmountOfPointsFromExams}"/>
-            <td class="firstTd" >
+            <td class="firstTd">
                 <button class="btnSt">
                     <a th:href="@{'/countAvg/' + ${klasa.id}}" style="color: black">Policz punkty</a>
                 </button>
@@ -117,16 +170,5 @@
 
     </table>
 </div>
-<!--<div class="subjects">-->
-<!--    <h3>Wybrane przedmioty dla profilu klasy</h3>-->
-<!--    <p th:each="role: ${klasa.przedmiot}" th:text="${role}">-->
-<!--</div>-->
-
-<!--<div class="skills">-->
-<!--    <h3>Wybrane umiejętności dla profilu klas</h3>-->
-<!--    <p th:each="role: ${klasa.umiejetnosci}" th:text="${role}">-->
-<!--</div>-->
-
-
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.example.aplikacja.appuser;
 
+import com.example.aplikacja.appuser.UserRepository;
+import com.example.aplikacja.appuser.AppUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -79,7 +81,7 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public AppUser updateAcount(AppUser appUser) {
+    public AppUser updateAccount(AppUser appUser) {
         AppUser userToUpdate = findUserById(appUser.getId()).orElse(null);
         if (userToUpdate != null) {
             userToUpdate.setAppUserRole(new ArrayList<>());

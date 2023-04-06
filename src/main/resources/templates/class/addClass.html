@@ -14,7 +14,7 @@
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
 
-    <title>Dodawanie klas</title>
+    <title>Nowa klasa</title>
 </head>
 <body>
 <div class="container-fluid" id="tytul">
@@ -25,7 +25,7 @@
 <div class="container">
     <div class="row">
         <div class="row" style="display: block;margin: auto; margin-top: 25px">
-            <form th:action="@{/class/addClass}" method="post">
+            <form th:action="@{/class/addClass}" method="post" class="myForm">
                 <input name="_method" type="hidden" value="post"/>
                 <input type="hidden" name="id">
                 <table class="table">
@@ -128,13 +128,13 @@
                 <span th:text="${classExist}" class="emailError"/><br>
                 <span th:text="${addedClass}" class="confirmationOfAdding"/><br>
 
-                <input class="commit btnSt" type="reset" value="Wyczyść formularz">
+                <input class="commit btnSt mediaCommit" type="reset" value="Wyczyść formularz">
 
-                <input class="commit btnSt" type="submit" value="Zapisz" style="margin-left: 450px;">
+                <input class="commit btnSt mediaCommit mediaCommitSave" type="submit" value="Zapisz">
 
             </form>
 
-            <button class="btnSt" type="button">
+            <button class="btnSt mediaCommit" type="button">
                 <a th:href="@{'/listOfClass'}" style="color: black">Lista klas</a>
             </button>
         </div>

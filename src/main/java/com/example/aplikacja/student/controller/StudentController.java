@@ -3,7 +3,6 @@ package com.example.aplikacja.student.controller;
 import com.example.aplikacja.appuser.AppUserService;
 import com.example.aplikacja.student.dto.*;
 import com.example.aplikacja.student.entity.*;
-import com.example.aplikacja.student.enums.NameOfClass;
 import com.example.aplikacja.student.service.ClassificationService;
 import com.example.aplikacja.student.service.KlassService;
 import com.example.aplikacja.student.service.StudentService;

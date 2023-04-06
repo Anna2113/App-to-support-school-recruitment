@@ -25,7 +25,7 @@ public enum Skills {
     Umiejętność_pracy_na_otwartym_terenie("workInTheOpenGround"),
     Umiejętność_posługiwania_się_mapą("abilityToUseAMap"),
     Znajmość_tablicy_Mendelejewa("periodicTable"),
-    Tworzenie_własnnych_doświadczeń_chemicznych("chemicalExperiments"),
+    Własnnych_doświadczenia_chemiczne("chemicalExperiments"),
     Zainteresowania_biologiczno_chemiczne("biologicalAndNaturalInterests"),
     Zainterersowanie_technologią("interestInTechnology");
 

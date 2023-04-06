@@ -1,5 +1,7 @@
 package com.example.aplikacja.appuser;
 
+import com.example.aplikacja.student.entity.ClassStudentResult;
+import com.example.aplikacja.student.entity.Student;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -41,6 +43,8 @@ public class AppUser implements UserDetails {
     private List<AppUserRole> appUserRole;
     private Boolean locked = false;
     private Boolean enabled = true;
+//    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+//    private Student student;
 
 
     public AppUser(String firstName,

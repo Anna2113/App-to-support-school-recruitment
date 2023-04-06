@@ -14,17 +14,18 @@
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
 
-    <title>Zmiana klasy</title>
+    <title>Punkty ucznia</title>
 </head>
 <body>
 <h1>Punktacja ucznia</h1>
 
 <h2 style="text-align: center">Liczba zdobytych punktów podczas rekrutacji w ramach każdego profilu klasy</h2>
 <div class="containerButtons">
-    <button class="btnSt" type="button" style="margin-top: 30px">
+    <button class="btnSt" type="button" style="margin-top: 30px; margin-left: 200px">
         <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wróć do obecnego ucznia</a>
     </button>
 </div>
+
 <div class="tabelka">
     <table class="table">
         <th class="firstTh">Klasa</th>

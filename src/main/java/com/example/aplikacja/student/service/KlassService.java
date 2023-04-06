@@ -49,8 +49,6 @@ public class KlassService {
         return studentRepository.findAll();
     }
 
-//    public List<Student> showAllStudents(Long id){return klassRepository.allStudentsForChooseClass(id);}
-
 
     public Klasa addClass(KlasaDTO cl) {
         Klasa klasaToAdd = findClassBySymbol(cl.getSymbol()).orElse(null);
@@ -60,12 +58,6 @@ public class KlassService {
             klasa1.setSymbol(cl.getSymbol());
             klasa1.setLiczba(cl.getLiczba());
             klasa1.setYear(java.sql.Date.valueOf(cl.getYear()));
-//            klasa1.setUmiejetnosci(new ArrayList<>());
-//            klasa1.getUmiejetnosci().addAll(cl.getUmiejetnosci());
-
-//            klasa1.setEnabled(cl.getEnabled());
-//            klasa1.setPrzedmiot(new ArrayList<>());
-//            klasa1.getPrzedmiot().addAll(cl.getPrzedmiot());
 
             klasa1.setWeightOfGrade(new ArrayList<>());
             for (Subject sub : cl.getPrzedmioty()) {

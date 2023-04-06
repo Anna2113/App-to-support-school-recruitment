@@ -54,7 +54,7 @@ public class KlassController {
     @GetMapping("/listOfClass")
     public String showList(Model model) {
         model.addAttribute("allClass", klassService.getAllKlass());
-        return "/listOfClass";
+        return "class/listOfClass";
     }
 
     @GetMapping("/reserveList")
@@ -194,7 +194,7 @@ public class KlassController {
             Klasa klasa = klassService.findClassById(id).orElse(null);
             klassService.deleteOurClass(klasa);
             model.addAttribute("allClass", klassService.getAllKlass());
-            return "/listOfClass";
+            return "class/listOfClass";
         }
     }
 

@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
-    <title>Edycja danych</title>
+    <title>Edycja danych ucznia</title>
 </head>
 <body>
 <div class="container-fluid" id="tytul">
@@ -39,7 +39,7 @@
                     parametry</a>
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#class"
                    role="button">Klasa</a>
-                <form th:action="@{/changeStudent}" method="post">
+                <form th:action="@{/changeStudent}" method="post" class="myForm">
                     <input name="_method" type="hidden" value="PUT"/>
                     <input type="hidden" name="id" th:value="${student.id}"/>
                     <div class="collapse show" id="dateOfStudent">
@@ -156,7 +156,7 @@
                                     <th>Kontakt:</th>
                                     <td>
                                         <input type="email" name="email"
-                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$"
                                                th:value="${student.email}"
                                                required
 
@@ -180,7 +180,7 @@
                         </div>
                     </div>
                     <div class="collapse" id="result">
-                        <h3 style="text-align: center; margin-top: 20px">Wyniki z egzmainów</h3>
+                        <h3 style="text-align: center; margin-top: 20px">Wyniki z egzaminów</h3>
                         <div class="card card-body">
                             <table class="table">
                                 <tr>
@@ -747,16 +747,15 @@
 
                     <span th:text="${errorStudent}" class="emailError"/><br>
                     <span th:text="${updateStudent}" class="confirmationOfAdding"/><br>
-                    <input class="commit btnSt" type="reset" value="Wyczyść formularz">
 
-                    <input class="commit btnSt" type="submit" value="Zapisz" style="margin-left: 450px;">
+                    <input class="commit btnSt mediaCommit" type="submit" value="Zapisz">
 
                 </form>
                 <!--                <button type="button" class="btnSt"><a href="/previousPage" style="color: black">Lista uczniów</a></button>-->
 
-                <button class="btnSt" type="button" style="margin-top: 30px">
+                <button class="btnSt mediaCommit mediaListOfStudentsButton mediaCommitListForStudent" type="button">
                     <a th:href="@{'/showStudents'}" style="color: black">Lista uczniów</a></button>
-                <button class="btnSt" type="button" style="margin-top: 30px">
+                <button class="btnSt mediaCommit mediaCurrentStudent" type="button">
                     <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wróć do obecnego ucznia</a>
                 </button>
             </div>

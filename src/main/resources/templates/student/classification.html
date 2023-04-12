@@ -16,19 +16,22 @@
 </head>
 <body>
 
-<h1>Dla ucznia wybrano klasę</h1>
-<h3 style="text-align: center">Uczeń został sklasyfikowany do klasy:</h3>
-<h3 th:text="${student.classForStudent}" style="text-align: center; text-transform: uppercase; color: red ;padding: 20px"/>
+<div class="classificationContainer">
+        <h2 style="text-align: center">Uczeń został sklasyfikowany do klasy:</h2>
+        <h3 th:text="${student.classForStudent}"
+            style="text-align: center; text-transform: uppercase; color: red ;padding: 20px"/>
+        <div>
+            <h4 style="text-align: center">Czy chcesz zmienić klasę dla danego ucznia ?</h4>
+            <button class="btnSt btnConfirm classificationButton">
+                <a th:href="@{'/updateClassForStudent/' + ${student.id}}" style="color: black">Ustaw klasę ręcznie</a>
+            </button>
 
-<div>
-    <h4 style="text-align: center">Czy chcesz zmienić klasę dla danego ucznia ?</h4>
-    <button class="btnSt btnConfirm">
-        <a th:href="@{'/updateClassForStudent/' + ${student.id}}" style="color: black">Ustaw klasę ręcznie</a>
-    </button>
-
-    <button class="btnSt btnCancel">
-        <a a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black; width: 30px"/>Pozostaw ucznia w tej klasie
-    </button>
+            <button class="btnSt btnCancel classificationButton">
+                <a a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black; width: 30px"/>Pozostaw ucznia w
+                tej
+                klasie
+            </button>
+        </div>
 </div>
 </body>
 </html>

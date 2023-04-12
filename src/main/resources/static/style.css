@@ -149,6 +149,22 @@ h1 {
     margin-bottom: 30px;
 }
 
+.classificationContainer{
+    display: block;
+    margin: auto;
+    background-color: white;
+    padding: 10px;
+    padding-top: 50px;
+    border-radius: 5px;
+    margin-top: 100px;
+    margin-bottom: 30px;
+    width: 50%;
+}
+
+.classificationButton{
+    width: 40%;
+}
+
 @media screen and (max-width: 1200px){
     .btn-mybutton{
         font-size: 0.8rem;
@@ -198,6 +214,12 @@ h1 {
     .mediaCommitSaveForClass{
         display: block;
         margin: auto;
+    }
+    .classificationButton{
+        width: 35%;
+    }
+    .classificationContainer{
+        width: 80%
     }
 }
 

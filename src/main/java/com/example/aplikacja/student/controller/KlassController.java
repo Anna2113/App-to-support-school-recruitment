@@ -71,7 +71,6 @@ public class KlassController {
         Klasa klasa = klassService.findClassById(id).orElse(null);
 
         List<Student> profileClass = studentService.listaStWKl(klasa.getNameOfClass().getLabel());
-        Collections.reverse(profileClass);
         model.addAttribute("allStudents", profileClass);
         model.addAttribute("klasa", klasa);
         return "/class/listOfStudentsForClass";

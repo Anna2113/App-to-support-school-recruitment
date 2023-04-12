@@ -32,7 +32,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> getStudentBySurname(String surname);
 
     //pierwszy parametr z metody ?1
-    @Query("SELECT s FROM Student s WHERE s.classForStudent = ?1")
+    @Query("SELECT s FROM Student s WHERE s.classForStudent = ?1 ORDER BY s.classificationPoints desc ")
     List<Student> studenciWKlasie(String nazwaKlasy);
 
     @Query("SELECT s FROM Student s WHERE s.status <> 'sklasyfikowany'")

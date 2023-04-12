@@ -118,7 +118,7 @@ public class KlassService {
             double minimum = lista.stream().mapToDouble(w -> ((w.getWartosc() * 6
                     + w.getWartosc() * 2)*0.70)/10.00).sum();
 
-            double minimum2 = round(minimum);
+            double minimum2 = round(minimum - 1.30);
 
             klasaToUpdate.setMinAvgGrade(minimum2);
             klassRepository.save(klasaToUpdate);

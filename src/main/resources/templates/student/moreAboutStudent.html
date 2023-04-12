@@ -19,6 +19,8 @@
 <body>
 <h1>Informacje o uczniu</h1>
 <h2 style="text-align: center">Podstawowe dane</h2>
+<p th:text="${classExist}" class="emailError"/><br>
+<p th:text="${lackPoints}" class="emailError"/><br>
 <!--<div class="containerButtons">-->
 
 <!--    <p th:text="${classExist}" class="emailError"/><br>-->
@@ -36,7 +38,6 @@
 <!--        ucznia</a></button>-->
 
 <!--</div>-->
-    <p th:text="${classExist}" class="emailError"/><br>
 <div class="tabelka">
     <table>
         <tr>
@@ -56,8 +57,13 @@
                 </button>
             </td>
             <td>
-                <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}" style="color: black">Klasyfikuj
+                <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}"
+                                                       style="color: black">Klasyfikuj
                     ucznia</a></button>
+            </td>
+            <td>
+                <button class="btnSt" type="button"><a th:href="@{'/showStudents'}" style="color: black">
+                    Lista uczniów</a></button>
             </td>
         </tr>
     </table>
@@ -68,6 +74,7 @@
         <th class="firstTh">Nazwisko</th>
         <th class="firstTh">Data urodzenia</th>
         <th class="firstTh">Płeć</th>
+        <th class="firstTh">Kontakt</th>
         <!--        <th class="firstTh">Pochodzenie</th>-->
         <!--        <th class="firstTh">Język</th>-->
         <!--            <th class="firstTh">Klasa</th>-->
@@ -76,6 +83,7 @@
             <td class="firstTd" th:text="${student.lastName}"/>
             <td class="firstTd" th:text="${student.dateOfBirth}"/>
             <td class="firstTd" th:text="${student.sex}"/>
+            <td class="firstTd" th:text="${student.email}"/>
         </tr>
     </table>
 </div>

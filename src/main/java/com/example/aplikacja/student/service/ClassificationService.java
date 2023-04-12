@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
@@ -100,6 +101,7 @@ public class ClassificationService {
 
         //Umiejętności
 
+
         Ability szbLicz = studentToUpdate.getExtraParameters().getFastCounting();
         Ability szbCzyt = studentToUpdate.getExtraParameters().getFastReading();
         Ability rozProb = studentToUpdate.getExtraParameters().getTroubleshooting();
@@ -123,6 +125,10 @@ public class ClassificationService {
         Ability chemia = studentToUpdate.getExtraParameters().getChemicalExperiments();
         Ability bioPrzyr = studentToUpdate.getExtraParameters().getBiologicalAndNaturalInterests();
         Ability tech = studentToUpdate.getExtraParameters().getInterestInTechnology();
+
+        List<Ability> umiejetnosci = Arrays.asList(szbLicz, szbCzyt, szbZapam, rozProb, aktorstwo, spiew, taniec,
+                pisanie, foto, jezyk, certyf, polit, komuni, sport, wyczSpo, sprFiz, wytrzFiz, otwTer, mapa,
+                tabMend, chemia, bioPrzyr, tech);
 
         double maxMGI = studentToUpdate.getPointsMatGeoInf();  //mat, geo, inf
         double maxS = studentToUpdate.getPointsS(); //mat, bio, wf
@@ -172,10 +178,10 @@ public class ClassificationService {
 
         //Jeżeli uczeń ma więcej niż jedną olimpiadę
         Double maxWew = 0.0;
-        int licznik = 0;
+        AtomicInteger licznik = new AtomicInteger();
         for (int k = 0; k < olympiads.size(); k++) {
             if (olympiads.get(k) == LaureateOrFinalist.Laureat) {
-                licznik++;
+                licznik.getAndIncrement();
                 listLaureat.add(olympiads.get(k)); //lista olimpiad (przedmiotów), z których uczeń jest laureatem
             }
         }
@@ -428,141 +434,156 @@ public class ClassificationService {
 
         Double maxSr = 0.0;
         for (j = 0; j < kl.size(); j++) {
-            if (max > kl.get(j).getMinAmountOfPointsFromExams()) {
+            if (max >= kl.get(j).getMinAmountOfPointsFromExams()) {
                 maxMin = kl.get(j).getMinAmountOfPointsFromExams();
                 newList.put(kl.get(j).getNameOfClass(), maxMin);
-
-                newList.forEach((k, v) -> {
-                            if (name.compareAndSet(null, name.get())) {
-                                name.set(k.getLabel());
-                                wartosc.set(v);
-                            }
-                            if (v > wartosc.get()) {
-                                wartosc.set(v);
-                                name.set(k.getLabel());
-                            }
-                            System.out.println(k + ":" + v);
+            }
+            newList.forEach((k, v) -> {
+                        if (name.compareAndSet(null, name.get())) {
+                            name.set(k.getLabel());
+                            wartosc.set(v);
                         }
-                );
-                studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-                studentToUpdate.setClassForStudent(String.valueOf(name.get()));
-                studentToUpdate.setClassificationPoints(max);
-                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-            } else {
-                if (szbLicz == Ability.TAK && szbCzyt == Ability.TAK && szbZapam == Ability.TAK &&
-                        aktorstwo == Ability.TAK && rozProb == Ability.TAK &&
-                        spiew == Ability.TAK && taniec == Ability.TAK &&
-                        pisanie == Ability.TAK && foto == Ability.TAK &&
-                        jezyk == Ability.TAK && certyf == Ability.TAK &&
-                        polit == Ability.TAK && komuni == Ability.TAK &&
-                        sport == Ability.TAK && wyczSpo == Ability.TAK &&
-                        sprFiz == Ability.TAK && wytrzFiz == Ability.TAK &&
-                        otwTer == Ability.TAK && mapa == Ability.TAK &&
-                        tabMend == Ability.TAK && chemia == Ability.TAK &&
-                        bioPrzyr == Ability.TAK && tech == Ability.TAK) {
-
-                    Random generator = new Random();
-                    NameOfClass losowaKl = kl.get(generator.nextInt(kl.size())).getNameOfClass();
-                    if (losowaKl.equals(NameOfClass.FizChemFranc)) {
-                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsFIZ());
-                    } else if (losowaKl.equals(NameOfClass.MatGeoInf)) {
-                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMatGeoInf());
-                    } else if (losowaKl.equals(NameOfClass.BiolChem)) {
-                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsBiolChem());
-                    } else if (losowaKl.equals(NameOfClass.Humanistyczna)) {
-                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsHuman());
-                    } else if (losowaKl.equals(NameOfClass.Artystyczna)) {
-                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsArt());
-                    } else if (losowaKl.equals(NameOfClass.MatAngNiem)) {
-                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMAN());
-                    } else if (losowaKl.equals(NameOfClass.Sportowa)) {
-                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsS());
+                        if (v == wartosc.get()) {
+                            wartosc.set(v);
+                            name.set(k.getLabel());
+                        }
+                        System.out.println(k + ":" + v);
                     }
-                    studentToUpdate.setClassForStudent(String.valueOf(losowaKl));
-                    studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-                    studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+            );
 
-                } else if (szbLicz == Ability.NIE && szbCzyt == Ability.NIE && szbZapam == Ability.NIE &&
-                        aktorstwo == Ability.NIE && rozProb == Ability.NIE &&
-                        spiew == Ability.NIE && taniec == Ability.NIE &&
-                        pisanie == Ability.NIE && foto == Ability.NIE &&
-                        jezyk == Ability.NIE && certyf == Ability.NIE &&
-                        polit == Ability.NIE && komuni == Ability.NIE &&
-                        sport == Ability.NIE && wyczSpo == Ability.NIE &&
-                        sprFiz == Ability.NIE && wytrzFiz == Ability.NIE &&
-                        otwTer == Ability.NIE && mapa == Ability.NIE &&
-                        tabMend == Ability.NIE && chemia == Ability.NIE &&
-                        bioPrzyr == Ability.NIE && tech == Ability.NIE) {
-                    //TODO: Jeżeli się uda wyświetlić punkty
-                    studentToUpdate.setStatus(StudentStatus.rezerwowy);
-                    studentToUpdate.setClassForStudent("Uczeń trafił na listę rezerwową");
-                    studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-                } else {
-                    if (szbLicz == Ability.TAK && rozProb == Ability.TAK
+            studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+            studentToUpdate.setClassForStudent(String.valueOf(name.get()));
+            studentToUpdate.setClassificationPoints(max);
+            studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+
+
+            if (newList.isEmpty()) {
+                for (int u = 0; u < umiejetnosci.size(); u++) {
+                    if (szbLicz == Ability.TAK && szbCzyt == Ability.TAK && szbZapam == Ability.TAK &&
+                            aktorstwo == Ability.TAK && rozProb == Ability.TAK &&
+                            spiew == Ability.TAK && taniec == Ability.TAK &&
+                            pisanie == Ability.TAK && foto == Ability.TAK &&
+                            jezyk == Ability.TAK && certyf == Ability.TAK &&
+                            polit == Ability.TAK && komuni == Ability.TAK &&
+                            sport == Ability.TAK && wyczSpo == Ability.TAK &&
+                            sprFiz == Ability.TAK && wytrzFiz == Ability.TAK &&
+                            otwTer == Ability.TAK && mapa == Ability.TAK &&
+                            tabMend == Ability.TAK && chemia == Ability.TAK &&
+                            bioPrzyr == Ability.TAK && tech == Ability.TAK) {
+
+                        Random generator = new Random();
+                        NameOfClass losowaKl = kl.get(generator.nextInt(kl.size())).getNameOfClass();
+                        if (losowaKl.equals(NameOfClass.FizChemFranc)) {
+                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsFIZ());
+                        } else if (losowaKl.equals(NameOfClass.MatGeoInf)) {
+                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMatGeoInf());
+                        } else if (losowaKl.equals(NameOfClass.BiolChem)) {
+                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsBiolChem());
+                        } else if (losowaKl.equals(NameOfClass.Humanistyczna)) {
+                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsHuman());
+                        } else if (losowaKl.equals(NameOfClass.Artystyczna)) {
+                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsArt());
+                        } else if (losowaKl.equals(NameOfClass.MatAngNiem)) {
+                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMAN());
+                        } else if (losowaKl.equals(NameOfClass.Sportowa)) {
+                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsS());
+                        }
+                        studentToUpdate.setClassForStudent(String.valueOf(losowaKl));
+                        studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+
+                    } else if (szbLicz == Ability.NIE && szbCzyt == Ability.NIE && szbZapam == Ability.NIE &&
+                            aktorstwo == Ability.NIE && rozProb == Ability.NIE &&
+                            spiew == Ability.NIE && taniec == Ability.NIE &&
+                            pisanie == Ability.NIE && foto == Ability.NIE &&
+                            jezyk == Ability.NIE && certyf == Ability.NIE &&
+                            polit == Ability.NIE && komuni == Ability.NIE &&
+                            sport == Ability.NIE && wyczSpo == Ability.NIE &&
+                            sprFiz == Ability.NIE && wytrzFiz == Ability.NIE &&
+                            otwTer == Ability.NIE && mapa == Ability.NIE &&
+                            tabMend == Ability.NIE && chemia == Ability.NIE &&
+                            bioPrzyr == Ability.NIE && tech == Ability.NIE) {
+                        studentToUpdate.setStatus(StudentStatus.rezerwowy);
+                        studentToUpdate.setClassForStudent("Uczeń trafił na listę rezerwową");
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+                    } else if (szbLicz == Ability.TAK && rozProb == Ability.TAK
                             && tech == Ability.TAK && otwTer == Ability.TAK) {
                         studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
                         studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
                         studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMatGeoInf());
                         studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+                    } else if (szbCzyt == Ability.TAK && pisanie == Ability.TAK
+                            && polit == Ability.TAK && komuni == Ability.TAK) {
+                        studentToUpdate.setClassForStudent(String.valueOf(klasaPol.getNameOfClass()));
+                        studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsHuman());
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+                    } else if (jezyk == Ability.TAK && szbZapam == Ability.TAK
+                            && certyf == Ability.TAK && rozProb == Ability.TAK) {
+                        studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
+                        studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMAN());
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+                    } else if (bioPrzyr == Ability.TAK && tabMend == Ability.TAK
+                            && chemia == Ability.TAK && jezyk == Ability.TAK) {
+                        studentToUpdate.setClassForStudent(String.valueOf(klasaBiolChemAng.getNameOfClass()));
+                        studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsBiolChem());
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+                    } else if (sport == Ability.TAK && wyczSpo == Ability.TAK
+                            && szbLicz == Ability.TAK && bioPrzyr == Ability.TAK) {
+                        studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
+                        studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsS());
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+                    } else if (aktorstwo == Ability.TAK && spiew == Ability.TAK
+                            && taniec == Ability.TAK && pisanie == Ability.TAK) {
+                        studentToUpdate.setClassForStudent(String.valueOf(klasaArtystyczna.getNameOfClass()));
+                        studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsArt());
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+                    } else if (szbLicz == Ability.TAK && tabMend == Ability.TAK && chemia == Ability.TAK
+                            && bioPrzyr == Ability.TAK) {
+                        studentToUpdate.setClassForStudent(String.valueOf(klasaFizChemFranc.getNameOfClass()));
+                        studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsFIZ());
+                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                     } else {
-                        if (szbCzyt == Ability.TAK && pisanie == Ability.TAK
-                                && polit == Ability.TAK && komuni == Ability.TAK) {
-                            studentToUpdate.setClassForStudent(String.valueOf(klasaPol.getNameOfClass()));
-                            studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsHuman());
-                            studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-                        } else {
-                            if (jezyk == Ability.TAK && szbZapam == Ability.TAK
-                                    && certyf == Ability.TAK && rozProb == Ability.TAK) {
-                                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-                                studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-                                studentToUpdate.setClassificationPoints(studentToUpdate.getPointsMAN());
-                                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-                            } else {
-                                if (bioPrzyr == Ability.TAK && tabMend == Ability.TAK
-                                        && chemia == Ability.TAK && jezyk == Ability.TAK) {
-                                    studentToUpdate.setClassForStudent(String.valueOf(klasaBiolChemAng.getNameOfClass()));
-                                    studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-                                    studentToUpdate.setClassificationPoints(studentToUpdate.getPointsBiolChem());
-                                    studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-                                } else {
-                                    if (sport == Ability.TAK && wyczSpo == Ability.TAK
-                                            && szbLicz == Ability.TAK && bioPrzyr == Ability.TAK) {
-                                        studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
-                                        studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-                                        studentToUpdate.setClassificationPoints(studentToUpdate.getPointsS());
-                                        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-                                    } else {
-                                        if (aktorstwo == Ability.TAK && spiew == Ability.TAK
-                                                && taniec == Ability.TAK && pisanie == Ability.TAK) {
-                                            studentToUpdate.setClassForStudent(String.valueOf(klasaArtystyczna.getNameOfClass()));
-                                            studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-                                            studentToUpdate.setClassificationPoints(studentToUpdate.getPointsArt());
-                                            studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-                                        } else {
-                                            if (szbLicz == Ability.TAK && tabMend == Ability.TAK && chemia == Ability.TAK
-                                                    && bioPrzyr == Ability.TAK) {
-                                                studentToUpdate.setClassForStudent(String.valueOf(klasaFizChemFranc.getNameOfClass()));
-                                                studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-                                                studentToUpdate.setClassificationPoints(studentToUpdate.getPointsFIZ());
-                                                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-                                            } else {
-                                                //TODO: Jeżeli się uda wyświetlić punkty
-                                                studentToUpdate.setClassForStudent("Uczeń trafił na listę rezerwową");
-                                                studentToUpdate.setStatus(StudentStatus.rezerwowy);
-                                                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        studentToUpdate.setClassForStudent("Uczeń trafił na listę rezerwową");
+                        studentToUpdate.setStatus(StudentStatus.rezerwowy);
+//                                                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                     }
                 }
             }
         }
+        return studentRepository.save(studentToUpdate);
+    }
+}
 
-        //Jeżeli uczeń ma jedną olimpiadę
+
+//            newList.forEach((k, v) -> {
+//                        if (name.compareAndSet(null, name.get())) {
+//                            name.set(k.getLabel());
+//                            wartosc.set(v);
+//                        }
+//                        if (v == wartosc.get()) {
+//                            wartosc.set(v);
+//                            name.set(k.getLabel());
+//                        }
+//                        System.out.println(k + ":" + v);
+//                    }
+//            );
+////            List<NameOfClass> listOfVal = new ArrayList<NameOfClass>(newList.keySet());
+////            int randomIndex = new Random().nextInt(listOfVal.size());
+////            NameOfClass randomValue = listOfVal.get(randomIndex);
+//
+//            studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
+//            studentToUpdate.setClassForStudent(String.valueOf(name.get()));
+//            studentToUpdate.setClassificationPoints(max);
+//            studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+
+
+//Jeżeli uczeń ma jedną olimpiadę
 //        if (lauMat == LaureateOrFinalist.Laureat) {
 //            if (maxMGI > maxMAN && maxMGI > maxS) {
 //                studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
@@ -902,208 +923,5 @@ public class ClassificationService {
 //                }
 //            }
 //        }
-        return studentRepository.save(studentToUpdate);
-    }
 
 
-//    else if (lauMat == LaureateOrFinalist.Brak && lauGeo == LaureateOrFinalist.Brak &&
-//    lauInf == LaureateOrFinalist.Brak && lauAng == LaureateOrFinalist.Brak &&
-//    lauNiem == LaureateOrFinalist.Brak && lauPol == LaureateOrFinalist.Brak &&
-//    lauHist == LaureateOrFinalist.Brak && lauWOS == LaureateOrFinalist.Brak &&
-//    lauBio == LaureateOrFinalist.Brak && lauChem == LaureateOrFinalist.Brak &&
-//    lauMuzHist == LaureateOrFinalist.Brak && lauSztHist == LaureateOrFinalist.Brak &&
-//    lauFiz == LaureateOrFinalist.Brak && lauItal == LaureateOrFinalist.Brak &&
-//    lauFra == LaureateOrFinalist.Brak && lauSpin == LaureateOrFinalist.Brak)
-
-//    public Student classification(Student studentToUpdate) {
-//
-//
-//        Klasa klasaMatGeoInf = klassRepository.findAll().stream().filter(k ->
-//                k.getNameOfClass() == NameOfClass.MatGeoInf).findFirst().get();
-//
-//        Klasa klasaPol = klassRepository.findAll().stream().filter(k ->
-//                k.getNameOfClass().equals(NameOfClass.Humanistyczna)).findFirst().get();
-//
-//        Klasa klasaMatAngNiem = klassRepository.findAll().stream().filter(k ->
-//                k.getNameOfClass().equals(NameOfClass.MatAngNiem)).findFirst().get();
-//
-//        Klasa klasaBiolChem = klassRepository.findAll().stream().filter(k ->
-//                k.getNameOfClass().equals(NameOfClass.BiolChem)).findFirst().get();
-//
-//        Klasa klasaSportowa = klassRepository.findAll().stream().filter(k ->
-//                k.getNameOfClass().equals(NameOfClass.Sportowa)).findFirst().get();
-//
-//        Klasa klasaArtystyczna = klassRepository.findAll().stream().filter(k ->
-//                k.getNameOfClass().equals(NameOfClass.Artystyczna)).findFirst().get();
-//
-//
-//        //Olimpiady
-//        LaureateOrFinalist lauMat = studentToUpdate.getOlympiads().getMathOlympiad();
-//        LaureateOrFinalist lauGeo = studentToUpdate.getOlympiads().getGeographyOlympiad();
-//        LaureateOrFinalist lauInf = studentToUpdate.getOlympiads().getITOlympiad();
-//        LaureateOrFinalist lauAng = studentToUpdate.getOlympiads().getEnglishOlympiad();
-//        LaureateOrFinalist lauNiem = studentToUpdate.getOlympiads().getGermanOlympiad();
-//        LaureateOrFinalist lauPol = studentToUpdate.getOlympiads().getPolishOlympiad();
-//        LaureateOrFinalist lauHist = studentToUpdate.getOlympiads().getHistoryOlympiad();
-//        LaureateOrFinalist lauWOS = studentToUpdate.getOlympiads().getCivicsOlympiad();
-//        LaureateOrFinalist lauBio = studentToUpdate.getOlympiads().getBiologyOlympiad();
-//        LaureateOrFinalist lauChem = studentToUpdate.getOlympiads().getChemistryOlympiad();
-//        LaureateOrFinalist lauMuzHist = studentToUpdate.getOlympiads().getHistoryOfMusicOlympiad();
-//        LaureateOrFinalist lauItal = studentToUpdate.getOlympiads().getItalianOlympiad();
-//
-//        //Egzaminy
-//        Double examPolish = Double.valueOf(studentToUpdate.getExams().getLanguagePolishResult());
-//        Double examMath = Double.valueOf(studentToUpdate.getExams().getMath());
-//        Double examEnglish = Double.valueOf(studentToUpdate.getExams().getForeignLanguage());
-//
-//        //Oceny
-//        String grMath = studentToUpdate.getGrades().getMathGrade();
-//        String grGeo = studentToUpdate.getGrades().getGeographyGrade();
-//        String grInf = studentToUpdate.getGrades().getITGrade();
-//        String grAng = studentToUpdate.getGrades().getEnglishGrade();
-//        String grNiem = studentToUpdate.getGrades().getOtherLanguageGrade();
-//        String grWf = studentToUpdate.getGrades().getPhysicalEducationGrade();
-//        String grBio = studentToUpdate.getGrades().getBiologyGrade();
-//
-//
-//        //Jest laureatem
-//        if (lauMat == LaureateOrFinalist.Laureat) {
-//            if (lauGeo == LaureateOrFinalist.Laureat || lauInf == LaureateOrFinalist.Laureat) {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//            } else if (lauAng == LaureateOrFinalist.Laureat || lauNiem == LaureateOrFinalist.Laureat) {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-//            } else if (lauGeo == LaureateOrFinalist.Finalista || lauInf == LaureateOrFinalist.Finalista) {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//            } else if (lauAng == LaureateOrFinalist.Finalista || lauNiem == LaureateOrFinalist.Finalista) {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-//            } else //(jest tylko laureatem z matematyki lub jest laureatem z więcej niż dwóch kierunkowych
-//            //przedmiotów dla tej klasy , porównujemy punkty w tych profilach z tym przedmiotem)
-//            {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//                // TODO: tutaj dodać jakieś warunki, uwzględnić punkty
-//            }
-//            //Jest finalistą
-//        } else if (lauMat == LaureateOrFinalist.Finalista) {
-//            if (lauGeo == LaureateOrFinalist.Laureat || lauInf == LaureateOrFinalist.Laureat) {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//            } else if (lauAng == LaureateOrFinalist.Laureat || lauNiem == LaureateOrFinalist.Laureat) {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-//            } else if (lauGeo == LaureateOrFinalist.Finalista || lauInf == LaureateOrFinalist.Finalista) {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//            } else if (lauAng == LaureateOrFinalist.Finalista || lauNiem == LaureateOrFinalist.Finalista) {
-//                studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-//            } else //(Jest tylko finalistą) {
-//                if (studentToUpdate.getPointsMatGeoInf() >= klasaMatGeoInf.getMinAmountOfPointsFromExams()) {
-//                    if (grGeo.equals("1.0") || grInf.equals("1.0")) {
-//                        if (studentToUpdate.getExtraParameters().getFastCounting() == Ability.TAK
-//                                || studentToUpdate.getExtraParameters().getTroubleshooting() == Ability.TAK
-//                                || studentToUpdate.getExtraParameters().getWorkInTheOpenGround() == Ability.TAK
-//                                || studentToUpdate.getExtraParameters().getInterestInTechnology() == Ability.TAK) {
-//                            studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//                        } else {
-//                            //Student nie klasyfikuje się do tej klasy lub trafia na listę rezerwową.
-//                            if (studentToUpdate.getPointsMAN() >= klasaMatAngNiem.getMinAmountOfPointsFromExams()) {
-//                                if (grAng.equals("1.0") || grNiem.equals("1.0")) {
-//                                    if (studentToUpdate.getExtraParameters().getLinguisticSkills() == Ability.TAK
-//                                            || studentToUpdate.getExtraParameters().getLanguageCertificate() == Ability.TAK
-//                                            || studentToUpdate.getExtraParameters().getQuickMemorization() == Ability.TAK
-//                                            || studentToUpdate.getExtraParameters().getTroubleshooting() == Ability.TAK) {
-//                                        studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-//                                    } else {
-//                                        if (studentToUpdate.getPointsS() >= klasaSportowa.getMinAmountOfPointsFromExams()) {
-//                                            if (grWf.equals("1.0") || grBio.equals("1.0")) {
-//                                                if (studentToUpdate.getExtraParameters().getSportSkills() == Ability.TAK
-//                                                        || studentToUpdate.getExtraParameters().getExtremeSport() == Ability.TAK
-//                                                        || studentToUpdate.getExtraParameters().getFastCounting() == Ability.TAK
-//                                                        || studentToUpdate.getExtraParameters().getBiologicalAndNaturalInterests() == Ability.TAK) {
-//                                                    studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
-//                                                }
-//                                            } else if (!grWf.equals("1.0") || !grBio.equals("1.0")) {
-//                                                studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
-//                                            }
-//                                        } else if (studentToUpdate.getPointsS() < klasaSportowa.getMinAmountOfPointsFromExams()) {
-//                                            if (grWf.equals("5.0") && grBio.equals("5.0")) {
-//                                                studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
-//                                            } else if (grWf.equals("1.0") || grBio.equals("1.0")) {
-//                                                studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
-//                                            } else if (studentToUpdate.getExtraParameters().getSportSkills() == Ability.TAK
-//                                                    || studentToUpdate.getExtraParameters().getExtremeSport() == Ability.TAK
-//                                                    || studentToUpdate.getExtraParameters().getFastCounting() == Ability.TAK
-//                                                    || studentToUpdate.getExtraParameters().getBiologicalAndNaturalInterests() == Ability.TAK) {
-//                                                studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
-//                                            } else {
-//                                                studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
-//                                            }
-//                                        }
-//                                    }
-//                                } else if (!grAng.equals("1.0") && !grNiem.equals("1.0")) {
-//                                    studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-//                                }
-//                            } else if (studentToUpdate.getPointsMAN() < klasaMatAngNiem.getMinAmountOfPointsFromExams()) {
-//                                if (grAng.equals("5.0") && grNiem.equals("5.0")) {
-//                                    studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-//                                } else if (grAng.equals("1.0") || grNiem.equals("1.0")) {
-//                                    studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
-//                                } else if (studentToUpdate.getExtraParameters().getLinguisticSkills() == Ability.TAK
-//                                        || studentToUpdate.getExtraParameters().getLanguageCertificate() == Ability.TAK
-//                                        || studentToUpdate.getExtraParameters().getQuickMemorization() == Ability.TAK
-//                                        || studentToUpdate.getExtraParameters().getTroubleshooting() == Ability.TAK) {
-//                                    studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-//                                } else {
-//                                    studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
-//                                }
-//                            }
-//                        }
-//                    } else if (!grGeo.equals("1.0") && grInf.equals("1.0")) {
-//                        studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//                    }
-//                } else if (studentToUpdate.getPointsMatGeoInf() < klasaMatGeoInf.getMinAmountOfPointsFromExams()) {
-//                    if (grGeo.equals("5.0") && grInf.equals("5.0")) {
-//                        studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//                    } else if (grGeo.equals("1.0") || grInf.equals("1.0")) {
-//                        studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
-//                    } else {
-//                        //Można zrobić, tak aby uczeń na tym poziomie musiał mieć wszystkie wymagane umiejętności
-//                        //Czyli alternatywę zamienimy na koniunkcję.
-//                        if (studentToUpdate.getExtraParameters().getFastCounting() == Ability.TAK
-//                                || studentToUpdate.getExtraParameters().getTroubleshooting() == Ability.TAK
-//                                || studentToUpdate.getExtraParameters().getWorkInTheOpenGround() == Ability.TAK
-//                                || studentToUpdate.getExtraParameters().getInterestInTechnology() == Ability.TAK) {
-//                            studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-//                        } else {
-//                            studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową.");
-//                        }
-//                    }
-//                }
-//            //jeśli nie jest laureatem i nie jest finalistą
-//        } else {
-//            if (examPolish < 30.00 || examMath < 30.00 || examEnglish < 30.00) {
-//                studentToUpdate.setClassForStudent("Uczeń trafia na listę rezerwową bo ma mniej niż 30% z egzaminu.");
-//            }
-//        }
-//
-//        //Zakładam, że jeżeli uczeń będzie miał tylko olimpiadę matematyczną lub będzie miał olimpiadę
-//        //matematyczną i inną niż wyróżnione lub będzie innym finalistą poza wyróżnionymi
-//        //to przydzieli go domyślnie do klasy matGeoInf.
-//
-//        // TODO: 18.02.2023 Co zrobić w wypadku kiedy w dwóch klasach jest ten sam przedmiot jako kierunkowy ?
-//
-////        if (lauMat.equals("Laureat") || lauGeo.equals("Laureat") || lauInf.equals("Laureat")) {
-////            studentToUpdate.setClassForStudent(String.valueOf(klasaMatGeoInf.getNameOfClass()));
-////        } else if (lauPol.equals("Laureat") || lauHist.equals("Laureat") || lauWOS.equals("Laureat")) {
-////            studentToUpdate.setClassForStudent(String.valueOf(klasaPol.getNameOfClass()));
-////        } else if (lauMat.equals("Laureat") || lauAng.equals("Laureat") || lauNiem.equals("Laureat")) {
-////            studentToUpdate.setClassForStudent(String.valueOf(klasaMatAngNiem.getNameOfClass()));
-////        } else if (lauAng.equals("Laureat") || lauBio.equals("Laureat") || lauChem.equals("Laureat")) {
-////            studentToUpdate.setClassForStudent(String.valueOf(klasaBiolChem.getNameOfClass()));
-////        } else if (lauMat.equals("Laureat") || lauBio.equals("Laureat")) {
-////            studentToUpdate.setClassForStudent(String.valueOf(klasaSportowa.getNameOfClass()));
-////        } else if (lauMat.equals("Laureat") || lauNiem.equals("Laureat") || lauMuzHist.equals("Laureat")) {
-////            studentToUpdate.setClassForStudent(String.valueOf(klasaMuzyczna.getNameOfClass()));
-////        } else if (lauAng.equals("Laureat") || lauItal.equals("Laureat") || lauMuzHist.equals("Laureat")) {
-////            studentToUpdate.setClassForStudent(String.valueOf(klasaAktorska.getNameOfClass()));
-////        }
-//
-//        return studentRepository.save(studentToUpdate);
-//    }
-}

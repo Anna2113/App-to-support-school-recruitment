@@ -26,8 +26,8 @@
         <a th:href="@{'/updateClassForStudent/' + ${student.id}}" style="color: black">Ustaw klasę ręcznie</a>
     </button>
 
-    <button class="btnSt btnCancle">
-        <a th:href="@{'/showStudents'}" style="color: black; width: 30px"/>Pozostaw ucznia w tej klasie
+    <button class="btnSt btnCancel">
+        <a a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black; width: 30px"/>Pozostaw ucznia w tej klasie
     </button>
 </div>
 </body>

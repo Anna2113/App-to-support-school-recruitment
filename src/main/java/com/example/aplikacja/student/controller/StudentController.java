@@ -150,22 +150,22 @@ public class StudentController {
     public String makeUpdate(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olymp,
                              ExtraParametersDTO extraparam, Model model) {
         Student newStudent = studentService.updateStudent(student, exam, grade, olymp, extraparam);
-        if(student != null){
+        if (student != null) {
             model.addAttribute("student", newStudent);
             model.addAttribute("updateStudent", "Nastąpiła aktualizacja!");
             return "/student/updateStudent";
-        }else{
+        } else {
             model.addAttribute("errorStudent", "Wystąpił błąd podczas aktualizacji");
             return "/student/updateStudent";
         }
     }
 
-//    student.getClassForStudent() != null ||
-    //!student.getClassForStudent().isEmpty() ||
+    //    student.getClassForStudent() != null ||
+    //    !student.getClassForStudent().isEmpty() ||
     @GetMapping("/classificationStudent/{id}")
     private String classification(@PathVariable("id") Long id, Model model, Principal principal) {
         Student student = classificationService.findUserById(id).orElse(null);
-        if (student.getClassForStudent() != null) {
+        if (!student.getClassForStudent().isEmpty()) {
             model.addAttribute("classExist", "Uczeń został już sklasyfikowany");
             model.addAttribute("student", student);
             return "/student/moreAboutStudent";
@@ -174,7 +174,6 @@ public class StudentController {
             model.addAttribute("student", student);
             return "/student/classification";
         }
-
     }
 
     @GetMapping("changeClassForStudent/{id}")

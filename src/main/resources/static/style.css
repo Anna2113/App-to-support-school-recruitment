@@ -83,7 +83,7 @@ h1 {
 .btnConfirm {
     display: block;
     margin: auto;
-    width: 10%;
+    width: 15%;
     margin-bottom: 10px;
     margin-top: 50px;
 }
@@ -92,14 +92,14 @@ h1 {
     font-weight: bold;
 }
 
-.btnCancle {
+.btnCancel {
     display: block;
     margin: auto;
-    width: 10%;
+    width: 15%;
     margin-bottom: 50px
 }
 
-.btnCancle:hover {
+.btnCancel:hover {
     font-weight: bold;
 }
 
@@ -246,10 +246,10 @@ h1 {
 }
 
 .emailError {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: red;
-    margin: auto;
-    display: block;
+    text-align: center;
+    font-weight: bold;
 }
 
 .confirmationOfAdding {

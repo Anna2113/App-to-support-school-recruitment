@@ -65,16 +65,16 @@ public class Student {
     private Double punktyOlimpijskieSportowa;
     private Double punktyOlimpijskieArtystyczna;
     private Double punktyOlimpijskieFizChemFranc;
-//    private Double punkty;
+    //    private Double punkty;
 //    private Double punktyOlimpijskie;
     @Enumerated(EnumType.STRING)
     private StudentStatus status;
     private Double classificationPoints;
-//    @OneToOne
-//    private AppUser appUser;
+    @OneToOne
+    private AppUser appUser;
 
 
-//    @ManyToOne
+    //    @ManyToOne
 //    @JoinColumn(name = "klasa")
 //    private Klasa newKlasa;
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -91,11 +91,19 @@ public class Student {
     private List<ClassStudentResult> listaPom;
 
 
-    public Student(String firstName, String lastName, String email, List<AppUserRole> appUserRole, LocalDate dateOfBirth, Sex sex, Align align, LanguagePolish languagePolish, Boolean locked, Boolean enabled, Double pointsMatGeoInf, Double pointsHuman, Double pointsBiolChem, Double pointsMAN, Double pointsArt, Double pointsS, Double pointsFIZ, String classForStudent, String firstClassification, Double punktyOlimpijskieMatGeoInf, Double punktyOlimpijskieHuman, Double punktyOlimpijskieBiolChem, Double punktyOlimpijskieMatAngNiem, Double punktyOlimpijskieSportowa, Double punktyOlimpijskieArtystyczna, Double punktyOlimpijskieFizChemFranc, StudentStatus status, Double classificationPoints, Exam exams, Grade grades, Olympiad olympiads, ExtraParameters extraParameters, Klasa klasa, List<ClassStudentResult> listaPom, AppUser appUser) {
+    public Student(String firstName, String lastName, String email, LocalDate dateOfBirth, Sex sex, Align align,
+                   LanguagePolish languagePolish, Boolean locked, Boolean enabled, Double pointsMatGeoInf,
+                   Double pointsHuman, Double pointsBiolChem, Double pointsMAN, Double pointsArt, Double pointsS,
+                   Double pointsFIZ, String classForStudent, String firstClassification,
+                   Double punktyOlimpijskieMatGeoInf, Double punktyOlimpijskieHuman,
+                   Double punktyOlimpijskieBiolChem, Double punktyOlimpijskieMatAngNiem,
+                   Double punktyOlimpijskieSportowa, Double punktyOlimpijskieArtystyczna,
+                   Double punktyOlimpijskieFizChemFranc, StudentStatus status, Double classificationPoints,
+                   AppUser appUser, Exam exams, Grade grades, Olympiad olympiads, ExtraParameters extraParameters,
+                   Klasa klasa, List<ClassStudentResult> listaPom) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.appUserRole = appUserRole;
         this.dateOfBirth = dateOfBirth;
         this.sex = sex;
         this.align = align;
@@ -120,13 +128,13 @@ public class Student {
         this.punktyOlimpijskieFizChemFranc = punktyOlimpijskieFizChemFranc;
         this.status = status;
         this.classificationPoints = classificationPoints;
+        this.appUser = appUser;
         this.exams = exams;
         this.grades = grades;
         this.olympiads = olympiads;
         this.extraParameters = extraParameters;
         this.klasa = klasa;
         this.listaPom = listaPom;
-//        this.appUser = appUser;
     }
 
     @Override

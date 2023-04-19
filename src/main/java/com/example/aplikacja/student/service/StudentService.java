@@ -1,6 +1,5 @@
 package com.example.aplikacja.student.service;
 
-import com.example.aplikacja.appuser.AppUser;
 import com.example.aplikacja.student.dto.*;
 import com.example.aplikacja.student.entity.*;
 import com.example.aplikacja.student.enums.*;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,6 +88,215 @@ public class StudentService implements UserDetailsService {
         return studentRepository.reserveList();
     }
 
+    public Student addStudent(StudentDTO student, ExamDTO exam
+            , GradeDTO grade, OlympiadDTO olymp
+            , ExtraParametersDTO extparam) {
+        Student studentToAdd = findUserByEmail(student.getEmail()).orElse(null);
+        if (studentToAdd == null) {
+            Student student1 = new Student();
+            student1.setFirstName(student.getFirstName());
+            student1.setLastName(student.getLastName());
+            student1.setDateOfBirth(LocalDate.parse(student.getDateOfBirth()));
+            student1.setSex(student.getSex());
+            student1.setAlign(student.getAlign());
+            student1.setLanguagePolish(student.getLanguagePolish());
+            student1.setEmail(student.getEmail());
+
+            mapExam(exam, student1);
+            mapGrade(grade, student1);
+            mapOlympiad(olymp, student1);
+            mapExtParam(extparam, student1);
+
+            student1 = studentRepository.save(student1);
+            return student1;
+        } else {
+            return studentToAdd;
+        }
+    }
+
+
+    private void mapExam(ExamDTO dto, Student student) {
+        Exam exam = new Exam(student);
+        exam.setMath(dto.getMath());
+        exam.setLanguagePolishResult(dto.getLanguagePolishResult());
+        exam.setForeignLanguage(dto.getForeignLanguage());
+        student.setExams(exam);
+    }
+
+    private void mapGrade(GradeDTO dto, Student student) {
+        Grade grade = new Grade(student);
+        grade.setAverageOfGrades(dto.getAverageOfGrades());
+        grade.setPolishGrade(dto.getPolishGrade());
+        grade.setMathGrade(dto.getMathGrade());
+        grade.setEnglishGrade(dto.getEnglishGrade());
+        grade.setOtherLanguageGrade(dto.getOtherLanguageGrade());
+        grade.setHistoryGrade(dto.getHistoryGrade());
+        grade.setCivicsGrade(dto.getCivicsGrade());
+        grade.setBiologyGrade(dto.getBiologyGrade());
+        grade.setChemistryGrade(dto.getChemistryGrade());
+        grade.setPhysicsGrade(dto.getPhysicsGrade());
+        grade.setGeographyGrade(dto.getGeographyGrade());
+        grade.setITGrade(dto.getITGrade());
+        grade.setPhysicalEducationGrade(dto.getPhysicalEducationGrade());
+        grade.setDesignAndTechnology(dto.getDesignAndTechnology());
+        grade.setMusic(dto.getMusic());
+        grade.setArt(dto.getArt());
+        student.setGrades(grade);
+    }
+
+    private void mapOlympiad(OlympiadDTO dto, Student student) {
+        Olympiad olympiad = new Olympiad(student);
+        olympiad.setPolishOlympiad(dto.getPolishOlympiad());
+        olympiad.setMathOlympiad(dto.getMathOlympiad());
+        olympiad.setEnglishOlympiad(dto.getEnglishOlympiad());
+        olympiad.setGermanOlympiad(dto.getGermanOlympiad());
+        olympiad.setFrenchOlympiad(dto.getFrenchOlympiad());
+        olympiad.setSpanishOlympiad(dto.getSpanishOlympiad());
+        olympiad.setItalianOlympiad(dto.getItalianOlympiad());
+        olympiad.setHistoryOlympiad(dto.getHistoryOlympiad());
+        olympiad.setCivicsOlympiad(dto.getCivicsOlympiad());
+        olympiad.setBiologyOlympiad(dto.getBiologyOlympiad());
+        olympiad.setChemistryOlympiad(dto.getChemistryOlympiad());
+        olympiad.setPhysicsOlympiad(dto.getPhysicsOlympiad());
+        olympiad.setGeographyOlympiad(dto.getGeographyOlympiad());
+        olympiad.setHistoryOfMusicOlympiad(dto.getHistoryOfMusicOlympiad());
+        olympiad.setHistoryOfArtOlympiad(dto.getHistoryOfArtOlympiad());
+        olympiad.setITOlympiad(dto.getITOlympiad());
+        student.setOlympiads(olympiad);
+    }
+
+    //
+    private void mapExtParam(ExtraParametersDTO dto, Student student) {
+        ExtraParameters extpar = new ExtraParameters(student);
+        extpar.setFastCounting(dto.getFastCounting());
+        extpar.setFastReading(dto.getFastReading());
+        extpar.setTroubleshooting(dto.getTroubleshooting());
+        extpar.setQuickMemorization(dto.getQuickMemorization());
+        extpar.setActingSkills(dto.getActingSkills());
+        extpar.setVocalSkills(dto.getVocalSkills());
+        extpar.setDanceSkills(dto.getDanceSkills());
+        extpar.setWritingSkills(dto.getWritingSkills());
+        extpar.setPhotographicSkills(dto.getPhotographicSkills());
+        extpar.setLinguisticSkills(dto.getLinguisticSkills());
+        extpar.setLanguageCertificate(dto.getLanguageCertificate());
+        extpar.setInterestInPolitics(dto.getInterestInPolitics());
+        extpar.setCommunicationSkills(dto.getCommunicationSkills());
+        extpar.setSportSkills(dto.getSportSkills());
+        extpar.setExtremeSport(dto.getExtremeSport());
+        extpar.setPhysicalFitness(dto.getPhysicalFitness());
+        extpar.setPhysicalEndurance(dto.getPhysicalEndurance());
+        extpar.setWorkInTheOpenGround(dto.getWorkInTheOpenGround());
+        extpar.setAbilityToUseAMap(dto.getAbilityToUseAMap());
+        extpar.setPeriodicTable(dto.getPeriodicTable());
+        extpar.setChemicalExperiments(dto.getChemicalExperiments());
+        extpar.setBiologicalAndNaturalInterests(dto.getBiologicalAndNaturalInterests());
+        extpar.setInterestInTechnology(dto.getInterestInTechnology());
+        student.setExtraParameters(extpar);
+    }
+
+    public Student updateStudent(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olymp,
+                                 ExtraParametersDTO extrparam) {
+//        Student studentToUpdate = findUserById(student.getId()).orElse(null);
+        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
+        if (studentToUpdate != null) {
+            studentToUpdate.setFirstName(student.getFirstName());
+            studentToUpdate.setLastName(student.getLastName());
+            studentToUpdate.setDateOfBirth(LocalDate.parse(student.getDateOfBirth()));
+//            studentToUpdate.setDateOfBirth(student.getDateOfBirth());
+            studentToUpdate.setSex(student.getSex());
+            studentToUpdate.setAlign(student.getAlign());
+            studentToUpdate.setLanguagePolish(student.getLanguagePolish());
+            studentToUpdate.setEmail(student.getEmail());
+
+            updateExam(exam, studentToUpdate);
+            updateGrade(grade, studentToUpdate);
+            updateOlympiad(olymp, studentToUpdate);
+            updateExtraParam(extrparam, studentToUpdate);
+
+            return studentRepository.save(studentToUpdate);
+        } else {
+            return studentToUpdate;
+        }
+    }
+
+    private void updateExam(ExamDTO dto, Student student) {
+        Exam exam = new Exam(student);
+        exam.setLanguagePolishResult(dto.getLanguagePolishResult());
+        exam.setMath(dto.getMath());
+        exam.setForeignLanguage(dto.getForeignLanguage());
+        student.setExams(exam);
+    }
+
+    private void updateGrade(GradeDTO dto, Student student) {
+        Grade grade = new Grade(student);
+        grade.setAverageOfGrades(dto.getAverageOfGrades());
+        grade.setPolishGrade(dto.getPolishGrade());
+        grade.setMathGrade(dto.getMathGrade());
+        grade.setEnglishGrade(dto.getEnglishGrade());
+        grade.setOtherLanguageGrade(dto.getOtherLanguageGrade());
+        grade.setHistoryGrade(dto.getHistoryGrade());
+        grade.setCivicsGrade(dto.getCivicsGrade());
+        grade.setBiologyGrade(dto.getBiologyGrade());
+        grade.setChemistryGrade(dto.getChemistryGrade());
+        grade.setPhysicsGrade(dto.getPhysicsGrade());
+        grade.setGeographyGrade(dto.getGeographyGrade());
+        grade.setITGrade(dto.getITGrade());
+        grade.setPhysicalEducationGrade(dto.getPhysicalEducationGrade());
+        grade.setDesignAndTechnology(dto.getDesignAndTechnology());
+        grade.setMusic(dto.getMusic());
+        grade.setArt(dto.getArt());
+        student.setGrades(grade);
+    }
+
+    private void updateOlympiad(OlympiadDTO dto, Student student) {
+        Olympiad olympiad = new Olympiad(student);
+        olympiad.setPolishOlympiad(dto.getPolishOlympiad());
+        olympiad.setMathOlympiad(dto.getMathOlympiad());
+        olympiad.setEnglishOlympiad(dto.getEnglishOlympiad());
+        olympiad.setGermanOlympiad(dto.getGermanOlympiad());
+        olympiad.setFrenchOlympiad(dto.getFrenchOlympiad());
+        olympiad.setSpanishOlympiad(dto.getSpanishOlympiad());
+        olympiad.setItalianOlympiad(dto.getItalianOlympiad());
+        olympiad.setHistoryOlympiad(dto.getHistoryOlympiad());
+        olympiad.setCivicsOlympiad(dto.getCivicsOlympiad());
+        olympiad.setBiologyOlympiad(dto.getBiologyOlympiad());
+        olympiad.setChemistryOlympiad(dto.getChemistryOlympiad());
+        olympiad.setPhysicsOlympiad(dto.getPhysicsOlympiad());
+        olympiad.setGeographyOlympiad(dto.getGeographyOlympiad());
+        olympiad.setHistoryOfMusicOlympiad(dto.getHistoryOfMusicOlympiad());
+        olympiad.setHistoryOfArtOlympiad(dto.getHistoryOfArtOlympiad());
+        olympiad.setITOlympiad(dto.getITOlympiad());
+        student.setOlympiads(olympiad);
+    }
+
+    private void updateExtraParam(ExtraParametersDTO dto, Student student) {
+        ExtraParameters extpar = new ExtraParameters(student);
+        extpar.setFastCounting(dto.getFastCounting());
+        extpar.setFastReading(dto.getFastReading());
+        extpar.setTroubleshooting(dto.getTroubleshooting());
+        extpar.setQuickMemorization(dto.getQuickMemorization());
+        extpar.setActingSkills(dto.getActingSkills());
+        extpar.setVocalSkills(dto.getVocalSkills());
+        extpar.setDanceSkills(dto.getDanceSkills());
+        extpar.setWritingSkills(dto.getWritingSkills());
+        extpar.setPhotographicSkills(dto.getPhotographicSkills());
+        extpar.setLinguisticSkills(dto.getLinguisticSkills());
+        extpar.setLanguageCertificate(dto.getLanguageCertificate());
+        extpar.setInterestInPolitics(dto.getInterestInPolitics());
+        extpar.setCommunicationSkills(dto.getCommunicationSkills());
+        extpar.setSportSkills(dto.getSportSkills());
+        extpar.setExtremeSport(dto.getExtremeSport());
+        extpar.setPhysicalFitness(dto.getPhysicalFitness());
+        extpar.setPhysicalEndurance(dto.getPhysicalEndurance());
+        extpar.setWorkInTheOpenGround(dto.getWorkInTheOpenGround());
+        extpar.setAbilityToUseAMap(dto.getAbilityToUseAMap());
+        extpar.setPeriodicTable(dto.getPeriodicTable());
+        extpar.setChemicalExperiments(dto.getChemicalExperiments());
+        extpar.setBiologicalAndNaturalInterests(dto.getBiologicalAndNaturalInterests());
+        extpar.setInterestInTechnology(dto.getInterestInTechnology());
+        student.setExtraParameters(extpar);
+    }
+
 
     public Student addPointsMatGeoInf(Student student) {
 
@@ -108,13 +315,16 @@ public class StudentService implements UserDetailsService {
                         w.getSubject().equals(Subject.Informatyka)).findFirst()
                 .get().getWartosc();
 
-        String mathGrade = studentToUpdate.getGrades().getMathGrade();
-        String geoGrade = studentToUpdate.getGrades().getGeographyGrade();
-        String itGrade = studentToUpdate.getGrades().getITGrade();
-
         String wagaMathExam = klasa1.getWeightExamMath();
         String wagaPolExam = klasa1.getWeightExamPolish();
         String wagaEngExam = klasa1.getWeightExamEnglish();
+
+        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
+        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
+
+        String mathGrade = studentToUpdate.getGrades().getMathGrade();
+        String geoGrade = studentToUpdate.getGrades().getGeographyGrade();
+        String itGrade = studentToUpdate.getGrades().getITGrade();
 
         String mathExam = studentToUpdate.getExams().getMath();
         String polExam = studentToUpdate.getExams().getLanguagePolishResult();
@@ -124,8 +334,6 @@ public class StudentService implements UserDetailsService {
         LaureateOrFinalist finGeo = studentToUpdate.getOlympiads().getGeographyOlympiad();
         LaureateOrFinalist finInf = studentToUpdate.getOlympiads().getITOlympiad();
 
-        Double waga_fin = klasa1.getNumberOfPointsForFinalist();
-        Double waga_lau = klasa1.getNumberOfPointsForOlimp();
         double punkty_fin = 0.0;
         double punktyMatGeoInf = 0.0;
         double pointsFromExams = 0.0;
@@ -190,6 +398,16 @@ public class StudentService implements UserDetailsService {
         }
         if (finInf == LaureateOrFinalist.Laureat && finGeo == LaureateOrFinalist.Finalista) {
             punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaGeo;
+        }
+
+        if (finMat == LaureateOrFinalist.Laureat && finGeo == LaureateOrFinalist.Finalista && finInf == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaGeo + wagaInf);
+        }
+        if (finGeo == LaureateOrFinalist.Laureat && finMat == LaureateOrFinalist.Finalista && finInf == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaMath + wagaInf);
+        }
+        if (finInf == LaureateOrFinalist.Laureat && finGeo == LaureateOrFinalist.Finalista && finMat == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaGeo + wagaMath);
         }
         if (finInf == LaureateOrFinalist.Brak && finMat == LaureateOrFinalist.Brak && finGeo == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
@@ -301,17 +519,24 @@ public class StudentService implements UserDetailsService {
         if (finWos == LaureateOrFinalist.Laureat && finHis == LaureateOrFinalist.Finalista) {
             punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaHis;
         }
+
+        if (finPol == LaureateOrFinalist.Laureat && finHis == LaureateOrFinalist.Finalista && finWos == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaHis + wagaWos);
+        }
+        if (finHis == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista && finWos == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaPol + wagaWos);
+        }
+        if (finWos == LaureateOrFinalist.Laureat && finHis == LaureateOrFinalist.Finalista && finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaHis + wagaPol);
+        }
         if (finPol == LaureateOrFinalist.Brak && finHis == LaureateOrFinalist.Brak && finWos == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
 
+
         punkty = punktyHuman + pointsFromExams + punkty_fin;
-        studentToUpdate.setPointsHuman(
-
-                round(punkty));
-        studentToUpdate.setPunktyOlimpijskieHuman(
-
-                round(punkty_fin));
+        studentToUpdate.setPointsHuman(round(punkty));
+        studentToUpdate.setPunktyOlimpijskieHuman(round(punkty_fin));
 
         return studentRepository.save(studentToUpdate);
     }
@@ -415,6 +640,16 @@ public class StudentService implements UserDetailsService {
         if (finAng == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista) {
             punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaChem;
         }
+
+        if (finBio == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaChem + wagaAng);
+        }
+        if (finChem == LaureateOrFinalist.Laureat && finBio == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaBio + wagaAng);
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista && finBio == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaChem + wagaBio);
+        }
         if (finBio == LaureateOrFinalist.Brak && finChem == LaureateOrFinalist.Brak && finAng == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
@@ -469,7 +704,7 @@ public class StudentService implements UserDetailsService {
         LaureateOrFinalist finNiem = studentToUpdate.getOlympiads().getGermanOlympiad();
         LaureateOrFinalist finItal = studentToUpdate.getOlympiads().getItalianOlympiad();
         LaureateOrFinalist finSpain = studentToUpdate.getOlympiads().getSpanishOlympiad();
-        LaureateOrFinalist finFranc = student.getOlympiads().getFrenchOlympiad();
+        LaureateOrFinalist finFranc = studentToUpdate.getOlympiads().getFrenchOlympiad();
 
         Double waga_fin = klasa1.getNumberOfPointsForFinalist();
         Double waga_lau = klasa1.getNumberOfPointsForOlimp();
@@ -955,6 +1190,60 @@ public class StudentService implements UserDetailsService {
         if (finSzt == LaureateOrFinalist.Laureat && finMus == LaureateOrFinalist.Finalista) {
             punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaMuz;
         }
+
+        if (finPol == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaAng + wagaMuz);
+        }
+        if (finPol == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaAng + wagaSzt);
+        }
+        if (finPol == LaureateOrFinalist.Laureat && finMus == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaMuz + wagaSzt);
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaPol + wagaMuz);
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaPol + wagaSzt);
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finMus == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaMuz + wagaSzt);
+        }
+        if (finMus == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaPol + wagaAng);
+        }
+        if (finMus == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaPol + wagaSzt);
+        }
+        if (finMus == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaAng + wagaSzt);
+        }
+        if (finSzt == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista && finAng == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaPol + wagaAng);
+        }
+        if (finSzt == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaPol + wagaSzt);
+        }
+        if (finSzt == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaAng + wagaSzt);
+        }
+
+        if (finPol == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista
+                && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaAng + wagaMuz + wagaSzt);
+        }
+        if (finAng == LaureateOrFinalist.Laureat && finPol == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista
+                && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaPol + wagaMuz + wagaSzt);
+        }
+        if (finMus == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista && finPol == LaureateOrFinalist.Finalista
+                && finSzt == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaAng + wagaPol + wagaSzt);
+        }
+        if (finSzt == LaureateOrFinalist.Laureat && finAng == LaureateOrFinalist.Finalista && finMus == LaureateOrFinalist.Finalista
+                && finPol == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaAng + wagaMuz + wagaPol);
+        }
         if (finPol == LaureateOrFinalist.Brak && finAng == LaureateOrFinalist.Brak
                 && finMus == LaureateOrFinalist.Brak && finSzt == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
@@ -1148,6 +1437,16 @@ public class StudentService implements UserDetailsService {
         if (finFranc == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista) {
             punkty_fin = waga_lau * 1000 + 6 * waga_fin * wagaChem;
         }
+
+        if (finFiz == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaChem + wagaFrac);
+        }
+        if (finChem == LaureateOrFinalist.Laureat && finFiz == LaureateOrFinalist.Finalista && finFranc == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaFiz + wagaFrac);
+        }
+        if (finFranc == LaureateOrFinalist.Laureat && finChem == LaureateOrFinalist.Finalista && finFiz == LaureateOrFinalist.Finalista) {
+            punkty_fin = waga_lau * 1000 + 6 * waga_fin * (wagaChem + wagaFiz);
+        }
         if (finFiz == LaureateOrFinalist.Brak && finChem == LaureateOrFinalist.Brak && finFranc == LaureateOrFinalist.Brak) {
             punkty_fin = 0.0;
         }
@@ -1165,142 +1464,16 @@ public class StudentService implements UserDetailsService {
         if (studentToUpdate != null) {
             studentToUpdate.setClassForStudent(String.valueOf(name));
             return studentRepository.save(studentToUpdate);
-
-            //TODO: Można spróbować dodać tutaj klasę i ustawić id studenta
         } else {
             return studentToUpdate;
         }
     }
 
 
-    public Student addStudent(StudentDTO student, ExamDTO exam
-            , GradeDTO grade, OlympiadDTO olymp
-            , ExtraParametersDTO extparam
-    ) {
-        Student studentToAdd = findUserByEmail(student.getEmail()).orElse(null);
-        if (studentToAdd == null) {
-            Student student1 = new Student();
-            student1.setFirstName(student.getFirstName());
-            student1.setLastName(student.getLastName());
-            student1.setDateOfBirth(LocalDate.parse(student.getDateOfBirth()));
-            student1.setSex(student.getSex());
-            student1.setAlign(student.getAlign());
-            student1.setLanguagePolish(student.getLanguagePolish());
-            student1.setEmail(student.getEmail());
-
-            mapExam(exam, student1);
-            mapGrade(grade, student1);
-            mapOlympiad(olymp, student1);
-            mapExtParam(extparam, student1);
-
-            student1 = studentRepository.save(student1);
-
-
-            return student1;
-        } else {
-            return studentToAdd;
-        }
-    }
-
-
-    private void mapExam(ExamDTO dto, Student student) {
-        Exam exam = new Exam(student);
-        exam.setMath(dto.getMath());
-        exam.setLanguagePolishResult(dto.getLanguagePolishResult());
-        exam.setForeignLanguage(dto.getForeignLanguage());
-        student.setExams(exam);
-    }
-
-    private void mapGrade(GradeDTO dto, Student student) {
-        Grade grade = new Grade(student);
-        grade.setAverageOfGrades(dto.getAverageOfGrades());
-        grade.setPolishGrade(dto.getPolishGrade());
-        grade.setMathGrade(dto.getMathGrade());
-        grade.setEnglishGrade(dto.getEnglishGrade());
-        grade.setOtherLanguageGrade(dto.getOtherLanguageGrade());
-        grade.setHistoryGrade(dto.getHistoryGrade());
-        grade.setCivicsGrade(dto.getCivicsGrade());
-        grade.setBiologyGrade(dto.getBiologyGrade());
-        grade.setChemistryGrade(dto.getChemistryGrade());
-        grade.setPhysicsGrade(dto.getPhysicsGrade());
-        grade.setGeographyGrade(dto.getGeographyGrade());
-        grade.setITGrade(dto.getITGrade());
-        grade.setPhysicalEducationGrade(dto.getPhysicalEducationGrade());
-        grade.setDesignAndTechnology(dto.getDesignAndTechnology());
-        grade.setMusic(dto.getMusic());
-        grade.setArt(dto.getArt());
-        student.setGrades(grade);
-    }
-
-    private void mapOlympiad(OlympiadDTO dto, Student student) {
-        Olympiad olympiad = new Olympiad(student);
-        olympiad.setPolishOlympiad(dto.getPolishOlympiad());
-        olympiad.setMathOlympiad(dto.getMathOlympiad());
-        olympiad.setEnglishOlympiad(dto.getEnglishOlympiad());
-        olympiad.setGermanOlympiad(dto.getGermanOlympiad());
-        olympiad.setFrenchOlympiad(dto.getFrenchOlympiad());
-        olympiad.setSpanishOlympiad(dto.getSpanishOlympiad());
-        olympiad.setItalianOlympiad(dto.getItalianOlympiad());
-        olympiad.setHistoryOlympiad(dto.getHistoryOlympiad());
-        olympiad.setCivicsOlympiad(dto.getCivicsOlympiad());
-        olympiad.setBiologyOlympiad(dto.getBiologyOlympiad());
-        olympiad.setChemistryOlympiad(dto.getChemistryOlympiad());
-        olympiad.setPhysicsOlympiad(dto.getPhysicsOlympiad());
-        olympiad.setGeographyOlympiad(dto.getGeographyOlympiad());
-        olympiad.setHistoryOfMusicOlympiad(dto.getHistoryOfMusicOlympiad());
-        olympiad.setHistoryOfArtOlympiad(dto.getHistoryOfArtOlympiad());
-        olympiad.setITOlympiad(dto.getITOlympiad());
-        student.setOlympiads(olympiad);
-    }
-
-    //
-    private void mapExtParam(ExtraParametersDTO dto, Student student) {
-        ExtraParameters extpar = new ExtraParameters(student);
-        extpar.setFastCounting(dto.getFastCounting());
-        extpar.setFastReading(dto.getFastReading());
-        extpar.setTroubleshooting(dto.getTroubleshooting());
-        extpar.setQuickMemorization(dto.getQuickMemorization());
-        extpar.setActingSkills(dto.getActingSkills());
-        extpar.setVocalSkills(dto.getVocalSkills());
-        extpar.setDanceSkills(dto.getDanceSkills());
-        extpar.setWritingSkills(dto.getWritingSkills());
-        extpar.setPhotographicSkills(dto.getPhotographicSkills());
-        extpar.setLinguisticSkills(dto.getLinguisticSkills());
-        extpar.setLanguageCertificate(dto.getLanguageCertificate());
-        extpar.setInterestInPolitics(dto.getInterestInPolitics());
-        extpar.setCommunicationSkills(dto.getCommunicationSkills());
-        extpar.setSportSkills(dto.getSportSkills());
-        extpar.setExtremeSport(dto.getExtremeSport());
-        extpar.setPhysicalFitness(dto.getPhysicalFitness());
-        extpar.setPhysicalEndurance(dto.getPhysicalEndurance());
-        extpar.setWorkInTheOpenGround(dto.getWorkInTheOpenGround());
-        extpar.setAbilityToUseAMap(dto.getAbilityToUseAMap());
-        extpar.setPeriodicTable(dto.getPeriodicTable());
-        extpar.setChemicalExperiments(dto.getChemicalExperiments());
-        extpar.setBiologicalAndNaturalInterests(dto.getBiologicalAndNaturalInterests());
-        extpar.setInterestInTechnology(dto.getInterestInTechnology());
-        student.setExtraParameters(extpar);
-    }
-
-    public Student updateStudent(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olymp,
-                                 ExtraParametersDTO extrparam) {
-//        Student studentToUpdate = findUserById(student.getId()).orElse(null);
-        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
+    public Student editClassForStudent(Student student) {
+        Student studentToUpdate = findUserById(student.getId()).orElse(null);
         if (studentToUpdate != null) {
-            studentToUpdate.setFirstName(student.getFirstName());
-            studentToUpdate.setLastName(student.getLastName());
-            studentToUpdate.setDateOfBirth(LocalDate.parse(student.getDateOfBirth()));
-//            studentToUpdate.setDateOfBirth(student.getDateOfBirth());
-            studentToUpdate.setSex(student.getSex());
-            studentToUpdate.setAlign(student.getAlign());
-            studentToUpdate.setLanguagePolish(student.getLanguagePolish());
-            studentToUpdate.setEmail(student.getEmail());
             studentToUpdate.setClassForStudent(String.valueOf(student.getClassForStudent()));
-
-            updateExam(exam, studentToUpdate);
-            updateGrade(grade, studentToUpdate);
-            updateOlympiad(olymp, studentToUpdate);
-            updateExtraParam(extrparam, studentToUpdate);
 
             return studentRepository.save(studentToUpdate);
         } else {
@@ -1308,83 +1481,6 @@ public class StudentService implements UserDetailsService {
         }
     }
 
-    private void updateExam(ExamDTO dto, Student student) {
-        Exam exam = new Exam(student);
-        exam.setLanguagePolishResult(dto.getLanguagePolishResult());
-        exam.setMath(dto.getMath());
-        exam.setForeignLanguage(dto.getForeignLanguage());
-        student.setExams(exam);
-    }
-
-    private void updateGrade(GradeDTO dto, Student student) {
-        Grade grade = new Grade(student);
-        grade.setAverageOfGrades(dto.getAverageOfGrades());
-        grade.setPolishGrade(dto.getPolishGrade());
-        grade.setMathGrade(dto.getMathGrade());
-        grade.setEnglishGrade(dto.getEnglishGrade());
-        grade.setOtherLanguageGrade(dto.getOtherLanguageGrade());
-        grade.setHistoryGrade(dto.getHistoryGrade());
-        grade.setCivicsGrade(dto.getCivicsGrade());
-        grade.setBiologyGrade(dto.getBiologyGrade());
-        grade.setChemistryGrade(dto.getChemistryGrade());
-        grade.setPhysicsGrade(dto.getPhysicsGrade());
-        grade.setGeographyGrade(dto.getGeographyGrade());
-        grade.setITGrade(dto.getITGrade());
-        grade.setPhysicalEducationGrade(dto.getPhysicalEducationGrade());
-        grade.setDesignAndTechnology(dto.getDesignAndTechnology());
-        grade.setMusic(dto.getMusic());
-        grade.setArt(dto.getArt());
-        student.setGrades(grade);
-    }
-
-    private void updateOlympiad(OlympiadDTO dto, Student student) {
-        Olympiad olympiad = new Olympiad(student);
-        olympiad.setPolishOlympiad(dto.getPolishOlympiad());
-        olympiad.setMathOlympiad(dto.getMathOlympiad());
-        olympiad.setEnglishOlympiad(dto.getEnglishOlympiad());
-        olympiad.setGermanOlympiad(dto.getGermanOlympiad());
-        olympiad.setFrenchOlympiad(dto.getFrenchOlympiad());
-        olympiad.setSpanishOlympiad(dto.getSpanishOlympiad());
-        olympiad.setItalianOlympiad(dto.getItalianOlympiad());
-        olympiad.setHistoryOlympiad(dto.getHistoryOlympiad());
-        olympiad.setCivicsOlympiad(dto.getCivicsOlympiad());
-        olympiad.setBiologyOlympiad(dto.getBiologyOlympiad());
-        olympiad.setChemistryOlympiad(dto.getChemistryOlympiad());
-        olympiad.setPhysicsOlympiad(dto.getPhysicsOlympiad());
-        olympiad.setGeographyOlympiad(dto.getGeographyOlympiad());
-        olympiad.setHistoryOfMusicOlympiad(dto.getHistoryOfMusicOlympiad());
-        olympiad.setHistoryOfArtOlympiad(dto.getHistoryOfArtOlympiad());
-        olympiad.setITOlympiad(dto.getITOlympiad());
-        student.setOlympiads(olympiad);
-    }
-
-    private void updateExtraParam(ExtraParametersDTO dto, Student student) {
-        ExtraParameters extpar = new ExtraParameters(student);
-        extpar.setFastCounting(dto.getFastCounting());
-        extpar.setFastReading(dto.getFastReading());
-        extpar.setTroubleshooting(dto.getTroubleshooting());
-        extpar.setQuickMemorization(dto.getQuickMemorization());
-        extpar.setActingSkills(dto.getActingSkills());
-        extpar.setVocalSkills(dto.getVocalSkills());
-        extpar.setDanceSkills(dto.getDanceSkills());
-        extpar.setWritingSkills(dto.getWritingSkills());
-        extpar.setPhotographicSkills(dto.getPhotographicSkills());
-        extpar.setLinguisticSkills(dto.getLinguisticSkills());
-        extpar.setLanguageCertificate(dto.getLanguageCertificate());
-        extpar.setInterestInPolitics(dto.getInterestInPolitics());
-        extpar.setCommunicationSkills(dto.getCommunicationSkills());
-        extpar.setSportSkills(dto.getSportSkills());
-        extpar.setExtremeSport(dto.getExtremeSport());
-        extpar.setPhysicalFitness(dto.getPhysicalFitness());
-        extpar.setPhysicalEndurance(dto.getPhysicalEndurance());
-        extpar.setWorkInTheOpenGround(dto.getWorkInTheOpenGround());
-        extpar.setAbilityToUseAMap(dto.getAbilityToUseAMap());
-        extpar.setPeriodicTable(dto.getPeriodicTable());
-        extpar.setChemicalExperiments(dto.getChemicalExperiments());
-        extpar.setBiologicalAndNaturalInterests(dto.getBiologicalAndNaturalInterests());
-        extpar.setInterestInTechnology(dto.getInterestInTechnology());
-        student.setExtraParameters(extpar);
-    }
 
     public int enableAppUser(String email) {
         return studentRepository.enableStudent(email);

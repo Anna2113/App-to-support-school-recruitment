@@ -9,6 +9,7 @@ import com.example.aplikacja.student.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
 
@@ -43,7 +44,7 @@ public class StudentController {
     @PostMapping("/student/student")
     public String add(StudentDTO student, ExamDTO exam,
                       GradeDTO grade, OlympiadDTO olympiad
-            , ExtraParametersDTO extparam, KlasaDTO klasa,
+            , ExtraParametersDTO extparam,
                       Model model, Principal principal) {
         if (principal == null) {
             return "userIsLogout";
@@ -160,12 +161,13 @@ public class StudentController {
         }
     }
 
+
     //    student.getClassForStudent() != null ||
     //    !student.getClassForStudent().isEmpty() ||
     @GetMapping("/classificationStudent/{id}")
     private String classification(@PathVariable("id") Long id, Model model, Principal principal) {
         Student student = classificationService.findUserById(id).orElse(null);
-        if (!student.getClassForStudent().isEmpty()) {
+        if (student.getClassForStudent() != null ) {
             model.addAttribute("classExist", "Uczeń został już sklasyfikowany");
             model.addAttribute("student", student);
             return "/student/moreAboutStudent";
@@ -176,7 +178,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("changeClassForStudent/{id}")
+    @GetMapping("/changeClassForStudent/{id}")
     private String changeClass(@PathVariable("id") Long id, Model model, Principal principal) {
         Student student = studentService.findUserById(id).orElse(null);
         model.addAttribute("student", student);
@@ -223,19 +225,30 @@ public class StudentController {
         }
     }
 
-//    @GetMapping("/findStudentBySurname")
-//    private String findStudentBySurname(Principal principal, Model model, String surname) {
-//        if (principal == null) {
-//            return "userIsLogout";
-//        } else {
-//            Student student = studentService.findUserByEmail(principal.getName()).orElse(null);
-//            model.addAttribute("students", studentService.getStudentsSurname());
-//            model.addAttribute("student", studentService.findStudentBySurname(surname));
-//            model.addAttribute("notFindStudent", "Sorry... Student not find try again.");
-//            model.addAttribute(student);
-//
-//            return "/thanksForSignIn";
-//        }
-//    }
+    @GetMapping("/makeEditClass/{id}")
+    public String editClass(@PathVariable("id") Long id, Model model, Principal principal){
+        if(principal == null){
+            return "userIsLogout";
+        }else{
+            Student student = studentService.findUserById(id).orElse(null);
+            model.addAttribute(student);
+            model.addAttribute("student", student);
+            model.addAttribute("id", id);
+            return "/student/editClass";
+        }
+    }
+
+    @PutMapping("/editClass")
+    public String makeUpdate(Student student, Model model) {
+        Student newStudent = studentService.editClassForStudent(student);
+        if (student != null) {
+            model.addAttribute("student", newStudent);
+            model.addAttribute("updateStudent", "Nastąpiła aktualizacja!");
+            return "/student/editClass";
+        } else {
+            model.addAttribute("errorStudent", "Wystąpił błąd podczas aktualizacji");
+            return "/student/editClass";
+        }
+    }
 
 }

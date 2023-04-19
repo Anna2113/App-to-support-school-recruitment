@@ -100,16 +100,15 @@ public class KlassService {
 
            minLiczEgz = 100 * f + 50 * s + 25 * t;
 
-           double zaokraglenie = round(minLiczEgz);
+           double result = round(minLiczEgz);
 
-            klasaToUpdate.setMinAmountOfPointsFromExams(zaokraglenie);
+            klasaToUpdate.setMinAmountOfPointsFromExams(result);
             klassRepository.save(klasaToUpdate);
 
             return klasaToUpdate;
         } else {
             return klasaToUpdate;
         }
-
     }
 
     public Klasa minSrKier(Klasa klasa, List<WeightOfGrade> lista){
@@ -184,7 +183,6 @@ public class KlassService {
     public Klasa addNewParameters(KlasaDTO klasa) {
         Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
         if (klasaToUpdate != null) {
-//            if (klasaToUpdate.getUmiejetnosci() != null && klasaToUpdate.getPrzedmiot() != null) {
             klasaToUpdate.setMinAvgGrade(klasa.getMinAvgGrade());
             klasaToUpdate.setNumberOfPointsForOlimp(klasa.getNumberOfPointsForOlimp());
             klasaToUpdate.setNumberOfPointsForFinalist(klasa.getNumberOfPointsForFinalist());

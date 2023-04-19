@@ -19,6 +19,7 @@
 <body>
 <h1>Informacje o uczniu</h1>
 <h2 style="text-align: center">Podstawowe dane</h2>
+<h3 id="message" class="message" th:if="${student.pointsMatGeoInf == null}">Policz punkty ucznia przed klasyfikacją.</h3>
 <p th:text="${classExist}" class="emailError"/><br>
 <p th:text="${lackPoints}" class="emailError"/><br>
 <!--<div class="containerButtons">-->
@@ -47,9 +48,9 @@
                     Edytuj dane ucznia</a></button>
             </td>
             <td>
-                <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}"
-                                                       style="color: black">Usuń
-                    ucznia</a></button>
+                <button class="btnSt" type="button"><a th:href="@{'/makeEditClass/' + ${student.id}}"
+                                                       style="color: black">
+                    Edytuj klasę ucznia</a></button>
             </td>
             <td>
                 <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}"
@@ -59,6 +60,11 @@
             <td>
                 <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}"
                                                        style="color: black">Klasyfikuj
+                    ucznia</a></button>
+            </td>
+            <td>
+                <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}"
+                                                       style="color: black">Usuń
                     ucznia</a></button>
             </td>
             <td>

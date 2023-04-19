@@ -165,6 +165,12 @@ h1 {
     width: 40%;
 }
 
+.message{
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 1200px){
     .btn-mybutton{
         font-size: 0.8rem;

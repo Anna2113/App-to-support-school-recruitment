@@ -1,7 +1,6 @@
 package com.example.aplikacja.student.entity;
 
 
-import com.example.aplikacja.student.dto.WeightOfGradeDTO;
 import com.example.aplikacja.student.enums.Subject;
 import lombok.*;
 

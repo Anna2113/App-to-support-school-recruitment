@@ -1,5 +1,6 @@
 package com.example.aplikacja.student.repository;
 
+import com.example.aplikacja.student.entity.Klasa;
 import com.example.aplikacja.student.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

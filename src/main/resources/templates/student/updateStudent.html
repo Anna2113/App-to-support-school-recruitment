@@ -32,13 +32,11 @@
                     o
                     uczniu</a>
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#result" role="button">Egzaminy</a>
-                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#grades"
+                <a class="btn-mybutton"  id="submit" style="color: black" data-toggle="collapse" href="#grades"
                    role="button">Oceny</a>
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#olympiad" role="button">Olimpiady</a>
                 <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#other" role="button">Dodatkowe
                     parametry</a>
-                <a class="btn-mybutton" style="color: black" data-toggle="collapse" href="#class"
-                   role="button">Klasa</a>
                 <form th:action="@{/changeStudent}" method="post" class="myForm">
                     <input name="_method" type="hidden" value="PUT"/>
                     <input type="hidden" name="id" th:value="${student.id}"/>
@@ -725,26 +723,6 @@
                             </table>
                         </div>
                     </div>
-
-                    <div class="collapse" id="class">
-                        <h3 style="text-align: center; margin-top: 25px">Zakwalifikuj ucznia do innej klasy</h3>
-                        <div class="card card-body">
-                            <table class="table">
-                                <tr>
-                                    <td>Nazwa klasy</td>
-                                    <td>
-                                        <select name="classForStudent" th:field="${student.classForStudent}">
-                                            <option value="">Wybierz</option>
-                                            <option th:each="nameOpt : ${T(com.example.aplikacja.student.enums.NameOfClass).values()}"
-                                                    th:text="${nameOpt.label}" th:value="${nameOpt}"
-                                                    th:selected="${student.classForStudent}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
                     <span th:text="${errorStudent}" class="emailError"/><br>
                     <span th:text="${updateStudent}" class="confirmationOfAdding"/><br>
 

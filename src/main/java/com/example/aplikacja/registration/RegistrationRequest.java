@@ -3,6 +3,7 @@ package com.example.aplikacja.registration;
 
 
 import com.example.aplikacja.appuser.AppUserRole;
+import com.example.aplikacja.student.entity.Student;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,4 +19,5 @@ public class RegistrationRequest {
     private final String email;
     private final String password;
     private final AppUserRole appUserRole;
+    private final Student student;
 }

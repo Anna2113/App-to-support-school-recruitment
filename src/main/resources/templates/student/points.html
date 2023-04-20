@@ -23,6 +23,11 @@
     <table>
         <tr>
             <td>
+                <button class="btnSt">
+                    <a th:href="@{'/allCountPoints/' + ${student.id}}" style="color: black">Policz punkty</a>
+                </button>
+            </td>
+            <td>
                 <button class="btnSt" type="button">
                     <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wróć do obecnego ucznia</a>
                 </button>
@@ -31,50 +36,93 @@
     </table>
 </div>
 
+<!--<div class="tabelka">-->
+<!--    <table class="table">-->
+<!--        <th class="firstTh">Klasa</th>-->
+<!--        <th class="firstTh">Symbol</th>-->
+<!--        <th class="firstTh">Punkty</th>-->
+<!--        <th class="firstTh">Punkty olimpijskie</th>-->
+<!---->
+<!--            <th class="firstTh">Klasa</th>-->
+<!--Spróbować zrobić listę punktów. Napisać cały algorytm w jednej funkcji.-->
+
 <div class="tabelka">
     <table class="table">
         <th class="firstTh">Klasa</th>
-        <th class="firstTh">Symbol</th>
         <th class="firstTh">Punkty</th>
-        <th class="firstTh">Punkty olimpijskie</th>
+        <tr th:each="key: ${key}">
+            <td th:text="${key}" class="firstTd"/>
+            <td th:text="${map.get(key)}" class="firstTd"/>
+        </tr>
+    </table>
 
-        <!--            <th class="firstTh">Klasa</th>-->
-        <!--Spróbować zrobić listę punktów. Napisać cały algorytm w jednej funkcji.-->
-        <tr th:each="klasa: ${allClass}" class="firstTr">
-            <td class="firstTd" th:text="${klasa.nameOfClass}"/>
-            <td class="firstTd" th:text="${klasa.symbol}"/>
-            <td class="firstTd">
-                <p th:text="${student.pointsMatGeoInf}"/>
-                <p th:text="${student.pointsHuman}"/>
-                <p th:text="${student.pointsBiolChem}"/>
-                <p th:text="${student.pointsMAN}"/>
-                <p th:text="${student.pointsS}"/>
-                <p th:text="${student.pointsArt}"/>
-                <p th:text="${student.pointsFIZ}"/>
-            </td>
-            <td class="firstTd">
-                <p th:text="${student.punktyOlimpijskieMatGeoInf}"/>
-                <p th:text="${student.punktyOlimpijskieHuman}"/>
-                <p th:text="${student.punktyOlimpijskieBiolChem}"/>
-                <p th:text="${student.punktyOlimpijskieMatAngNiem}"/>
-                <p th:text="${student.punktyOlimpijskieSportowa}"/>
-                <p th:text="${student.punktyOlimpijskieArtystyczna}"/>
-                <p th:text="${student.punktyOlimpijskieFizChemFranc}"/>
-            </td>
-<!--            <td class="firstTd" th:text="${student.pointsMatGeoInf}"/>-->
-<!--            <td class="firstTd" th:text="${student.pointsHuman}"/>-->
-<!--            <td class="firstTd" th:text="${student.pointsBiolChemAng}"/>-->
+    <table class="table">
+        <th class="firstTh">Klasa</th>
+        <th class="firstTh">Punkty Olimpijskie</th>
+        <tr th:each="keys: ${keys}">
+            <td th:text="${keys}" class="firstTd"/>
+            <td th:text="${mapa.get(keys)}" class="firstTd"/>
         </tr>
-        <tr>
-            <td class="firstTd"></td>
-            <td class="firstTd"></td>
-            <td class="firstTd"></td>
-            <td class="firstTd">
-                <button class="btnSt">
-                    <a th:href="@{'/allCountPoints/' + ${student.id}}" style="color: black">Policz punkty</a>
-                </button>
-            </td>
-        </tr>
+    </table>
+
+</div>
+
+<!--        <div th:each="">-->
+<!--            <h2 class="firstTd" th:text="${klasa.nameOfClass}"/>-->
+<!--            <h2 class="firstTd" th:text="${klasa.symbol}"/>-->
+
+<!--            <p th:text="${student.pointsMatGeoInf}"/>-->
+<!--            <p th:text="${student.pointsHuman}"/>-->
+<!--            <p th:text="${student.pointsBiolChem}"/>-->
+<!--            <p th:text="${student.pointsMAN}"/>-->
+<!--            <p th:text="${student.pointsS}"/>-->
+<!--            <p th:text="${student.pointsArt}"/>-->
+<!--            <p th:text="${student.pointsFIZ}"/>-->
+
+<!--            <p th:text="${student.punktyOlimpijskieMatGeoInf}"/>-->
+<!--            <p th:text="${student.punktyOlimpijskieHuman}"/>-->
+<!--            <p th:text="${student.punktyOlimpijskieBiolChem}"/>-->
+<!--            <p th:text="${student.punktyOlimpijskieMatAngNiem}"/>-->
+<!--            <p th:text="${student.punktyOlimpijskieSportowa}"/>-->
+<!--            <p th:text="${student.punktyOlimpijskieArtystyczna}"/>-->
+<!--            <p th:text="${student.punktyOlimpijskieFizChemFranc}"/>-->
+<!--        </div>-->
+
+<!--        <tr th:each="klasa: ${allClass}" class="firstTr">-->
+<!--            <td class="firstTd" th:text="${klasa.nameOfClass}"/>-->
+<!--            <td class="firstTd" th:text="${klasa.symbol}"/>-->
+<!--            <td class="firstTd">-->
+<!--                <p th:text="${student.pointsMatGeoInf}"/>-->
+<!--                <p th:text="${student.pointsHuman}"/>-->
+<!--                <p th:text="${student.pointsBiolChem}"/>-->
+<!--                <p th:text="${student.pointsMAN}"/>-->
+<!--                <p th:text="${student.pointsS}"/>-->
+<!--                <p th:text="${student.pointsArt}"/>-->
+<!--                <p th:text="${student.pointsFIZ}"/>-->
+<!--            </td>-->
+<!--            <td class="firstTd">-->
+<!--                <p th:text="${student.punktyOlimpijskieMatGeoInf}"/>-->
+<!--                <p th:text="${student.punktyOlimpijskieHuman}"/>-->
+<!--                <p th:text="${student.punktyOlimpijskieBiolChem}"/>-->
+<!--                <p th:text="${student.punktyOlimpijskieMatAngNiem}"/>-->
+<!--                <p th:text="${student.punktyOlimpijskieSportowa}"/>-->
+<!--                <p th:text="${student.punktyOlimpijskieArtystyczna}"/>-->
+<!--                <p th:text="${student.punktyOlimpijskieFizChemFranc}"/>-->
+<!--            </td>-->
+<!--&lt;!&ndash;            <td class="firstTd" th:text="${student.pointsMatGeoInf}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <td class="firstTd" th:text="${student.pointsHuman}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <td class="firstTd" th:text="${student.pointsBiolChemAng}"/>&ndash;&gt;-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td class="firstTd"></td>-->
+<!--            <td class="firstTd"></td>-->
+<!--            <td class="firstTd"></td>-->
+<!--            <td class="firstTd">-->
+<!--                <button class="btnSt">-->
+<!--                    <a th:href="@{'/allCountPoints/' + ${student.id}}" style="color: black">Policz punkty</a>-->
+<!--                </button>-->
+<!--            </td>-->
+<!--        </tr>-->
 
 <!--        <tr>-->
 <!--            <td class="firstTd"></td>-->
@@ -86,8 +134,8 @@
 <!--                </button>-->
 <!--            </td>-->
 <!--        </tr>-->
-    </table>
-</div>
+<!--    </table>-->
+<!--</div>-->
 
 <!--<div class="tabelka">-->
 <!--    <table class="table">-->

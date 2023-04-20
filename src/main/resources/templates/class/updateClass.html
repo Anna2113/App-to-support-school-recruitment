@@ -63,6 +63,12 @@
                         <div class="card card-body">
                             <table class="table">
                                 <tr>
+                                    <td>Symbol klasy</td>
+                                    <td>
+                                        <input type="text" name="symbol" th:value="${klasa.symbol}" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Nazwa klasy</td>
                                     <td>
                                         <select name="nameOfClass" th:field="${klasa.nameOfClass}" required>
@@ -71,12 +77,6 @@
                                                     th:text="${nameOpt.label}" th:value="${nameOpt}"
                                                     th:selected="${klasa.nameOfClass}"></option>
                                         </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Symbol klasy</td>
-                                    <td>
-                                        <input type="text" name="symbol" th:value="${klasa.symbol}">
                                     </td>
                                 </tr>
                                 <tr>

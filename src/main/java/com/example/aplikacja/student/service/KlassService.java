@@ -77,10 +77,9 @@ public class KlassService {
     }
 
     public Klasa updateKlasa(KlasaDTO klasa) {
-        Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
+        Klasa klasaToUpdate = findClassById(klasa.getId()).orElse(null);
         if (klasaToUpdate != null) {
             klasaToUpdate.setNameOfClass(klasa.getNameOfClass());
-            klasaToUpdate.setSymbol(klasa.getSymbol());
             klasaToUpdate.setLiczba(klasa.getLiczba());
 //            klasaToUpdate.setYear(java.sql.Date.valueOf(klasa.getYear()));
 

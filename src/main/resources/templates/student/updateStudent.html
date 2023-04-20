@@ -156,7 +156,7 @@
                                         <input type="email" name="email"
                                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$"
                                                th:value="${student.email}"
-                                               required
+                                               disabled
 
                                                oninvalid="InvalidEmail(this);"
                                                oninput="InvalidEmail(this);"/>

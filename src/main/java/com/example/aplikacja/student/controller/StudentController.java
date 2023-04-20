@@ -1,5 +1,6 @@
 package com.example.aplikacja.student.controller;
 
+import com.example.aplikacja.appuser.AppUser;
 import com.example.aplikacja.appuser.AppUserService;
 import com.example.aplikacja.student.dto.*;
 import com.example.aplikacja.student.entity.*;
@@ -12,13 +13,17 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class StudentController {
 
     public StudentController(StudentService studentService, KlassService klassService,
+                             AppUserService appUserService,
                              ClassificationService classificationService) {
         this.studentService = studentService;
+        this.appUserService = appUserService;
         this.klassService = klassService;
         this.classificationService = classificationService;
     }
@@ -46,12 +51,13 @@ public class StudentController {
                       GradeDTO grade, OlympiadDTO olympiad
             , ExtraParametersDTO extparam,
                       Model model, Principal principal) {
-        if (principal == null) {
+        AppUser appUser = appUserService.findEmail(principal.getName()).orElse(null);
+        if (appUser == null) {
             return "userIsLogout";
         } else {
             Student appUserWithEmail = studentService.findUserByEmail(student.getEmail()).orElse(null);
             if (appUserWithEmail == null) {
-                studentService.addStudent(student, exam, grade, olympiad, extparam);
+                studentService.addStudent(student, exam, grade, olympiad, extparam, appUser);
                 model.addAttribute("addedStudent",
                         "Student został dodany!");
                 return "/student/student";
@@ -105,7 +111,12 @@ public class StudentController {
             studentService.addPointsSport(student);
             studentService.addPointsFizChemFran(student);
             model.addAttribute("student", student);
-
+            Map<String, Double> mapa = new HashMap<>();
+            model.addAttribute("map", studentService.punkty(student, mapa));
+            model.addAttribute("key", mapa.keySet());
+            Map<String, Double> mapaOlymp = new HashMap<>();
+            model.addAttribute("mapa", studentService.punktyOlymp(student, mapaOlymp));
+            model.addAttribute("keys", mapaOlymp.keySet());
             return "/student/points";
         }
     }
@@ -167,7 +178,7 @@ public class StudentController {
     @GetMapping("/classificationStudent/{id}")
     private String classification(@PathVariable("id") Long id, Model model, Principal principal) {
         Student student = classificationService.findUserById(id).orElse(null);
-        if (student.getClassForStudent() != null ) {
+        if (!student.getClassForStudent().isEmpty()) {
             model.addAttribute("classExist", "Uczeń został już sklasyfikowany");
             model.addAttribute("student", student);
             return "/student/moreAboutStudent";

@@ -2,6 +2,7 @@ package com.example.aplikacja.appuser;
 
 import com.example.aplikacja.appuser.UserRepository;
 import com.example.aplikacja.appuser.AppUser;
+import com.example.aplikacja.student.entity.Student;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,6 +30,11 @@ public class AppUserService implements UserDetailsService {
                         new UsernameNotFoundException(
                                 String.format(USER_NOT_FOUND_MSG, email)));
     }
+
+    public Optional<AppUser> findEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 
     public String signUpUser(AppUser appUser) {
         boolean userExists = userRepository

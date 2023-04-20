@@ -1,5 +1,7 @@
 package com.example.aplikacja.student.service;
 
+import com.example.aplikacja.appuser.AppUser;
+import com.example.aplikacja.appuser.UserRepository;
 import com.example.aplikacja.student.dto.*;
 import com.example.aplikacja.student.entity.*;
 import com.example.aplikacja.student.enums.*;
@@ -14,8 +16,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -30,7 +31,7 @@ public class StudentService implements UserDetailsService {
     private final OlympiadRepository olympiadRepository;
     private final ExtraParametersRepository extraParameters;
     private final KlasaRepository klassRepository;
-    private final ClassStudentResultRepository csrr;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email)
@@ -84,13 +85,17 @@ public class StudentService implements UserDetailsService {
         return studentRepository.studenciWKlasie(nazwaKlasy);
     }
 
+    public List<Student> listaStudentowUsera(){
+        return userRepository.getStudent();
+    }
+
     public List<Student> listaRezerwowa() {
         return studentRepository.reserveList();
     }
 
     public Student addStudent(StudentDTO student, ExamDTO exam
             , GradeDTO grade, OlympiadDTO olymp
-            , ExtraParametersDTO extparam) {
+            , ExtraParametersDTO extparam, AppUser appUser) {
         Student studentToAdd = findUserByEmail(student.getEmail()).orElse(null);
         if (studentToAdd == null) {
             Student student1 = new Student();
@@ -101,6 +106,7 @@ public class StudentService implements UserDetailsService {
             student1.setAlign(student.getAlign());
             student1.setLanguagePolish(student.getLanguagePolish());
             student1.setEmail(student.getEmail());
+            student1.setAppUser(appUser);
 
             mapExam(exam, student1);
             mapGrade(grade, student1);
@@ -196,8 +202,8 @@ public class StudentService implements UserDetailsService {
 
     public Student updateStudent(StudentDTO student, ExamDTO exam, GradeDTO grade, OlympiadDTO olymp,
                                  ExtraParametersDTO extrparam) {
-//        Student studentToUpdate = findUserById(student.getId()).orElse(null);
-        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
+        Student studentToUpdate = findUserById(student.getId()).orElse(null);
+//        Student studentToUpdate = findUserByEmail(student.getEmail()).orElse(null);
         if (studentToUpdate != null) {
             studentToUpdate.setFirstName(student.getFirstName());
             studentToUpdate.setLastName(student.getLastName());
@@ -206,7 +212,7 @@ public class StudentService implements UserDetailsService {
             studentToUpdate.setSex(student.getSex());
             studentToUpdate.setAlign(student.getAlign());
             studentToUpdate.setLanguagePolish(student.getLanguagePolish());
-            studentToUpdate.setEmail(student.getEmail());
+//            studentToUpdate.setEmail(student.getEmail());
 
             updateExam(exam, studentToUpdate);
             updateGrade(grade, studentToUpdate);
@@ -1456,6 +1462,30 @@ public class StudentService implements UserDetailsService {
         studentToUpdate.setPunktyOlimpijskieFizChemFranc(round(punkty_fin));
 
         return studentRepository.save(studentToUpdate);
+    }
+
+    public Map<String, Double> punkty(Student student, Map<String, Double> points) {
+        points.put(NameOfClass.FizChemFranc.getLabel(), student.getPointsFIZ());
+        points.put(NameOfClass.MatGeoInf.getLabel(), student.getPointsMatGeoInf());
+        points.put(NameOfClass.Humanistyczna.getLabel(), student.getPointsHuman());
+        points.put(NameOfClass.BiolChem.getLabel(), student.getPointsBiolChem());
+        points.put(NameOfClass.Artystyczna.getLabel(), student.getPointsArt());
+        points.put(NameOfClass.Sportowa.getLabel(), student.getPointsS());
+        points.put(NameOfClass.MatAngNiem.getLabel(), student.getPointsMAN());
+
+        return points;
+    }
+
+    public Map<String, Double> punktyOlymp(Student student, Map<String, Double> pointsOlimp) {
+        pointsOlimp.put(NameOfClass.FizChemFranc.getLabel(), student.getPunktyOlimpijskieFizChemFranc());
+        pointsOlimp.put(NameOfClass.MatGeoInf.getLabel(), student.getPunktyOlimpijskieMatGeoInf());
+        pointsOlimp.put(NameOfClass.Humanistyczna.getLabel(), student.getPunktyOlimpijskieHuman());
+        pointsOlimp.put(NameOfClass.BiolChem.getLabel(), student.getPunktyOlimpijskieBiolChem());
+        pointsOlimp.put(NameOfClass.Artystyczna.getLabel(), student.getPunktyOlimpijskieArtystyczna());
+        pointsOlimp.put(NameOfClass.Sportowa.getLabel(), student.getPunktyOlimpijskieSportowa());
+        pointsOlimp.put(NameOfClass.MatAngNiem.getLabel(), student.getPunktyOlimpijskieMatAngNiem());
+
+        return pointsOlimp;
     }
 
 

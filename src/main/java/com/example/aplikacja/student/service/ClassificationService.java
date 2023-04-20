@@ -68,40 +68,7 @@ public class ClassificationService {
         LaureateOrFinalist lauFra = studentToUpdate.getOlympiads().getFrenchOlympiad();
         LaureateOrFinalist lauSpin = studentToUpdate.getOlympiads().getSpanishOlympiad();
 
-        List<LaureateOrFinalist> olympiads = Arrays.asList(lauMat, lauGeo, lauInf, lauAng, lauNiem, lauPol, lauHist,
-                lauWOS, lauBio, lauChem, lauMuzHist, lauSztHist, lauFiz, lauItal, lauFra, lauSpin);
-
-
-//        List<LaureateOrFinalist> olimpiads = Arrays.asList(lauMat, lauGeo, lauInf, lauAng, lauNiem, lauPol,
-//                lauHist, lauWOS, lauBio, lauChem, lauMuzHist, lauSztHist, lauFiz, lauItal, lauFra, lauSpin);
-//
-
-        //Egzaminy
-        Double examPolish = Double.valueOf(studentToUpdate.getExams().getLanguagePolishResult());
-        Double examMath = Double.valueOf(studentToUpdate.getExams().getMath());
-        Double examEnglish = Double.valueOf(studentToUpdate.getExams().getForeignLanguage());
-
-        //Oceny
-        String grMath = studentToUpdate.getGrades().getMathGrade();
-        String grGeo = studentToUpdate.getGrades().getGeographyGrade();
-        String grInf = studentToUpdate.getGrades().getITGrade();
-        String grAng = studentToUpdate.getGrades().getEnglishGrade();
-        String grNiem = studentToUpdate.getGrades().getOtherLanguageGrade();
-        String grWf = studentToUpdate.getGrades().getPhysicalEducationGrade();
-        String grBio = studentToUpdate.getGrades().getBiologyGrade();
-        String grFiz = studentToUpdate.getGrades().getPhysicsGrade();
-        String grChe = studentToUpdate.getGrades().getChemistryGrade();
-        String grPol = studentToUpdate.getGrades().getPolishGrade();
-        String grMuz = studentToUpdate.getGrades().getMusic();
-        String grHis = studentToUpdate.getGrades().getHistoryGrade();
-        String grWos = studentToUpdate.getGrades().getCivicsGrade();
-
-
-//        Double srednia = Double.valueOf(studentToUpdate.getGrades().getAverageOfGrades());
-
         //Umiejętności
-
-
         Ability szbLicz = studentToUpdate.getExtraParameters().getFastCounting();
         Ability szbCzyt = studentToUpdate.getExtraParameters().getFastReading();
         Ability rozProb = studentToUpdate.getExtraParameters().getTroubleshooting();
@@ -126,10 +93,7 @@ public class ClassificationService {
         Ability bioPrzyr = studentToUpdate.getExtraParameters().getBiologicalAndNaturalInterests();
         Ability tech = studentToUpdate.getExtraParameters().getInterestInTechnology();
 
-        List<Ability> umiejetnosci = Arrays.asList(szbLicz, szbCzyt, szbZapam, rozProb, aktorstwo, spiew, taniec,
-                pisanie, foto, jezyk, certyf, polit, komuni, sport, wyczSpo, sprFiz, wytrzFiz, otwTer, mapa,
-                tabMend, chemia, bioPrzyr, tech);
-
+        //Punkty ucznia
         double maxMGI = studentToUpdate.getPointsMatGeoInf();  //mat, geo, inf
         double maxS = studentToUpdate.getPointsS(); //mat, bio, wf
         double maxBIO = studentToUpdate.getPointsBiolChem(); //bio, chem, ang
@@ -137,6 +101,14 @@ public class ClassificationService {
         double maxART = studentToUpdate.getPointsArt(); //pol, ang, muz
         double maxHUM = studentToUpdate.getPointsHuman(); //pol, wos, hist
         double maxFIZ = studentToUpdate.getPointsFIZ(); // fiz, chem, fran
+
+        List<LaureateOrFinalist> olympiads = Arrays.asList(lauMat, lauGeo, lauInf, lauAng, lauNiem, lauPol, lauHist,
+                lauWOS, lauBio, lauChem, lauMuzHist, lauSztHist, lauFiz, lauItal, lauFra, lauSpin);
+
+        List<Ability> umiejetnosci = Arrays.asList(szbLicz, szbCzyt, szbZapam, rozProb, aktorstwo, spiew, taniec,
+                pisanie, foto, jezyk, certyf, polit, komuni, sport, wyczSpo, sprFiz, wytrzFiz, otwTer, mapa,
+                tabMend, chemia, bioPrzyr, tech);
+
 
         List<Double> punkty = new ArrayList<>();
         punkty.add(studentToUpdate.getPointsMatGeoInf());
@@ -156,28 +128,16 @@ public class ClassificationService {
         kl.add(klasaMatGeoInf);
         kl.add(klasaFizChemFranc);
 
-//        List<Double> sredniaKl = new ArrayList<>();
-//        sredniaKl.add(klasaArtystyczna.getMinAvgGrade());
-//        sredniaKl.add(klasaBiolChem.getMinAvgGrade());
-//        sredniaKl.add(klasaPol.getMinAvgGrade());
-//        sredniaKl.add(klasaFizChemFranc.getMinAvgGrade());
-//        sredniaKl.add(klasaMatGeoInf.getMinAvgGrade());
-//        sredniaKl.add(klasaSportowa.getMinAvgGrade());
-//        sredniaKl.add(klasaMatAngNiem.getMinAvgGrade());
-
-        Double max = 0.0, maxMin = 0.0;
-        int i, j;
-
-        AtomicReference<String> name = new AtomicReference<>();
-        AtomicReference<Double> wartosc = new AtomicReference<>();
-
-
         List<LaureateOrFinalist> listLaureat = new ArrayList<>();
         List<Double> listaMaxLaureat = new ArrayList<>();
         Map<NameOfClass, Double> newMap = new HashMap<>();
 
-        //Jeżeli uczeń ma więcej niż jedną olimpiadę
+        Double max = 0.0, maxMin = 0.0;
         Double maxWew = 0.0;
+        AtomicReference<String> name = new AtomicReference<>();
+        AtomicReference<Double> wartosc = new AtomicReference<>();
+
+        //Jeżeli uczeń ma więcej niż jedną olimpiadę
         AtomicInteger licznik = new AtomicInteger();
         for (int k = 0; k < olympiads.size(); k++) {
             if (olympiads.get(k) == LaureateOrFinalist.Laureat) {
@@ -425,7 +385,7 @@ public class ClassificationService {
         studentToUpdate.setFirstClassification(String.valueOf(name.get()));
 
         //Maks z punktów ucznia
-        for (i = 0; i < punkty.size(); i++) {
+        for (int i = 0; i < punkty.size(); i++) {
             if (punkty.get(i) > max) {
                 max = punkty.get(i);
             }
@@ -433,7 +393,7 @@ public class ClassificationService {
         Map<NameOfClass, Double> newList = new TreeMap<>();
 
         Double maxSr = 0.0;
-        for (j = 0; j < kl.size(); j++) {
+        for (int j = 0; j < kl.size(); j++) {
             if (max >= kl.get(j).getMinAmountOfPointsFromExams()) {
                 maxMin = kl.get(j).getMinAmountOfPointsFromExams();
                 newList.put(kl.get(j).getNameOfClass(), maxMin);

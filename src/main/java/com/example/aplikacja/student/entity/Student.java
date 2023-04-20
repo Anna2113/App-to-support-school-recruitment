@@ -70,7 +70,7 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private StudentStatus status;
     private Double classificationPoints;
-    @OneToOne
+    @ManyToOne
     private AppUser appUser;
 
 
@@ -135,6 +135,10 @@ public class Student {
         this.extraParameters = extraParameters;
         this.klasa = klasa;
         this.listaPom = listaPom;
+    }
+
+    public Student(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     @Override

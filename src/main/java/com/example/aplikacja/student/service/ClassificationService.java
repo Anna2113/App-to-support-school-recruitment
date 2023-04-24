@@ -132,17 +132,23 @@ public class ClassificationService {
         List<Double> listaMaxLaureat = new ArrayList<>();
         Map<NameOfClass, Double> newMap = new HashMap<>();
 
-        Double max = 0.0, maxMin = 0.0;
+        Double max = 0.0;
+        Double maxMin = 0.0;
         Double maxWew = 0.0;
         AtomicReference<String> name = new AtomicReference<>();
         AtomicReference<Double> wartosc = new AtomicReference<>();
-
-        //Jeżeli uczeń ma więcej niż jedną olimpiadę
+        AtomicReference<String> name1 = new AtomicReference<>();
+        AtomicReference<Double> wartosc1 = new AtomicReference<>();
+        AtomicReference<String> name2 = new AtomicReference<>();
+        AtomicReference<Double> wartosc2 = new AtomicReference<>();
+        AtomicReference<String> name3 = new AtomicReference<>();
+        AtomicReference<Double> wartosc3 = new AtomicReference<>();
         AtomicInteger licznik = new AtomicInteger();
+
         for (int k = 0; k < olympiads.size(); k++) {
             if (olympiads.get(k) == LaureateOrFinalist.Laureat) {
                 licznik.getAndIncrement();
-                listLaureat.add(olympiads.get(k)); //lista olimpiad (przedmiotów), z których uczeń jest laureatem
+                listLaureat.add(olympiads.get(k));
             }
         }
 
@@ -384,7 +390,7 @@ public class ClassificationService {
         studentToUpdate.setClassificationPoints(maxWew);
         studentToUpdate.setFirstClassification(String.valueOf(name.get()));
 
-        //Maks z punktów ucznia
+
         for (int i = 0; i < punkty.size(); i++) {
             if (punkty.get(i) > max) {
                 max = punkty.get(i);
@@ -392,29 +398,28 @@ public class ClassificationService {
         }
         Map<NameOfClass, Double> newList = new TreeMap<>();
 
-        Double maxSr = 0.0;
         for (int j = 0; j < kl.size(); j++) {
             if (max >= kl.get(j).getMinAmountOfPointsFromExams()) {
                 maxMin = kl.get(j).getMinAmountOfPointsFromExams();
                 newList.put(kl.get(j).getNameOfClass(), maxMin);
             }
+
             newList.forEach((k, v) -> {
                         if (name.compareAndSet(null, name.get())) {
                             name.set(k.getLabel());
                             wartosc.set(v);
                         }
-                        if (v == wartosc.get()) {
+                        if (v >= wartosc.get()) {
                             wartosc.set(v);
                             name.set(k.getLabel());
                         }
                         System.out.println(k + ":" + v);
                     }
             );
-
             studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
-            studentToUpdate.setClassForStudent(String.valueOf(name.get()));
+            studentToUpdate.setClassForStudent(name.get());
             studentToUpdate.setClassificationPoints(max);
-            studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
 
 
             if (newList.isEmpty()) {
@@ -511,7 +516,6 @@ public class ClassificationService {
                     } else {
                         studentToUpdate.setClassForStudent("Uczeń trafił na listę rezerwową");
                         studentToUpdate.setStatus(StudentStatus.rezerwowy);
-//                                                studentToUpdate.setFirstClassification(String.valueOf(name.get()));
                     }
                 }
             }

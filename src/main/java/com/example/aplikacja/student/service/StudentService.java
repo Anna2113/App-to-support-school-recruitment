@@ -72,6 +72,8 @@ public class StudentService implements UserDetailsService {
         return klassRepository.findBySymbol(symbol);
     }
 
+    public Optional<AppUser> findAppUserById(Long id){return userRepository.findById(id);}
+
 
     public Optional<Student> findUserByEmail(String email) {
         return studentRepository.findByEmail(email);
@@ -85,9 +87,7 @@ public class StudentService implements UserDetailsService {
         return studentRepository.studenciWKlasie(nazwaKlasy);
     }
 
-    public List<Student> listaStudentowUsera(){
-        return userRepository.getStudent();
-    }
+
 
     public List<Student> listaRezerwowa() {
         return studentRepository.reserveList();

@@ -81,6 +81,7 @@ public class KlassService {
         if (klasaToUpdate != null) {
             klasaToUpdate.setNameOfClass(klasa.getNameOfClass());
             klasaToUpdate.setLiczba(klasa.getLiczba());
+//            klasaToUpdate.setSymbol(klasaToUpdate.getSymbol());
 //            klasaToUpdate.setYear(java.sql.Date.valueOf(klasa.getYear()));
 
             return klassRepository.save(klasaToUpdate);
@@ -97,9 +98,9 @@ public class KlassService {
             double s = Double.parseDouble(klasaToUpdate.getSecond());
             double t = Double.parseDouble(klasaToUpdate.getThird());
 
-           minLiczEgz = 100 * f + 50 * s + 25 * t;
+            minLiczEgz = 100 * f + 50 * s + 25 * t;
 
-           double result = round(minLiczEgz);
+            double result = round(minLiczEgz);
 
             klasaToUpdate.setMinAmountOfPointsFromExams(result);
             klassRepository.save(klasaToUpdate);
@@ -141,7 +142,8 @@ public class KlassService {
 
 
     public Klasa updateSubjectOfKlass(KlasaDTO klasa, WeightOfGradeDTO wog) {
-        Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
+        Klasa klasaToUpdate = findClassById(klasa.getId()).orElse(null);
+//        Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
         if (klasaToUpdate != null) {
             klasaToUpdate.setEnabled(klasa.getEnabled());
 
@@ -167,8 +169,8 @@ public class KlassService {
     }
 
     public Klasa updateSkillsOfKlass(KlasaDTO klasa) {
-//        Klasa klasaToUpdate = findClassById(klasa.getId()).orElse(null);
-        Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
+        Klasa klasaToUpdate = findClassById(klasa.getId()).orElse(null);
+//        Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
         if (klasaToUpdate != null) {
             klasaToUpdate.setEnabled(klasa.getEnabled());
             klasaToUpdate.setUmiejetnosci(new ArrayList<>());
@@ -180,7 +182,8 @@ public class KlassService {
     }
 
     public Klasa addNewParameters(KlasaDTO klasa) {
-        Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
+//        Klasa klasaToUpdate = findClassBySymbol(klasa.getSymbol()).orElse(null);
+        Klasa klasaToUpdate = findClassById(klasa.getId()).orElse(null);
         if (klasaToUpdate != null) {
             klasaToUpdate.setMinAvgGrade(klasa.getMinAvgGrade());
             klasaToUpdate.setNumberOfPointsForOlimp(klasa.getNumberOfPointsForOlimp());

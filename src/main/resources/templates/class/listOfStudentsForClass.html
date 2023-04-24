@@ -24,27 +24,33 @@
 <p class="akapit">Lista zakwalifikowanych uczniów do klasy</p>
 <p style="text-align: center; font-weight: bold; font-size: 1.7rem" th:text="${klasa.nameOfClass}"></p>
 
-<div class="containerButtons">
-    <button class="btnSt" type="button" style="margin-left: -97px">
-        <a th:href="@{'/listOfClass'}" style="color: black">Lista klas</a>
-    </button>
+<div class="tabelka">
+    <table>
+        <tr>
+            <td>
+                <button class="btnSt" type="button">
+                    <a th:href="@{'/aboutClass/' + ${klasa.id}}" style="color: black">Wróć do obecnej klasy</a>
+                </button>
+            </td>
+            <td>
+                <button class="btnSt" type="button"><a th:href="@{'/listOfClass'}" style="color: black">
+                    Lista klas</a></button>
+            </td>
+        </tr>
+    </table>
 </div>
 <div class="tabelka1">
     <table class="table">
         <tr>
             <th class="firstTh">Imie</th>
             <th class="firstTh">Nazwisko</th>
-            <th class="firstTh">Punkty</th>
-            <th class="firstTh">Profil klasy</th>
+            <th class="firstTh">Maksymalna ilość punktów zdobyta podczas rekrutacji</th>
         </tr>
 
         <tr th:each="student: ${allStudents}" class="firstTr">
             <td class="firstTd" th:text="${student.firstName}"/>
             <td class="firstTd" th:text="${student.lastName}"/>
             <td class="firstTd" th:text="${student.classificationPoints}"/>
-            <td class="td" th:text="${student.classForStudent}"/>
-
-
         </tr>
     </table>
 </div>

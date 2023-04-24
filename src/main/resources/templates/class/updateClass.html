@@ -163,35 +163,7 @@
                                        th:each="skill: ${T(com.example.aplikacja.student.enums.Skills).values()}"
                                        th:text="${skill}"
                                        th:value="${skill}"
-                                       th:field="${klasa.umiejetnosci}"
-                                       oninvalid="czyJestZaznaczony(this);"
-                                       oninput="czyJestZaznaczony(this);"/>
-<!--                                <script>-->
-<!--                                    function sprawdz(){-->
-<!--                                        if(czyJestZaznaczony("event")){-->
-<!--                                            alert('Zaznaczono 4 umiejętności.');-->
-<!--                                            off();-->
-<!--                                        }else{-->
-<!--                                            alert('Zaznacz tylko 4 umiejętności!')-->
-<!--                                        }-->
-<!--                                    }-->
-
-<!--                                    function czyJestZaznaczony(id) {-->
-<!--                                        var checked = $("input[id^='" + id + "']:checked").length;-->
-<!--                                        if (checked != 4) {-->
-<!--                                            return false;-->
-<!--                                            alert("Zaznacz tylko 4 umiejętności")-->
-<!--                                        } else {-->
-<!--                                            return true;-->
-<!--                                            alert("Zaznaczono 4 umiejętności.")-->
-<!--                                            off(id);-->
-<!--                                        }-->
-<!--                                    }-->
-
-<!--                                    function off(h) {-->
-<!--                                        h.skills.disabled = true;-->
-<!--                                    }-->
-<!--                                </script>-->
+                                       th:field="${klasa.umiejetnosci}"/>
                             </div>
                         </div>
                     </div>

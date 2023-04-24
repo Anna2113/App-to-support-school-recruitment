@@ -29,11 +29,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "SET a.enabled = FALSE WHERE a.email = ?1")
     int disableStudent(String email);
 
-    @Query("SELECT a FROM Student a WHERE a.lastName = ?1")
-    List<Student> getStudentBySurname(String surname);
-
     //pierwszy parametr z metody ?1
-    @Query("SELECT s FROM Student s WHERE s.classForStudent = ?1 ORDER BY s.classificationPoints desc ")
+    @Query("SELECT s FROM Student s WHERE s.classForStudent = ?1 ORDER BY s.classificationPoints DESC")
     List<Student> studenciWKlasie(String nazwaKlasy);
 
     @Query("SELECT s FROM Student s WHERE s.status <> 'sklasyfikowany'")

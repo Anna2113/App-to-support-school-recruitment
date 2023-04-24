@@ -49,8 +49,6 @@ public class Klasa {
     private Double minAmountOfPointsFromExams;
     @OneToMany(mappedBy = "klasa", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<WeightOfGrade> weightOfGrade;
-//    @OneToMany(mappedBy = "klasa", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-//    private List<Student> listOfStudent;
     @Enumerated
     @ElementCollection(targetClass = Skills.class)
     private List<Skills> umiejetnosci;

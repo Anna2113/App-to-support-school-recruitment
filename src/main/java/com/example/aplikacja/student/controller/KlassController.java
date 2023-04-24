@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -115,7 +114,7 @@ public class KlassController {
         }
     }
 
-    @GetMapping("/countAvg/{id}")
+    @GetMapping("/countParameters/{id}")
     public String points(@PathVariable("id") Long id, Model model, Principal principal) {
         if (principal == null) {
             return "userIsLogout";

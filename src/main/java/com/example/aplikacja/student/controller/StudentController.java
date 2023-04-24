@@ -7,13 +7,16 @@ import com.example.aplikacja.student.entity.*;
 import com.example.aplikacja.student.service.ClassificationService;
 import com.example.aplikacja.student.service.KlassService;
 import com.example.aplikacja.student.service.StudentService;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -117,6 +120,7 @@ public class StudentController {
             Map<String, Double> mapaOlymp = new HashMap<>();
             model.addAttribute("mapa", studentService.punktyOlymp(student, mapaOlymp));
             model.addAttribute("keys", mapaOlymp.keySet());
+            model.addAttribute("allClass", klassService.getAllKlass());
             return "/student/points";
         }
     }
@@ -178,7 +182,7 @@ public class StudentController {
     @GetMapping("/classificationStudent/{id}")
     private String classification(@PathVariable("id") Long id, Model model, Principal principal) {
         Student student = classificationService.findUserById(id).orElse(null);
-        if (!student.getClassForStudent().isEmpty()) {
+        if (student.getClassForStudent() != null) {
             model.addAttribute("classExist", "Uczeń został już sklasyfikowany");
             model.addAttribute("student", student);
             return "/student/moreAboutStudent";
@@ -237,10 +241,10 @@ public class StudentController {
     }
 
     @GetMapping("/makeEditClass/{id}")
-    public String editClass(@PathVariable("id") Long id, Model model, Principal principal){
-        if(principal == null){
+    public String editClass(@PathVariable("id") Long id, Model model, Principal principal) {
+        if (principal == null) {
             return "userIsLogout";
-        }else{
+        } else {
             Student student = studentService.findUserById(id).orElse(null);
             model.addAttribute(student);
             model.addAttribute("student", student);
@@ -263,3 +267,4 @@ public class StudentController {
     }
 
 }
+

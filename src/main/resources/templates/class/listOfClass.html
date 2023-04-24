@@ -34,7 +34,8 @@
                 <button type="button" class="btnSt"><a href="/addClass" style="color: black">Dodaj klasę</a></button>
             </td>
             <td>
-                <button type="button" class="btnSt"><a href="/reserveList" style="color: black">Lista rezerwowa</a></button>
+                <button type="button" class="btnSt"><a href="/reserveList" style="color: black">Lista rezerwowa</a>
+                </button>
             </td>
         </tr>
     </table>
@@ -48,6 +49,7 @@
         <th>Limit uczniów</th>
         <th>Rocznik</th>
         <th>Więcje</th>
+<!--        <th>Dodaj parametry</th>-->
         <!--            <th class="firstTh">Klasa</th>-->
         </thead>
         <tbody>
@@ -60,10 +62,12 @@
                 <button class="btnSt">
                     <a th:href="@{'/aboutClass/' + ${klasa.id}}" style="color: black">Wybierz</a>
                 </button>
-                <!--                <button class="btnSt">-->
-                <!--                    <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>-->
-                <!--                </button>-->
             </td>
+<!--            <td>-->
+<!--                <button class="btnSt">-->
+<!--                    <a th:href="@{'/enterParameters/' + ${klasa.id}}" style="color: black">Dodaj parametry</a>-->
+<!--                </button>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>

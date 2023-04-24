@@ -23,11 +23,6 @@
     <table>
         <tr>
             <td>
-                <button class="btnSt">
-                    <a th:href="@{'/allCountPoints/' + ${student.id}}" style="color: black">Policz punkty</a>
-                </button>
-            </td>
-            <td>
                 <button class="btnSt" type="button">
                     <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wróć do obecnego ucznia</a>
                 </button>
@@ -62,6 +57,16 @@
         <tr th:each="keys: ${keys}">
             <td th:text="${keys}" class="firstTd"/>
             <td th:text="${mapa.get(keys)}" class="firstTd"/>
+        </tr>
+    </table>
+
+    <h2>Minimalna liczba punktów, jakie trzeba zdobyć do klasy o zadanym profilu.</h2>
+    <table class="table">
+        <th class="firstTh">Klasa</th>
+        <th class="firstTh">Liczba minimalnych punktów</th>
+        <tr th:each="klasa: ${allClass}">
+            <td th:text="${klasa.nameOfClass}" class="firstTd"/>
+            <td th:text="${klasa.minAmountOfPointsFromExams}" class="firstTd"/>
         </tr>
     </table>
 

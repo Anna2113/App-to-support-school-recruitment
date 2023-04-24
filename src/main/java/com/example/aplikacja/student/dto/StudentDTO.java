@@ -1,5 +1,6 @@
 package com.example.aplikacja.student.dto;
 
+import com.example.aplikacja.appuser.AppUser;
 import com.example.aplikacja.student.entity.Exam;
 import com.example.aplikacja.student.entity.Klasa;
 import com.example.aplikacja.student.enums.*;

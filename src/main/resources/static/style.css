@@ -227,6 +227,9 @@ h1 {
     .classificationContainer{
         width: 80%
     }
+    .messMedia{
+        text-align: center;
+    }
 }
 
 .data {

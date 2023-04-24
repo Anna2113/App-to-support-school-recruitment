@@ -61,14 +61,14 @@ public class UserController {
         }
     }
 
-    @GetMapping("/yourStudents")
-    public String showListYourStudents(Model model, Principal principal) {
-        AppUser appUser = appUserService.findUserByEmail(principal.getName()).orElse(null);
-        List<Student> studentsOfUser = studentService.listaStudentowUsera();
-        model.addAttribute(appUser);
-        model.addAttribute("allStudentsOfUser", studentsOfUser);
-        return "appUser/listOfStudents";
-    }
+//    @GetMapping("/yourStudents")
+//    public String showListYourStudents(Model model, Principal principal) {
+//        AppUser appUser = appUserService.findUserByEmail(principal.getName()).orElse(null);
+//        List<Student> studentsOfUser = studentService.listaStudentowUsera();
+//        model.addAttribute(appUser);
+//        model.addAttribute("allStudentsOfUser", studentsOfUser);
+//        return "appUser/listOfStudents";
+//    }
 
     @GetMapping("/logoutMyself")
     public String logout(){

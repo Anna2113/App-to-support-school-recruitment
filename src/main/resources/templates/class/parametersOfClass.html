@@ -55,12 +55,6 @@
                     <div class="collapse" id="parametersOfClass" style="width: 90%">
                         <h3 style="margin-top: 50px">Edytuj parametry</h3>
                         <div class="slidecontainer" style="margin-top: 50px;">
-                            <!--                            <h6>Minimalna średnia przedmiotów kierunkowych</h6>-->
-                            <!--                            <input type="range" min="0" max="7" step="0.01" value="2.5" class="slider" id="minAvgGrade"-->
-                            <!--                                   name="minAvgGrade" th:value="${klasa.minAvgGrade}">-->
-                            <!--                            <label for="minAvgGrade">Wartość: <span id="demo"></span></label>-->
-                            <!--                            <hr>-->
-
                             <h6>Liczba punktów dla ucznia będącego laureatem olimpiady</h6>
                             <input type="range" min="0" max="1" step="0.1" value="0.2" class="slider"
                                    id="numberOfPointsForOlimp"
@@ -92,13 +86,6 @@
                                    name="weightExamEnglish">
                             <label>Język angielski: <span id="lExamEnglish"></span></label>
                             <hr>
-
-                            <!--                            <h6>Minimalna liczba punktów z egzaminu dla wybranego profilu</h6>-->
-                            <!--                            <input type="range" min="0" max="1" step="0.01" value="0.1" class="slider"-->
-                            <!--                                   id="minAmountOfPointsFromExams"-->
-                            <!--                                   name="minAmountOfPointsFromExams" th:value="${klasa.minAmountOfPointsFromExams}">-->
-                            <!--                            <label for="minAmountOfPointsFromExams">Wartość: <span id="lexams"></span></label>-->
-                            <!--                            <hr>-->
 
                             <h6>Waga przedmiotów kierunkowych</h6>
                             <input type="range" min="0" max="6.0" step="0.01" value="4.4" class="slider"
@@ -158,11 +145,6 @@
                     <button class="btnSt mediaCommit">
                         <a th:href="@{'/aboutClass/' + ${klasa.id}}" style="color: black">Wróć do obecnej klasy</a>
                     </button>
-
-                    <!--                    <button class="btnSt" type="button" style="margin-left: 80px">-->
-                    <!--                        <a th:href="@{'/moreAboutClass'}" style="color: black">Klasa</a>-->
-                    <!--                    </button>-->
-
                 </form>
             </div>
             <script>

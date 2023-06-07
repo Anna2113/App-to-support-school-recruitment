@@ -7,16 +7,12 @@ import com.example.aplikacja.student.entity.*;
 import com.example.aplikacja.student.service.ClassificationService;
 import com.example.aplikacja.student.service.KlassService;
 import com.example.aplikacja.student.service.StudentService;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -42,12 +38,6 @@ public class StudentController {
         model.addAttribute(new ExamDTO());
         return "/student/student";
     }
-
-//    @GetMapping("/addClass")
-//    public String addClass(Model model) {
-//        model.addAttribute(new KlasaDTO());
-//        return "/class/addClass";
-//    }
 
     @PostMapping("/student/student")
     public String add(StudentDTO student, ExamDTO exam,
@@ -124,30 +114,6 @@ public class StudentController {
             return "/student/points";
         }
     }
-
-//    @GetMapping("/countPoints/{id}")
-//    public String points(@PathVariable("id") Long id, Model model, Principal principal) {
-//        if (principal == null) {
-//            return "userIsLogout";
-//        } else {
-//            Student student = studentService.findUserById(id).orElse(null);
-//            Exam exam = studentService.findExamById(id).orElse(null);
-////            Grade grade = studentService.findGradeById(id).orElse(null);
-////            Olympiad olympiad = studentService.findOlympiadById(id).orElse(null);
-////            ExtraParameters extrParam = studentService.findExParamById(id).orElse(null);
-////            Klasa klasa = studentService.findClassById(id).orElse(null);
-//            Student newparam = studentService.pointsOfStudent(student, exam);
-//            model.addAttribute("student", student);
-//            model.addAttribute("exam", exam);
-////            model.addAttribute("grade", grade);
-////            model.addAttribute("olympiad", olympiad);
-////            model.addAttribute("extrParam", extrParam);
-////            model.addAttribute("klasa", klasa);
-//            model.addAttribute("student", newparam);
-//
-//            return "/student/moreAboutStudent";
-//        }
-//    }
 
 
     @GetMapping("/updateStudent/{id}")

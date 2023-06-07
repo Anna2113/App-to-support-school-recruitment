@@ -86,14 +86,6 @@ public class KlassController {
         return "/student/points";
     }
 
-//    @GetMapping("/moreAboutClass")
-//    public String showClass(Klasa klasa, Model model, Principal principal) {
-//        Klasa kl = klassService.findClassBySymbol(principal.getName()).orElse(null);
-//        model.addAttribute(klasa);
-//        model.addAttribute("klasa", kl);
-//        return "/class/moreAboutClass";
-//    }
-
     @GetMapping("/changeClass")
     private String changeClass(Model model, Principal principal) {
         Student student = klassService.findUserByEmail(principal.getName()).orElse(new Student());
@@ -195,33 +187,5 @@ public class KlassController {
             return "class/listOfClass";
         }
     }
-
-
-//    @GetMapping("/enterParameters/{id}")
-//    public String parameters(@PathVariable("id") Long id, Model model, Principal principal) {
-//        if (principal == null) {
-//            return "userIsLogout";
-//        } else {
-//            Klasa klasa = klassService.findClassById(id).orElse(null);
-//            model.addAttribute(klasa);
-//            model.addAttribute("klasa", klasa);
-//            return "/class/parametersOfClass";
-//        }
-//    }
-
-//    @PutMapping("/addParameters")
-//    public String addNewParam(KlasaDTO klasa, Model model) {
-//        Klasa newParams = klassService.addNewParameters(klasa);
-//        if (klasa != null) {
-//            model.addAttribute("params", newParams);
-//            model.addAttribute("updateClass",
-//                    "Nastąpiła aktualizacja!");
-//            return "/class/parametersOfClass";
-//        } else {
-//            model.addAttribute("errorClass",
-//                    "Wystąpił błąd podczas aktualizacji");
-//            return "/class/parametersOfClass";
-//        }
-//    }
 
 }

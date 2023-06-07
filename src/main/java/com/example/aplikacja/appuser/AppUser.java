@@ -1,8 +1,5 @@
 package com.example.aplikacja.appuser;
 
-import com.example.aplikacja.student.entity.ClassStudentResult;
-import com.example.aplikacja.student.entity.Exam;
-import com.example.aplikacja.student.entity.Grade;
 import com.example.aplikacja.student.entity.Student;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

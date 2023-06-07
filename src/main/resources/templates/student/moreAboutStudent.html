@@ -22,23 +22,6 @@
 <h3 id="message" class="message" th:if="${student.pointsMatGeoInf == null}">Policz punkty ucznia przed klasyfikacją.</h3>
 <p th:text="${classExist}" class="emailError"/><br>
 <p th:text="${lackPoints}" class="emailError"/><br>
-<!--<div class="containerButtons">-->
-
-<!--    <p th:text="${classExist}" class="emailError"/><br>-->
-
-<!--    <button class="btnSt" type="button"><a th:href="@{'/updateStudent/' + ${student.id}}" style="color: black">-->
-<!--        Edytuj dane ucznia</a></button>-->
-
-<!--    <button type="button" class="btnSt"><a th:href="@{'/confirmDelete/' + ${student.id}}" style="color: black">Usuń-->
-<!--        ucznia</a></button>-->
-
-<!--    <button type="button" class="btnSt"><a th:href="@{'/listOfClassForStudents/' + ${student.id}}" style="color: black">Punkty</a>-->
-<!--    </button>-->
-
-<!--    <button type="button" class="btnSt"><a th:href="@{'/classificationStudent/' + ${student.id}}" style="color: black">Klasyfikuj-->
-<!--        ucznia</a></button>-->
-
-<!--</div>-->
 <div class="tabelka">
     <table>
         <tr>
@@ -81,9 +64,6 @@
         <th class="firstTh">Data urodzenia</th>
         <th class="firstTh">Płeć</th>
         <th class="firstTh">Kontakt</th>
-        <!--        <th class="firstTh">Pochodzenie</th>-->
-        <!--        <th class="firstTh">Język</th>-->
-        <!--            <th class="firstTh">Klasa</th>-->
         <tr class="firstTr">
             <td class="firstTd" th:text="${student.firstName}"/>
             <td class="firstTd" th:text="${student.lastName}"/>
@@ -93,24 +73,6 @@
         </tr>
     </table>
 </div>
-<!--<h2 style="text-align: center">Liczba zdobytych punktów podczas rekrutacji</h2>-->
-<!--<div class="tabelka">-->
-<!--    <table class="table">-->
-<!--        <th class="firstTh">Punkty</th>-->
-<!--        <th class="firstTh">Policz</th>-->
-<!--        <tr>-->
-<!--            <td class="firstTd" th:text="${student.points}"/>-->
-<!--            <td class="firstTd">-->
-<!--                <button class="btnSt">-->
-<!--                    <a th:href="@{'/countPoints/' + ${student.id}}" style="color: black">Policz punkty</a>-->
-<!--                </button>-->
-<!--                &lt;!&ndash;                <button class="btnSt">&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <a th:href="@{'/aboutStudent/' + ${student.id}}" style="color: black">Wybierz</a>&ndash;&gt;-->
-<!--                &lt;!&ndash;                </button>&ndash;&gt;-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--    </table>-->
-<!--</div>-->
 <h2 style="text-align: center">Średnia ocen ze świadectwa</h2>
 <div class="tabelka">
     <table class="table">

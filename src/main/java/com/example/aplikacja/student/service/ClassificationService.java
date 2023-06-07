@@ -137,21 +137,17 @@ public class ClassificationService {
         Double maxWew = 0.0;
         AtomicReference<String> name = new AtomicReference<>();
         AtomicReference<Double> wartosc = new AtomicReference<>();
-        AtomicReference<String> name1 = new AtomicReference<>();
-        AtomicReference<Double> wartosc1 = new AtomicReference<>();
-        AtomicReference<String> name2 = new AtomicReference<>();
-        AtomicReference<Double> wartosc2 = new AtomicReference<>();
-        AtomicReference<String> name3 = new AtomicReference<>();
-        AtomicReference<Double> wartosc3 = new AtomicReference<>();
-        AtomicInteger licznik = new AtomicInteger();
 
+        // Jeżeli uczeń jest laureatem z danego przedmiotu, to przedmiot ten dodajemy do listy listLaureat.
         for (int k = 0; k < olympiads.size(); k++) {
             if (olympiads.get(k) == LaureateOrFinalist.Laureat) {
-                licznik.getAndIncrement();
                 listLaureat.add(olympiads.get(k));
             }
         }
 
+        // Przechodzimy po liście listLaureate i sprawdzamy z jakiego przedmiotu uczeń jest laureatem
+        // Porównujemy punkty w odpowiednich klasach, które zawierają dany przedmiot jako kierunkowy.
+        // Jeżeli są spełnione odpowiednie warunki, klasa zostaje dodana do nowej kolekcji.
         for (int l = 0; l < listLaureat.size(); l++) {
             if (listLaureat.get(l) == lauMat) {
                 if (maxMGI > maxMAN && maxMGI > maxS) {
@@ -372,6 +368,9 @@ public class ClassificationService {
                 newMap.put(NameOfClass.FizChemFranc, maxWew);
             }
         }
+        // Przechodzimy po mapie zawierającej klasy, które zawierają przedmiot kierunkowy, z którego uczeń jest
+        // laureatem, a także które spełniają odpowiednie wymagania punktowe. Znajdujemy największą wartość
+        // i klasyfikujemy ucznia.
         newMap.forEach((k, v) -> {
                     if (name.compareAndSet(null, name.get())) {
                         name.set(k.getLabel());
@@ -391,20 +390,29 @@ public class ClassificationService {
         studentToUpdate.setFirstClassification(String.valueOf(name.get()));
 
 
+        // Przypadek, kiedy uczeń nie jest laureatem z żadnej olimpiady.
+        // Z listy zawierającej punkty zdobyte przez ucznia wybieramy największą wartość -> max.
         for (int i = 0; i < punkty.size(); i++) {
             if (punkty.get(i) > max) {
                 max = punkty.get(i);
             }
         }
-        Map<NameOfClass, Double> newList = new TreeMap<>();
+
+        // Przechodzimy po liście zawierającej klasy i sprawdzamy kiedy max jest większy
+        // od minimum punktów jakie musi zdobyć uczeń, aby dostać się do klasy.
+        // Jeżeli max jest większy od minimum w klasie, to taką klasę dodajemy do nowej kolekcji.
+        // MinAmountOfPointsFromExams - minimalna liczba punktów jaką musi zdobyć uczeń, aby móc dostać się do danej klasy.
+        Map<NameOfClass, Double> newMapWithClass = new TreeMap<>();
 
         for (int j = 0; j < kl.size(); j++) {
             if (max >= kl.get(j).getMinAmountOfPointsFromExams()) {
                 maxMin = kl.get(j).getMinAmountOfPointsFromExams();
-                newList.put(kl.get(j).getNameOfClass(), maxMin);
+                newMapWithClass.put(kl.get(j).getNameOfClass(), maxMin);
             }
 
-            newList.forEach((k, v) -> {
+            // Przechodzimy po mapie newMapWithClass i znajdujemy klasę o największej lub równej liczbie punktów,
+            // a następnie klasyfikujemy ucznia.
+            newMapWithClass.forEach((k, v) -> {
                         if (name.compareAndSet(null, name.get())) {
                             name.set(k.getLabel());
                             wartosc.set(v);
@@ -419,10 +427,18 @@ public class ClassificationService {
             studentToUpdate.setStatus(StudentStatus.sklasyfikowany);
             studentToUpdate.setClassForStudent(name.get());
             studentToUpdate.setClassificationPoints(max);
-        studentToUpdate.setFirstClassification(String.valueOf(name.get()));
+            studentToUpdate.setFirstClassification(String.valueOf(name.get()));
 
+            //Jeżeli uczeń nie osiągną wystarczającej liczby punktów do żadnej z klas, to sprawdzamy czy posiada
+            // wymagane umiejętność:
 
-            if (newList.isEmpty()) {
+            //1. jeżeli posiada wszystkie umiejętność -> uczeń trafia do losowej klasy,
+            //2. jeżeli nie posiada żadnej z umiejętności -> uczeń trafia na listę rezerwową,
+            //3. jeżeli posiada wszystkie 4 umiejętności wymagane do danej klasy -> uczeń trafia do tej właśnie klasy,
+            //   na przykład, jeżeli posiada wszystkie umiejętności do dwóch klas -> uczeń trafi do tej klasy, do której
+            //   jako pierwszej zdobędzie wszystkie wymagane umiejętności.
+            //4. w pozostałych przypadkach uczeń także trafia na listę rezerwową
+            if (newMapWithClass.isEmpty()) {
                 for (int u = 0; u < umiejetnosci.size(); u++) {
                     if (szbLicz == Ability.TAK && szbCzyt == Ability.TAK && szbZapam == Ability.TAK &&
                             aktorstwo == Ability.TAK && rozProb == Ability.TAK &&

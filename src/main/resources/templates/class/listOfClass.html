@@ -49,8 +49,6 @@
         <th>Limit uczniów</th>
         <th>Rocznik</th>
         <th>Więcje</th>
-<!--        <th>Dodaj parametry</th>-->
-        <!--            <th class="firstTh">Klasa</th>-->
         </thead>
         <tbody>
         <tr th:each="klasa: ${allClass}" class="firstTr">
@@ -63,11 +61,6 @@
                     <a th:href="@{'/aboutClass/' + ${klasa.id}}" style="color: black">Wybierz</a>
                 </button>
             </td>
-<!--            <td>-->
-<!--                <button class="btnSt">-->
-<!--                    <a th:href="@{'/enterParameters/' + ${klasa.id}}" style="color: black">Dodaj parametry</a>-->
-<!--                </button>-->
-<!--            </td>-->
         </tr>
         </tbody>
     </table>

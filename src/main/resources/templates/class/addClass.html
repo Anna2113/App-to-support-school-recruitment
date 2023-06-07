@@ -100,30 +100,6 @@
                        th:each="role: ${T(com.example.aplikacja.student.enums.Subject).values()}"
                        th:text="${role.label}"
                        th:value="${role}"/>
-                <!--                                   oninvalid="InvalidCount(this);"-->
-                <!--                                   oninput="InvalidCount(this);"/>-->
-                <!--                            <script> function InvalidCount(subjectbox) {-->
-                <!--                                let i;-->
-                <!--                                for(i = 0; i < subjectbox.count(); i++){-->
-                <!--                                    if (i > 3) {-->
-                <!--                                        subjectbox.setCustomValidity('Niepoprawna liczba przedmiotów');-->
-                <!--                                    }else{-->
-                <!--                                        subjectbox.setCustomValidity('');-->
-                <!--                                    }-->
-                <!--                                }-->
-                <!--                                return true;-->
-                <!--                            }</script>-->
-
-<!--                <h3 style="text-align: center; margin-top: 25px">Wybierz 4 umiejętności-->
-<!--                    definiujące klasę</h3>-->
-
-<!--                <input type="checkbox" name="skills"-->
-<!--                       style="margin-left: 300px; display: block; margin: auto"-->
-<!--                       th:each="skill: ${T(com.example.aplikacja.student.enums.Skills).values()}"-->
-<!--                       th:text="${skill}"-->
-<!--                       th:value="${skill}"-->
-<!--                       th:field="${klasa.umiejetnosci}"/>-->
-
 
                 <span th:text="${classExist}" class="emailError"/><br>
                 <span th:text="${addedClass}" class="confirmationOfAdding"/><br>

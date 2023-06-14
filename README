@@ -1,0 +1,5 @@
+W pliku application.yml, który znajduje się w folderze main->resources należy wprowadzić następujące informacje,
+aby poprawnie przeprowadzić konfigurację bazy danych:
+    password:
+    url:
+    username:

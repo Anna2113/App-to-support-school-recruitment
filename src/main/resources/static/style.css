@@ -372,3 +372,10 @@ table {
     background: linear-gradient(to bottom right, #efc009, #ead062);
     cursor: pointer;
 }
+
+.classError{
+    font-size: 1.7rem;
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}

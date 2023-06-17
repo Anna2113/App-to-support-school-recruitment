@@ -44,7 +44,7 @@ public class KlassController {
                         "Klasa została dodana!");
                 return "/class/addClass";
             } else {
-                model.addAttribute("emailExist", "Taka klasa już istnieje");
+                model.addAttribute("classExist", "Taka klasa już istnieje");
                 return "/class/addClass";
             }
         }

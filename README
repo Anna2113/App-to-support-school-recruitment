@@ -19,6 +19,8 @@ After creating an account and correctly logging in, the user's eyes are shown th
 This panel also allows the user to to perform operations such as adding a student, checking detailed information about a given student or displaying a 
 list of classes student or displaying the list of classes.
 
+![list of students](./Image/1.jpg)
+
 ### New student
 
 When adding a new student to the recruitment system, we include such information as: basic data (including name, surname, date of birth),

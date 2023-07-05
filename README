@@ -18,7 +18,8 @@ which is managed by the PostgreSQL system.
 After creating an account and correctly logging in, the user's eyes are shown the main panel, which presents the list of students already in the system. 
 This panel also allows the user to to perform operations such as adding a student, checking detailed information about a given student or displaying a 
 list of classes student or displaying the list of classes.
-![ListOfStudents](Image/1.PNG)
+<img width="430" alt="1" src="https://github.com/Anna2113/AplikacjaMagisterska/blob/5fb44000a5ef82b6e85931ac2987564ddbb6964e/Image/1.PNG>
+
 
 
 ### New student

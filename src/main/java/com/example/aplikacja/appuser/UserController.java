@@ -1,8 +1,6 @@
 package com.example.aplikacja.appuser;
 
 
-import com.example.aplikacja.student.entity.Klasa;
-import com.example.aplikacja.student.entity.Student;
 import com.example.aplikacja.student.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 public class UserController {

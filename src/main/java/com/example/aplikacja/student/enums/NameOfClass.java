@@ -1,6 +1,5 @@
 package com.example.aplikacja.student.enums;
 
-import com.example.aplikacja.student.entity.Klasa;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

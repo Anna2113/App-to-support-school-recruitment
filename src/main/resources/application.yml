@@ -9,9 +9,9 @@ spring:
       filter:
         enabled: true
   datasource:
-    password: $database13$
-    url: jdbc:postgresql://localhost:5433/aplikacjaMagisterska
-    username: postgres
+    password:
+    url:
+    username:
   jpa:
     hibernate:
       ddl-auto: update
